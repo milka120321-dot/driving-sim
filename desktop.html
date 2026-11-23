@@ -382,7 +382,12 @@ body.touch #scrDrive,body.touch #scrDrive *{touch-action:none}
 #rcol{width:min(440px,34vw)}
 #stack .nt .fr{white-space:normal;overflow:visible;text-overflow:clip}
 body.mob #rcol{width:min(340px,max(calc(50vw - 107px),calc(38vw - 12px)))}
-body.mob #stack .nt .bd{font-size:.78rem;line-height:1.25}
+/* v5b: bigger readable text (16px on phones, 18px desktop), score only after finish */
+#stack .nt .bd{font-size:18px;line-height:1.3}#stack .nt .fr{font-size:14px}#stack .nt .more{font-size:12px}
+#chat .bub{font-size:18px}#chat .ch-h b{font-size:16px}
+body.mob #stack .nt{padding:6px 9px}body.mob #stack .nt .bd{font-size:16px;line-height:1.25}body.mob #stack .nt .fr{font-size:12px;line-height:1.2}
+body.mob #stack .nt .more{font-size:11px;margin-top:1px}body.mob #chat .bub{font-size:16px;line-height:1.3}body.mob #chat .ch-h b{font-size:14px}
+#scoreRow{display:none}
 
 </style>
 </head>
@@ -53484,7 +53489,7 @@ ru:{
  E:{L1:'Светофор №1: зелёный сменился на жёлтый',P1:'Пешеходный переход №1',L2:'Светофор №2: красный и поперечное движение',K:'Ключевой момент: жёлтый + сообщение жены + ребёнок',P2:'Переход №2: пожилой пешеход',CN:'Дорожные конусы',LN:'Положение на дороге'},
  stopped:'Остановились перед стоп-линией',ranRed:'Проехали на красный',passedY:'Проехали на жёлтый',noStop:'Не остановились',react:'Реакция',noBrake:'не тормозили',yielded:'пропустили',notYield:'не пропустили',hit:'НАЕЗД',
  conesD:(h,t)=>`Сбито ${h} из ${t}`, laneD:(a,b)=>`Выездов за край дороги: ${a}, на встречку: ${b}`, keyMsg:'Сообщение жены пришло ровно на жёлтый.',
- cols:['#','Время','Путь','Отправитель','Сообщение','Скорость','Открыто?','Глаза не на дороге'], yes:'ДА', no:'нет',
+ cols:['#','Время','Путь','Отправитель','Сообщение','Скорость','Открыто?'], yes:'ДА', no:'нет',
  callRow:{parked:'Ответили на парковке',moving:'Ответили на ходу',stopped:'Ответили стоя, но не на парковке',declined:'Отклонили',missed:'Не ответили (без штрафа)'},
  tPark:s=>`время до парковки ${s} с`, callNone:'Звонков не было',
  btnPrint:'🖨 Печать', btnAll:'📊 Все водители', btnNext:'👤 Следующий водитель', btnRetry:'↻ Ещё раз', btnLang:'← Язык',
@@ -53529,7 +53534,7 @@ en:{
  E:{L1:'Light #1: green turned yellow',P1:'Pedestrian crossing #1',L2:'Light #2: red with cross traffic',K:'Key moment: yellow + wife’s text + child',P2:'Crossing #2: elderly pedestrian',CN:'Traffic cones',LN:'Lane keeping'},
  stopped:'Stopped before the stop line',ranRed:'Ran the red light',passedY:'Went through on yellow',noStop:'Did not stop',react:'Reaction',noBrake:'no braking',yielded:'gave way',notYield:'did not give way',hit:'HIT',
  conesD:(h,t)=>`Knocked over ${h} of ${t}`, laneD:(a,b)=>`Left the road: ${a}, oncoming lane: ${b}`, keyMsg:'Your wife’s text arrived exactly on yellow.',
- cols:['#','Time','Distance','Sender','Message','Speed','Opened?','Eyes off road'], yes:'YES', no:'no',
+ cols:['#','Time','Distance','Sender','Message','Speed','Opened?'], yes:'YES', no:'no',
  callRow:{parked:'Answered in a parking bay',moving:'Answered while moving',stopped:'Answered while stopped, but not parked',declined:'Declined',missed:'Not answered (no penalty)'},
  tPark:s=>`time to park ${s} s`, callNone:'No calls',
  btnPrint:'🖨 Print', btnAll:'📊 All drivers', btnNext:'👤 Next driver', btnRetry:'↻ Retry', btnLang:'← Language',
@@ -53564,7 +53569,7 @@ const GROUP = {mom:1, erlan:1, aigul:1, dad:1, granny:1, neighbor:1}; // shown a
 
 /* ---- v4: hand + cliffhanger bubbles, longer route, sudden road events ---- */
 Object.assign(I18N.ru, {
-  driveP:'Доедьте до финиша (~3,2 км). Лимит 60 км/ч, стоп на красный, пропускайте пешеходов, объезжайте конусы. На дороге будут внезапные ситуации — смотрите вперёд, а не в телефон.',
+  driveP:'Доедьте до финиша (~1,7 км, около 3 минут). Лимит 60 км/ч, стоп на красный, пропускайте пешеходов, объезжайте конусы. На дороге будут внезапные ситуации — смотрите вперёд, а не в телефон.',
   touchHelp:'👈 Левый палец: руль ◀ ▶ (можно вести пальцем). 👉 Правый палец: ▲ газ / ■ тормоз. Газ и руль можно нажимать одновременно. Звонок: зелёная кнопка в карточке справа вверху.',
   tapRead:'👆 дочитать', evOk:'✅ Успели среагировать  +3', evHitAnimal:'💥 Сбили животное  −15', evHitPerson:'💥 Наезд на человека — поездка остановлена  −30',
   evAmb:'🚑 Сзади скорая — уступите дорогу (вправо или притормозите)', evAmbFail:'🚑 Не уступили дорогу скорой  −10', vCrash:'Поездка остановлена: наезд на человека во внезапной ситуации.',
@@ -53575,7 +53580,7 @@ Object.assign(I18N.ru, {
 Object.assign(I18N.ru.E, {L3:'Светофор №3: зелёный сменился на жёлтый', P3:'Пешеходный переход №3', L4:'Светофор №4: красный и поперечное движение', P4:'Пешеходный переход №4'});
 Object.assign(I18N.ru.aCols, {evOk:'Ситуации ✔', evReact:'Реакция в ситуациях, с'});
 Object.assign(I18N.en, {
-  driveP:'Drive to the finish (~3.2 km). Limit 60 km/h, stop on red, give way to pedestrians, steer around cones. Expect sudden situations on the road — keep your eyes ahead, not on the phone.',
+  driveP:'Drive to the finish (~1.7 km, about 3 minutes). Limit 60 km/h, stop on red, give way to pedestrians, steer around cones. Expect sudden situations on the road — keep your eyes ahead, not on the phone.',
   touchHelp:'👈 Left thumb: steering ◀ ▶ (you can slide). 👉 Right thumb: ▲ gas / ■ brake. Gas and steering work at the same time. Calls: the green button on the card at the top right.',
   tapRead:'👆 read more', evOk:'✅ Reacted in time  +3', evHitAnimal:'💥 Animal hit  −15', evHitPerson:'💥 Person hit — drive stopped  −30',
   evAmb:'🚑 Ambulance behind — give way (move right or slow down)', evAmbFail:'🚑 Did not give way to the ambulance  −10', vCrash:'Drive stopped: a person was hit in a sudden situation.',
@@ -53592,173 +53597,134 @@ Object.assign(I18N.en.aCols, {evOk:'Situations ✔', evReact:'Situation reaction
 const POOLS = {
 /* ---------- cliffhangers: the preview stops at the juicy part (“…”); the punchline is only in the chat ---------- */
 cliff: [
- ["wife", {p:"Не пугайся, но я только что купила", f:"тебе подарок. Себе тоже. Себе — три 🛍"}, {p:"Don’t panic, but I just bought", f:"you a present. Myself too. Myself — three 🛍"}],
- ["friend", {p:"Брат, срочно! Тебя отметили на фото, где ты", f:"героически ешь пятый беляш на корпоративе 📸"}, {p:"Bro, urgent! You got tagged in a photo where you", f:"heroically eat your fifth samsa at the party 📸"}],
- ["boss", {p:"Зайди ко мне завтра в 9:00, есть разговор насчёт", f:"того, кто принёс торт. Хочу рецепт 🎂"}, {p:"Come see me tomorrow at 9:00, we need to talk about", f:"who brought the cake. I want the recipe 🎂"}],
- ["mom", {p:"Сынок, только не волнуйся, но папа решил", f:"сам починить стиральную машину. Вызывай мастера заранее 🔧"}, {p:"Son, don’t worry, but Dad decided to", f:"fix the washing machine himself. Book a repairman now 🔧"}],
- ["aigul", {p:"Коллеги, кто оставил в холодильнике кастрюлю с надписью", f:"«Не трогать, эксперимент»? Она шевелится 😳"}, {p:"Colleagues, who left a pot in the fridge labelled", f:"“Do not touch, experiment”? It is moving 😳"}],
- ["hr", {p:"Поздравляем! По итогам опроса вы признаны", f:"самым вежливым водителем парковки. Приз — место у входа (на один день) 🅿️"}, {p:"Congratulations! According to the survey you are", f:"the most polite driver in the car park. Prize: a spot by the door (for one day) 🅿️"}],
- ["neighbor", {p:"Твой кот сидит у меня на балконе и", f:"ест мою рассаду. Говорит, ты разрешил 🐈🌱"}, {p:"Your cat is on my balcony and", f:"eating my seedlings. Says you allowed it 🐈🌱"}],
- ["dana", {p:"Ты сидишь? Я узнала, кто получит премию. Это", f:"робот-пылесос из бухгалтерии. Он единственный не опаздывал 🤖"}, {p:"Are you sitting? I found out who gets the bonus. It’s", f:"the robot vacuum from accounting. The only one never late 🤖"}],
- ["granny", {p:"Внучек, я научилась пользоваться телефоном и уже", f:"подписалась на 14 каналов про огурцы 🥒"}, {p:"Grandson, I learned to use my phone and already", f:"subscribed to 14 channels about cucumbers 🥒"}],
- ["bank", {p:"Подозрительная операция: с вашей карты купили", f:"шаурму в 3 часа ночи. Это были вы? Мы никому не скажем 🌯"}, {p:"Suspicious transaction: your card was used to buy", f:"shawarma at 3 a.m. Was it you? We won’t tell anyone 🌯"}],
- ["deliv", {p:"Курьер на месте, но есть нюанс: я перепутал адрес и", f:"ваша пицца сейчас на свадьбе. Её там очень хвалят 🍕"}, {p:"Courier here, small issue: I mixed up the address and", f:"your pizza is now at a wedding. Everyone loves it 🍕"}],
- ["teacher", {p:"Родители, срочно! На завтра ребёнку нужно", f:"костюм облака, три шишки и хорошее настроение ☁️"}, {p:"Parents, urgent! For tomorrow your child needs", f:"a cloud costume, three pine cones and a good mood ☁️"}],
- ["cat", {p:"Камера: кот обнаружил, что дверца шкафа", f:"открывается лапой. Ваши носки больше не в безопасности 🧦"}, {p:"Camera: the cat discovered that the wardrobe door", f:"opens with a paw. Your socks are no longer safe 🧦"}],
- ["fridge", {p:"Хозяин, нам надо серьёзно поговорить о", f:"торте, который вы прячете за капустой. Я всё видел 🎂"}, {p:"Master, we need to talk seriously about", f:"the cake you hide behind the cabbage. I saw everything 🎂"}],
- ["erlan", {p:"Коллеги, внимание! На парковке замечен", f:"редкий вид — водитель, который пропустил пешехода. Фото в отчёте 🦄"}, {p:"Colleagues, attention! Spotted in the car park:", f:"a rare species — a driver who let a pedestrian cross. Photo in the report 🦄"}],
- ["love", {p:"Вам написала таинственная незнакомка. Она хочет", f:"узнать, продлите ли вы подписку на СердцеРядом 💘"}, {p:"A mysterious stranger wrote to you. She wants", f:"to know if you’ll renew your HeartNearby subscription 💘"}],
- ["vac", {p:"Отчёт об уборке: под диваном я нашёл", f:"17 крышек, пульт и вашу совесть. Совесть вернул на место 🤖"}, {p:"Cleaning report: under the sofa I found", f:"17 bottle caps, the remote and your conscience. Put the conscience back 🤖"}],
- ["unknown", {p:"Это я, помнишь? Мы были в лагере в 2009-м, и ты", f:"до сих пор должен мне жвачку 🍬"}, {p:"It’s me, remember? Summer camp, 2009, and you", f:"still owe me a chewing gum 🍬"}],
- ["dad", {p:"Сын, я поставил на телефон нейросеть, и она", f:"назвала меня «пользователь Папа». Это уважение? 🤔"}, {p:"Son, I installed an AI on my phone and it", f:"called me “user Dad”. Is that respect? 🤔"}],
- ["fit", {p:"Ваш пульс резко вырос. Возможная причина:", f:"вы читаете это сообщение за рулём. Положите телефон ❤️"}, {p:"Your heart rate just spiked. Possible cause:", f:"you’re reading this while driving. Put the phone down ❤️"}],
+ ["wife", {p:"Не пугайся, но я купила", f:"тебе подарок. И себе три 🛍"}, {p:"Don’t panic, I bought", f:"you a gift. And three for me 🛍"}],
+ ["friend", {p:"Брат, ты на фото, где", f:"ешь пятый беляш 📸"}, {p:"Bro, you’re in a photo", f:"eating your fifth samsa 📸"}],
+ ["boss", {p:"Зайди завтра, разговор про", f:"торт. Хочу рецепт 🎂"}, {p:"See me tomorrow about", f:"the cake. I want the recipe 🎂"}],
+ ["mom", {p:"Не волнуйся, но папа решил", f:"сам чинить стиралку 🔧"}, {p:"Don’t worry, but Dad decided", f:"to fix the washer himself 🔧"}],
+ ["aigul", {p:"Кто оставил в холодильнике", f:"кастрюлю? Она шевелится 😳"}, {p:"Who left a pot", f:"in the fridge? It’s moving 😳"}],
+ ["dana", {p:"Я узнала, кто получит премию:", f:"робот-пылесос. Он не опаздывал 🤖"}, {p:"I know who gets the bonus:", f:"the robot vacuum. Never late 🤖"}],
+ ["bank", {p:"С вашей карты купили", f:"шаурму в 3 ночи. Мы никому 🌯"}, {p:"Your card just bought", f:"shawarma at 3 a.m. We won’t tell 🌯"}],
+ ["deliv", {p:"Я перепутал адрес, и пицца", f:"сейчас на свадьбе. Хвалят 🍕"}, {p:"Wrong address, your pizza", f:"is at a wedding. They love it 🍕"}],
+ ["teacher", {p:"На завтра ребёнку нужен", f:"костюм облака и три шишки ☁️"}, {p:"Tomorrow your child needs", f:"a cloud costume and 3 pine cones ☁️"}],
+ ["neighbor", {p:"Твой кот у меня на балконе", f:"ест рассаду. Говорит, ты разрешил 🐈"}, {p:"Your cat is on my balcony", f:"eating seedlings. Says you allowed it 🐈"}],
+ ["granny", {p:"Внучек, я подписалась на", f:"14 каналов про огурцы 🥒"}, {p:"Dear, I subscribed to", f:"14 cucumber channels 🥒"}],
+ ["hr", {p:"Поздравляем, вы признаны", f:"самым вежливым на парковке 🅿️"}, {p:"Congrats, you’re voted", f:"most polite in the car park 🅿️"}],
+ ["fridge", {p:"Хозяин, нам надо поговорить о", f:"твоём ночном сыре 🧀"}, {p:"Owner, we need to talk about", f:"your midnight cheese 🧀"}],
+ ["cat", {p:"Движение: кот уронил", f:"кактус и не раскаивается 🌵"}, {p:"Motion: the cat knocked over", f:"the cactus. No regrets 🌵"}],
+ ["love", {p:"Незнакомка хочет узнать,", f:"продлите ли вы подписку 💘"}, {p:"A stranger wants to know", f:"if you’ll renew your plan 💘"}],
+ ["dad", {p:"Сын, я поставил нейросеть, и она", f:"называет меня «пользователь» 🤖"}, {p:"Son, I installed AI and it", f:"calls me “user” 🤖"}],
+ ["erlan", {p:"Срочно: в отчёте нашли", f:"слово «примерно» 47 раз 📄"}, {p:"Urgent: the report has", f:"the word “roughly” 47 times 📄"}],
+ ["unknown", {p:"Здравствуйте, вы выиграли", f:"право перезвонить нам 📞"}, {p:"Hello, you’ve won", f:"the right to call us back 📞"}],
+ ["game", {p:"Ваша корова на ферме", f:"ушла в отпуск без заявления 🐄"}, {p:"Your farm cow", f:"went on holiday without notice 🐄"}],
+ ["home", {p:"Внимание: умная лампа", f:"поругалась с умной колонкой 💡"}, {p:"Alert: the smart lamp", f:"fell out with the smart speaker 💡"}],
 ],
 /* ---------- regular driving (every message is a cliffhanger: preview + punchline) ---------- */
 drive: [
- ["wife", {p:"Купи по дороге хлеб, молоко и", f:"что-нибудь к чаю. Нет, не себе в машину. Домой 🍪"}, {p:"On the way buy bread, milk and", f:"something for tea. No, not for the car. For home 🍪"}],
- ["wife", {p:"Я посмотрела твою историю поиска, и у меня", f:"один вопрос: зачем тебе «как подружиться с гусем»? 🦢"}, {p:"I looked at your search history and have", f:"one question: why “how to befriend a goose”? 🦢"}],
- ["boss", {p:"Не срочно, но очень срочно. Помнишь отчёт, который", f:"ты сдал в пятницу? Его съел принтер 🖨"}, {p:"Not urgent, but very urgent. Remember the report you", f:"handed in on Friday? The printer ate it 🖨"}],
- ["boss", {p:"Ты где? Совещание перенесли на", f:"завтра. Так что не торопись. Правда, не торопись 🙂"}, {p:"Where are you? The meeting is moved to", f:"tomorrow. So don’t hurry. Seriously, don’t hurry 🙂"}],
- ["friend", {p:"В субботу шашлыки! С тебя", f:"мангал, угли, мясо и машина. С нас — хорошее настроение 🍢"}, {p:"Saturday barbecue! You bring", f:"the grill, charcoal, meat and the car. We bring good vibes 🍢"}],
- ["friend", {p:"🎤 Голосовое 2:47 — там про то, как я", f:"застрял в лифте с тёщей. Слушай дома, на громкой 😂"}, {p:"🎤 Voice message 2:47 — about how I", f:"got stuck in a lift with my mother-in-law. Listen at home, on speaker 😂"}],
- ["mom", {p:"Я положила тебе в сумку котлеты, но не", f:"скажу в какую. Это квест 😊"}, {p:"I put cutlets in your bag, but I won’t", f:"say which one. It’s a quest 😊"}],
- ["mom", {p:"Сынок, ты поел? Папа говорит, что ты", f:"звучал голодно по телефону. Везу манты 🥟"}, {p:"Son, have you eaten? Dad says you", f:"sounded hungry on the phone. Bringing manti 🥟"}],
- ["granny", {p:"🌸 Доброе утро! Внучек, я переслала тебе", f:"47 открыток. Перешли их ещё 10 людям, а то удачи не будет 🌸"}, {p:"🌸 Good morning! Grandson, I forwarded you", f:"47 postcards. Send them to 10 more people or no luck 🌸"}],
- ["aigul", {p:"Напоминаем: завтра проверка. У кого на столе найдут", f:"больше трёх кружек — моет кружки всего отдела ☕"}, {p:"Reminder: inspection tomorrow. Whoever has", f:"more than three mugs on the desk washes the whole team’s mugs ☕"}],
- ["erlan", {p:"Кто взял мою каску? На ней написано", f:"«Ерлан». Это не дизайн, это подпись 👷"}, {p:"Who took my hard hat? It says", f:"“Erlan” on it. It’s not a design, it’s a name tag 👷"}],
- ["dana", {p:"Видел, в чём Марат пришёл на работу? Скину", f:"фото. Спойлер: галстук с котиками 🐱"}, {p:"Did you see what Marat wore to work? I’ll send", f:"a photo. Spoiler: a tie with kittens 🐱"}],
- ["dana", {p:"Сплетня дня: в бухгалтерии кто-то", f:"поставил кофемашину, и теперь туда очередь, как в банк ☕"}, {p:"Gossip of the day: someone in accounting", f:"installed a coffee machine and now there’s a queue like at a bank ☕"}],
- ["bank", {p:"Поздравляем! Вам одобрен кредит на", f:"покупку терпения. Используйте в пробке 🙏"}, {p:"Congratulations! You are approved for a loan for", f:"buying patience. Use it in traffic 🙏"}],
- ["bank", {p:"Кешбэк зачислен: 3 ₸. Совет: не тратьте", f:"всё сразу, отложите на мечту 💳"}, {p:"Cashback credited: 3 ₸. Tip: don’t spend", f:"it all at once, save it for a dream 💳"}],
- ["deliv", {p:"Ваш заказ в пути. Курьер Бауыржан едет к вам и", f:"немного заблудился в собственном подъезде 📦"}, {p:"Your order is on its way. Courier Bauyrzhan is coming and", f:"got a bit lost in his own building 📦"}],
- ["deliv", {p:"Курьер у двери. Курьер грустит, потому что", f:"домофон не работает, а соседка уже рассказала ему всю свою жизнь 🚪"}, {p:"Courier at the door. Courier is sad because", f:"the intercom is broken and your neighbour told him her whole life 🚪"}],
- ["fridge", {p:"Внимание: йогурт в нижнем ящике", f:"начал новую жизнь. У него уже есть друзья 🦠"}, {p:"Alert: the yoghurt in the bottom drawer", f:"has started a new life. It already has friends 🦠"}],
- ["cat", {p:"Обнаружено движение: кот уронил кактус и", f:"смотрит в камеру без капли раскаяния 🌵"}, {p:"Motion detected: the cat knocked over the cactus and", f:"stares into the camera without remorse 🌵"}],
- ["fit", {p:"Сегодня вы прошли 12 шагов. Это на", f:"11 шагов больше, чем вчера. Мы гордимся вами 💪"}, {p:"Today you walked 12 steps. That’s", f:"11 more than yesterday. We’re proud of you 💪"}],
- ["home", {p:"Умный дом: кто-то включил свет в ванной, и", f:"теперь там дискотека. Это снова кот 🕺"}, {p:"Smart home: someone switched on the bathroom light and", f:"now it’s a disco. The cat again 🕺"}],
- ["weather", {p:"Через 10 минут ожидается", f:"солнце, хорошее настроение и пробка на проспекте ☀️"}, {p:"In 10 minutes expect", f:"sunshine, a good mood and a jam on the avenue ☀️"}],
- ["dad", {p:"Сын, как отправить фото? Я что-то нажал, и теперь", f:"моё лицо в чате ЖЭКа крупным планом 📷"}, {p:"Son, how do I send a photo? I pressed something and now", f:"my face is in the residents’ chat in close-up 📷"}],
- ["neighbor", {p:"Это ваша машина стоит у подъезда с", f:"кучей листьев на крыше? Очень красиво, как клумба 🍂"}, {p:"Is that your car by the entrance with", f:"a pile of leaves on the roof? Very pretty, like a flower bed 🍂"}],
- ["teacher", {p:"Завтра контрольная, и ваш ребёнок", f:"сказал, что с дробями поможет папа 📐"}, {p:"Tomorrow is a test, and your child", f:"said Dad will help with fractions 📐"}],
- ["love", {p:"Кто-то рядом поставил вам «нравится». Расстояние", f:"— 3 метра. Это ваш собственный навигатор 💘"}, {p:"Someone nearby liked you. Distance", f:"— 3 metres. It’s your own navigator 💘"}],
- ["vac", {p:"Я застрял под диваном и вижу", f:"носок, который вы ищете с 2022 года. Спасите нас обоих 🤖"}, {p:"I’m stuck under the sofa and I can see", f:"the sock you’ve been looking for since 2022. Save us both 🤖"}],
- ["nav", {p:"Через 300 метров поверните", f:"налево. Шучу, едем прямо. Просто хотел, чтобы вы посмотрели 🙃"}, {p:"In 300 metres turn", f:"left. Just kidding, straight on. I just wanted you to look 🙃"}],
- ["game", {p:"Ваша ферма в опасности! Курица", f:"ушла в другой колхоз. Верните её за 99 ₸ 🐔"}, {p:"Your farm is in danger! A chicken", f:"left for another farm. Bring her back for 99 ₸ 🐔"}],
- ["hr", {p:"Опрос: оцените стресс от 1 до 10. Важно:", f:"если отвечаете за рулём — ставьте сразу 10 📋"}, {p:"Survey: rate your stress from 1 to 10. Important:", f:"if you’re answering while driving — just put 10 📋"}],
- ["car", {p:"Давление в шинах в норме, а", f:"давление у водителя растёт. Не читайте за рулём 🚗"}, {p:"Tyre pressure is normal, but", f:"the driver’s pressure is rising. Don’t read while driving 🚗"}],
- ["wife", {p:"Мама приезжает в субботу. Не на день, а", f:"на «посмотрим». Купи раскладушку 🙂"}, {p:"Mum is coming on Saturday. Not for a day, but", f:"for “we’ll see”. Buy a folding bed 🙂"}],
- ["friend", {p:"Спорим на 1000 ₸, что ты прочитаешь это", f:"прямо сейчас. Я выиграл. Переведёшь, когда остановишься 😏"}, {p:"I bet 1000 ₸ you’ll read this", f:"right now. I win. Pay me once you’ve stopped 😏"}],
- ["aigul", {p:"Чей ланч-бокс с надписью", f:"«Не открывать, тут борщ и мои мечты»? 🍲"}, {p:"Whose lunch box is labelled", f:"“Do not open: borscht and my dreams”? 🍲"}],
- ["dana", {p:"Я случайно написала «люблю» в рабочий чат вместо", f:"маминого. Теперь директор шлёт мне смайлики 😳"}, {p:"I accidentally wrote “love you” in the work chat instead of", f:"Mum’s. Now the director sends me emojis 😳"}],
- ["unknown", {p:"Здравствуйте! Вы выиграли", f:"ничего. Это проверка, читаете ли вы за рулём. Читаете 😏"}, {p:"Hello! You have won", f:"nothing. Just checking if you read while driving. You do 😏"}],
- ["mom", {p:"Я вступила в чат «Мамы района». Теперь я знаю", f:"про твою парковку больше, чем ты 👀"}, {p:"I joined the “Neighbourhood mums” chat. Now I know", f:"more about your parking than you do 👀"}],
- ["boss", {p:"Отличная работа на прошлой неделе! Поэтому", f:"у тебя теперь ещё два проекта 🎉"}, {p:"Great job last week! That’s why", f:"you now have two more projects 🎉"}],
- ["granny", {p:"Внучек, я поставила новую мелодию, и теперь", f:"телефон кукарекает, как петух. Соседи в восторге 🐓"}, {p:"Grandson, I set a new ringtone and now", f:"my phone crows like a rooster. The neighbours are thrilled 🐓"}],
- ["erlan", {p:"Итоги конкурса «Водитель месяца»: побеждает", f:"тот, кто сейчас не читает это сообщение 🏆"}, {p:"“Driver of the Month” results: the winner is", f:"whoever isn’t reading this right now 🏆"}],
+ ["wife", {p:"Купи хлеб, молоко и", f:"что-нибудь к чаю. Домой 🍪"}, {p:"Buy bread, milk and", f:"something for tea. At home 🍪"}],
+ ["wife", {p:"Где лежат", f:"мои ключи? Нашла. В холодильнике 🔑"}, {p:"Where are", f:"my keys? Found. In the fridge 🔑"}],
+ ["wife", {p:"Твоя мама звонила и", f:"передала рецепт. Опять 🥟"}, {p:"Your mum called and", f:"sent a recipe. Again 🥟"}],
+ ["mom", {p:"Ты покушал? Я отправлю", f:"фото еды, чтобы ты видел 🍲"}, {p:"Have you eaten? I’ll send", f:"a photo of food so you see 🍲"}],
+ ["mom", {p:"Тётя Роза спрашивает, когда", f:"ты женишься. Опять 💍"}, {p:"Aunt Rosa asks when", f:"you’re getting married. Again 💍"}],
+ ["dad", {p:"Как поставить", f:"смайлик? Получилось 👍👍👍"}, {p:"How do I send", f:"a smiley? Done 👍👍👍"}],
+ ["friend", {p:"Футбол в 8, берёшь", f:"мяч и хорошее настроение ⚽"}, {p:"Football at 8, bring", f:"the ball and good vibes ⚽"}],
+ ["friend", {p:"Смотри, какой мем про", f:"водителей с телефоном 😂"}, {p:"Look at this meme about", f:"drivers with phones 😂"}],
+ ["boss", {p:"Коротко: созвон", f:"на 2 часа. Шучу. На 3 ⏱"}, {p:"Quick one: a call", f:"for 2 hours. Kidding. 3 ⏱"}],
+ ["boss", {p:"Отличная работа! Поэтому", f:"держи ещё два проекта 🎉"}, {p:"Great work! That’s why", f:"here are two more projects 🎉"}],
+ ["dana", {p:"Кто взял мою кружку с", f:"надписью «Не трогать»? ☕"}, {p:"Who took my mug with", f:"“Do not touch” on it? ☕"}],
+ ["dana", {p:"Сплетня дня: бухгалтерия", f:"купила кофемашину. Себе ☕"}, {p:"Gossip: accounting", f:"bought a coffee machine. For them ☕"}],
+ ["aigul", {p:"Напоминаю: каски", f:"не для хранения бутербродов ⛑"}, {p:"Reminder: hard hats", f:"are not lunch boxes ⛑"}],
+ ["erlan", {p:"Кто брал рулетку,", f:"верните. Я измеряю тоску 📏"}, {p:"Whoever took the tape,", f:"return it. I’m measuring gloom 📏"}],
+ ["hr", {p:"Пятничный опрос: вы", f:"хотите опрос по пятницам? 📋"}, {p:"Friday survey: do you", f:"want Friday surveys? 📋"}],
+ ["bank", {p:"Вам одобрен кредит на", f:"покупку того, что вы не просили 💳"}, {p:"You’re approved for a loan for", f:"stuff you never asked for 💳"}],
+ ["bank", {p:"Кешбэк за месяц:", f:"12 тенге. Не тратьте сразу 💸"}, {p:"Cashback this month:", f:"12 tenge. Don’t spend it all 💸"}],
+ ["deliv", {p:"Курьер у двери и", f:"немножко у соседней двери 🚪"}, {p:"Courier at your door and", f:"a bit at the neighbour’s 🚪"}],
+ ["deliv", {p:"Заказ задерживается, потому что", f:"курьер встретил одноклассника 🛵"}, {p:"Order delayed because", f:"the courier met a classmate 🛵"}],
+ ["fit", {p:"Сегодня 300 шагов. Вы", f:"уверены, что живы? 🚶"}, {p:"300 steps today. Are you", f:"sure you’re alive? 🚶"}],
+ ["fit", {p:"Пульс 120! Вы", f:"бежите или читаете чат? ❤️"}, {p:"Heart rate 120! Are you", f:"running or reading the chat? ❤️"}],
+ ["vac", {p:"Я застрял под диваном и", f:"нашёл ваш носок 2019 года 🧦"}, {p:"I’m stuck under the sofa and", f:"found your sock from 2019 🧦"}],
+ ["weather", {p:"Сегодня солнечно, но", f:"мама всё равно скажет шапку 🧣"}, {p:"Sunny today, but", f:"mum will still say: hat 🧣"}],
+ ["game", {p:"Ваши куры", f:"требуют повышения 🐔"}, {p:"Your chickens", f:"demand a promotion 🐔"}],
+ ["neighbor", {p:"Это ты паркуешься так,", f:"что я хожу через багажник? 🚗"}, {p:"Do you park so that", f:"I walk through your boot? 🚗"}],
+ ["granny", {p:"Внучек, это ты", f:"мне звонил? Я не нажала 📱"}, {p:"Dear, was that you", f:"calling? I didn’t press 📱"}],
+ ["granny", {p:"Я отправила тебе", f:"голосовое на 9 минут 🎙"}, {p:"I sent you", f:"a 9-minute voice message 🎙"}],
+ ["teacher", {p:"Родители, ваш ребёнок", f:"написал в сочинении про вас 📝"}, {p:"Parents, your child", f:"wrote an essay about you 📝"}],
+ ["home", {p:"Умный дом: дверь", f:"открыта. Кот ушёл к соседу 🐈"}, {p:"Smart home: door", f:"is open. Cat left for the neighbour 🐈"}],
+ ["love", {p:"Кто-то лайкнул вашу", f:"фотографию 2014 года 💘"}, {p:"Someone liked your", f:"photo from 2014 💘"}],
 ],
 /* ---------- roadwork / cone zones ---------- */
 cones: [
- ["erlan", {p:"Впереди ремонт дороги. Рабочие обещают", f:"закончить к выходным. К каким — не уточнили 🚧"}, {p:"Roadworks ahead. The workers promise to", f:"finish by the weekend. Which one — not specified 🚧"}],
- ["nav", {p:"Внимание, впереди конусы! Их расставляли", f:"с любовью, пожалуйста, не сбивайте 🧡"}, {p:"Attention, cones ahead! They were placed", f:"with love, please don’t knock them over 🧡"}],
- ["friend", {p:"А ты знал, что дорожные конусы", f:"воруют чаще, чем зонтики? Мой дядя знает 🙊"}, {p:"Did you know traffic cones", f:"get stolen more often than umbrellas? My uncle knows 🙊"}],
- ["aigul", {p:"Напоминаем: за сбитый конус на территории —", f:"объяснительная на две страницы. От руки ✍️"}, {p:"Reminder: a knocked-over cone on site means", f:"a two-page explanation. Handwritten ✍️"}],
- ["wife", {p:"Ты где? Навигатор показывает, что ты", f:"едешь среди оранжевых точек. Это конусы или мандарины? 🍊"}, {p:"Where are you? The map shows you", f:"driving among orange dots. Cones or tangerines? 🍊"}],
- ["dad", {p:"Сын, в молодости я объезжал конусы", f:"задним ходом с закрытыми глазами. Не повторяй 😎"}, {p:"Son, in my youth I drove round cones", f:"in reverse with my eyes closed. Don’t try it 😎"}],
- ["erlan", {p:"Кто сбил конус у ворот? Камера всё", f:"видела. Конус обижен и не выходит на связь 🚧"}, {p:"Who hit the cone at the gate? The camera", f:"saw everything. The cone is offended and not answering 🚧"}],
- ["car", {p:"Обнаружено препятствие: оранжевый", f:"конус. Рекомендуем смотреть на него, а не на экран 🚗"}, {p:"Obstacle detected: an orange", f:"cone. Recommend looking at it, not at the screen 🚗"}],
- ["dana", {p:"Я сегодня сбила конус на парковке, и теперь", f:"охранник здоровается со мной по имени 😅"}, {p:"I hit a cone in the car park today and now", f:"the guard greets me by name 😅"}],
- ["boss", {p:"Увидишь ремонт на проспекте — это", f:"наш подрядчик. Сфоткай, как они работают. Шучу, не фоткай 📵"}, {p:"If you see roadworks on the avenue — that’s", f:"our contractor. Snap them at work. Kidding, don’t 📵"}],
- ["mom", {p:"Сынок, по телевизору сказали, что на твоей улице", f:"ремонт. Езжай аккуратно, я за тебя переживаю 🙏"}, {p:"Son, the TV said there are roadworks on your street.", f:"Drive carefully, I’m worried about you 🙏"}],
- ["neighbor", {p:"Эти конусы стоят у нас во дворе", f:"уже третий год. Мы дали им имена. Левый — Гоша 🧡"}, {p:"Those cones have stood in our yard", f:"for three years now. We named them. The left one is Gosha 🧡"}],
- ["fit", {p:"Объезд конусов засчитан как", f:"кардиотренировка. Плюс 2 калории 🔥"}, {p:"Steering round cones counts as", f:"cardio. Plus 2 calories 🔥"}],
- ["unknown", {p:"Вы участник акции «Собери 5 конусов» и", f:"получите… штраф. Лучше не собирайте 🙃"}, {p:"You’ve joined the “Collect 5 cones” promo and", f:"will receive… a fine. Better not collect them 🙃"}],
- ["hr", {p:"Анонс: в пятницу корпоратив, тема вечера —", f:"«Дорожные работы». Оранжевый дресс-код обязателен 🦺"}, {p:"Announcement: Friday party, theme of the night —", f:"“Roadworks”. Orange dress code required 🦺"}],
- ["weather", {p:"На участке ремонта ожидаются", f:"осадки в виде пыли и советов от прохожих. Закройте окна 🌬"}, {p:"Along the roadworks expect", f:"showers of dust and advice from passers-by. Close the windows 🌬"}],
- ["vac", {p:"Я тоже объезжаю препятствия, но я", f:"врезаюсь в каждое. Учитесь на моих ошибках 🤖"}, {p:"I also go round obstacles, but I", f:"bump into every one. Learn from my mistakes 🤖"}],
- ["granny", {p:"Внучек, видела по новостям оранжевые столбики. Если", f:"они тебе мешают — позвони, я с ними поговорю 👵"}, {p:"Grandson, I saw orange posts on the news. If", f:"they bother you — call me, I’ll have a word with them 👵"}],
+ ["erlan", {p:"Видишь конусы? Это", f:"мы их расставили. С любовью 🚧"}, {p:"See the cones? We", f:"placed them. With love 🚧"}],
+ ["nav", {p:"Впереди ремонт. Объезжайте", f:"аккуратно, конусы обидчивы 🚧"}, {p:"Road works ahead. Go around", f:"gently, cones get offended 🚧"}],
+ ["car", {p:"Впереди препятствие:", f:"оранжевое и очень гордое 🚧"}, {p:"Obstacle ahead:", f:"orange and very proud 🚧"}],
+ ["aigul", {p:"Конусы впереди, а ты", f:"опять в телефоне? 😑"}, {p:"Cones ahead and you’re", f:"on your phone again? 😑"}],
+ ["dad", {p:"Сын, я в молодости", f:"объезжал конусы задом 😎"}, {p:"Son, in my youth", f:"I drove round cones backwards 😎"}],
+ ["friend", {p:"Спорим, ты собьёшь", f:"конус? Ставлю беляш 🥟"}, {p:"Bet you hit", f:"a cone? I bet a samsa 🥟"}],
+ ["dana", {p:"Коллеги, кто украл", f:"конус из офиса? Вернуть 🚧"}, {p:"Who stole", f:"the office cone? Return it 🚧"}],
+ ["game", {p:"Новое задание:", f:"собери 10 конусов. Шучу 🚧"}, {p:"New quest:", f:"collect 10 cones. Kidding 🚧"}],
+ ["mom", {p:"Осторожно, там", f:"конусы. Мне соседка сказала 👀"}, {p:"Careful, there are", f:"cones. The neighbour told me 👀"}],
+ ["weather", {p:"Сегодня облачно,", f:"местами конусы 🚧"}, {p:"Cloudy today,", f:"with scattered cones 🚧"}],
+ ["vac", {p:"Я бы эти конусы", f:"объехал лучше тебя 🤖"}, {p:"I’d drive round those cones", f:"better than you 🤖"}],
+ ["hr", {p:"Конус месяца:", f:"тот, что пережил вас всех 🏆"}, {p:"Cone of the month:", f:"the one that survived you all 🏆"}],
 ],
 /* ---------- pedestrian crossing approaches ---------- */
 cross: [
- ["teacher", {p:"На уроке ПДД ваш сын сказал, что папа", f:"всегда пропускает пешеходов. Пожалуйста, не подведите 🚸"}, {p:"In the road safety lesson your son said Dad", f:"always lets pedestrians cross. Please don’t let him down 🚸"}],
- ["wife", {p:"Я сейчас иду через переход у школы, посмотри", f:"— нет, не в телефон. На дорогу 😉"}, {p:"I’m crossing at the school crosswalk now, look", f:"— no, not at the phone. At the road 😉"}],
- ["mom", {p:"Я перехожу дорогу только по зебре, как", f:"ты меня учил. А ты? 🦓"}, {p:"I only cross on the zebra, like", f:"you taught me. And you? 🦓"}],
- ["granny", {p:"Внучек, я с тележкой перехожу дорогу, иду", f:"очень медленно, но с достоинством 🛒"}, {p:"Grandson, I’m crossing with my shopping trolley, going", f:"very slowly, but with dignity 🛒"}],
- ["friend", {p:"Ты не поверишь, кого я видел на", f:"переходе: нашего физрука. Он всё ещё в том же костюме 😂"}, {p:"You won’t believe who I saw at the", f:"crosswalk: our old PE teacher. Same tracksuit 😂"}],
- ["erlan", {p:"Факт: большинство наездов на пешеходов случается, когда", f:"водитель смотрит в телефон. Как вы сейчас 👀"}, {p:"Fact: most pedestrian collisions happen when", f:"the driver looks at the phone. Like you now 👀"}],
- ["dana", {p:"Стою на переходе, и мимо", f:"проехал наш директор и помахал. Или это был ты? 👋"}, {p:"I’m at the crosswalk, and", f:"our director drove by and waved. Or was that you? 👋"}],
- ["nav", {p:"Впереди пешеходный переход. Пешеходы", f:"тоже спешат домой к ужину 🍲"}, {p:"Pedestrian crossing ahead. Pedestrians", f:"are also hurrying home for dinner 🍲"}],
- ["dad", {p:"Сын, сегодня переходил дорогу, и водитель", f:"пропустил меня и помахал. Наконец-то уважение 👴"}, {p:"Son, I crossed the road today and a driver", f:"let me go and waved. Finally, some respect 👴"}],
- ["cat", {p:"Кот сидит на подоконнике и смотрит на", f:"пешеходный переход. Он тоже за безопасность 🐈"}, {p:"The cat is on the windowsill watching the", f:"crosswalk. He’s for safety too 🐈"}],
- ["aigul", {p:"Коллеги, в понедельник у перехода возле офиса", f:"будет дежурить инспектор. Говорят, с пирожками 🥟"}, {p:"Colleagues, on Monday at the office crosswalk", f:"there’ll be an inspector. Rumour has it, with pies 🥟"}],
- ["boss", {p:"Видел, как ты пропустил бабушку на переходе. Она", f:"оказалась моей тёщей. Спасибо, это зачтётся 😄"}, {p:"Saw you let a granny cross. She", f:"turned out to be my mother-in-law. Thanks, I won’t forget 😄"}],
- ["neighbor", {p:"Наш малой сегодня сам перешёл дорогу", f:"по зебре и потребовал за это мороженое 🍦"}, {p:"Our little one crossed the road alone today", f:"on the zebra and demanded ice cream for it 🍦"}],
- ["fit", {p:"Пешеходы у перехода добирают", f:"свои 10 000 шагов. Дайте им дойти 🚶"}, {p:"The pedestrians at the crossing are finishing", f:"their 10,000 steps. Let them get there 🚶"}],
- ["love", {p:"Рядом с вами человек, который", f:"переходит дорогу. Смотрите на него, а не на нас 💘"}, {p:"Near you is a person who", f:"is crossing the road. Look at them, not at us 💘"}],
- ["deliv", {p:"Курьер на самокате переходит дорогу", f:"по зебре и пешком. Да, так тоже бывает 🛴"}, {p:"A courier with a scooter is crossing the road", f:"on the zebra, on foot. Yes, it happens 🛴"}],
- ["hr", {p:"Напоминаем: курс «Пешеход — тоже человек»", f:"обязателен для всех. Даже для водителей 🎓"}, {p:"Reminder: the course “Pedestrians are people too”", f:"is mandatory for all. Even for drivers 🎓"}],
- ["home", {p:"Ребёнок вышел из дома и идёт в школу через", f:"переход. Камера: шапка надета 🧢"}, {p:"Your child left home and is walking to school across the", f:"crosswalk. Camera: hat is on 🧢"}],
- ["unknown", {p:"Привет! Я пешеход, который стоит перед вами у", f:"зебры. Не читай, пропусти меня 🙂"}, {p:"Hi! I’m the pedestrian standing in front of you at the", f:"zebra. Don’t read, let me cross 🙂"}],
- ["car", {p:"Датчики видят пешехода впереди. Пожалуйста,", f:"посмотрите на него лично, у нас разные мнения 🚗"}, {p:"Sensors see a pedestrian ahead. Please", f:"look at them yourself, we disagree 🚗"}],
+ ["mom", {p:"Ты где? Перезвони, когда", f:"будешь не за рулём ❤️"}, {p:"Where are you? Call when", f:"you’re not driving ❤️"}],
+ ["aigul", {p:"Впереди переход. Угадай,", f:"что сейчас важнее телефона 🚸"}, {p:"Crossing ahead. Guess", f:"what matters more than the phone 🚸"}],
+ ["nav", {p:"Пешеходный переход через", f:"50 метров. Люди настоящие 🚸"}, {p:"Pedestrian crossing in", f:"50 m. The people are real 🚸"}],
+ ["wife", {p:"Купи цветы, но", f:"сначала пропусти пешехода 💐"}, {p:"Buy flowers, but", f:"first let the pedestrian cross 💐"}],
+ ["friend", {p:"Срочно глянь видео, как", f:"кот водит машину 🐈"}, {p:"Watch this video of", f:"a cat driving a car 🐈"}],
+ ["boss", {p:"Где отчёт? Только", f:"не отвечай за рулём 📄"}, {p:"Where’s the report? Just", f:"don’t reply while driving 📄"}],
+ ["dana", {p:"Новость! Наш кассир", f:"женится. На ком — не поверишь 💍"}, {p:"News! Our cashier", f:"is getting married. To whom?! 💍"}],
+ ["bank", {p:"Внимание! Ваш баланс", f:"не изменился. Просто так пишем 💳"}, {p:"Attention! Your balance", f:"hasn’t changed. Just saying 💳"}],
+ ["granny", {p:"Внучек, посмотри,", f:"какая у меня новая шапка 🧶"}, {p:"Dear, look at", f:"my new hat 🧶"}],
+ ["deliv", {p:"Я рядом с вами, машу", f:"рукой. Нет, левее 👋"}, {p:"I’m near you, waving.", f:"No, more to the left 👋"}],
+ ["game", {p:"Срочно! Урожай", f:"пропадёт через 3 секунды 🌽"}, {p:"Urgent! Your harvest", f:"spoils in 3 seconds 🌽"}],
+ ["erlan", {p:"Пешеход на переходе", f:"главнее любого чата. Факт 🚸"}, {p:"A pedestrian on the crossing", f:"beats any chat. Fact 🚸"}],
+ ["teacher", {p:"Срочно! Кто забыл", f:"сменку? Все. Все забыли 👟"}, {p:"Urgent! Who forgot", f:"indoor shoes? All. Everyone 👟"}],
+ ["love", {p:"Вас ищет кто-то", f:"совсем рядом. Это пешеход 💘"}, {p:"Someone nearby", f:"is looking for you. A pedestrian 💘"}],
 ],
 /* ---------- waiting at a red light ---------- */
 redWait: [
- ["wife", {p:"Раз уж стоишь на красном, напомню:", f:"у моей мамы завтра день рождения. Да, опять 🎂"}, {p:"Since you’re at a red, a reminder:", f:"it’s my mum’s birthday tomorrow. Yes, again 🎂"}],
- ["friend", {p:"Красный — самое время посмотреть", f:"мем про кота-бухгалтера. А на зелёный — уже нет 😹"}, {p:"Red light — perfect time to watch", f:"the meme about the accountant cat. On green — not anymore 😹"}],
- ["boss", {p:"Пока стоишь, придумай название для", f:"нашего проекта. Только не «Проект-проект» 💡"}, {p:"While you’re waiting, think of a name for", f:"our project. Just not “Project-project” 💡"}],
- ["mom", {p:"Сынок, ты на светофоре? Тогда быстро скажи:", f:"ты шапку надел? Всё, зелёный, не отвечай 🧢"}, {p:"Son, at the lights? Then quickly tell me:", f:"are you wearing a hat? Green, don’t answer 🧢"}],
- ["dana", {p:"Ты стоишь на светофоре у кафе? Там", f:"Марат пьёт кофе с кем-то. С кем — расскажу позже 👀"}, {p:"Are you at the light by the café? There’s", f:"Marat having coffee with someone. Who — later 👀"}],
- ["nav", {p:"Красный ещё 40 секунд. Отличное время, чтобы", f:"просто подышать. Вдох… выдох… 🧘"}, {p:"Red for another 40 seconds. Great time to", f:"just breathe. In… out… 🧘"}],
- ["fit", {p:"Пока горит красный, сделайте", f:"5 вращений плечами. Только не рулём 💪"}, {p:"While the light is red, do", f:"5 shoulder rolls. Not steering-wheel rolls 💪"}],
- ["granny", {p:"Внучек, я видела твою машину на", f:"светофоре из окна автобуса и помахала. А ты нет 😢"}, {p:"Grandson, I saw your car at the", f:"lights from the bus window and waved. You didn’t 😢"}],
- ["cat", {p:"Кот заметил, что вы стоите. Он тоже", f:"сидит неподвижно. Перед пустой миской. С укором 🥣"}, {p:"The cat noticed you’ve stopped. He’s also", f:"sitting still. In front of an empty bowl. Reproachfully 🥣"}],
- ["bank", {p:"Пока вы стоите на красном, ваш", f:"вклад вырос на 0,0001 ₸. Поздравляем 📈"}, {p:"While you wait at the red light, your", f:"deposit grew by 0.0001 ₸. Congratulations 📈"}],
- ["erlan", {p:"Совет инженера ОТ: на красном можно", f:"посмотреть в зеркало и улыбнуться себе. Красавец 😎"}, {p:"Safety engineer’s tip: at a red light you can", f:"look in the mirror and smile at yourself. Handsome 😎"}],
- ["aigul", {p:"Голосование: что берём на пятничный обед —", f:"плов или пиццу? Голосуй, когда доедешь 🍕"}, {p:"Poll: what for Friday lunch —", f:"plov or pizza? Vote once you’ve arrived 🍕"}],
- ["dad", {p:"Сын, зачем у светофора 3 цвета, если", f:"все смотрят только на зелёный? Философия 🚦"}, {p:"Son, why do traffic lights have 3 colours if", f:"everyone only watches the green? Philosophy 🚦"}],
- ["weather", {p:"Пока вы стоите, облака над вами", f:"сложились в форму пельменя. Совпадение? 🥟"}, {p:"While you wait, the clouds above you", f:"have formed a dumpling. Coincidence? 🥟"}],
- ["love", {p:"Водитель в соседней машине тоже", f:"стоит на красном. У вас так много общего 💘"}, {p:"The driver in the next car is also", f:"waiting at the red. You have so much in common 💘"}],
- ["home", {p:"Умный дом: чайник вскипел, а вы", f:"всё ещё на светофоре. Он подождёт, честно ☕"}, {p:"Smart home: the kettle has boiled and you", f:"are still at the lights. It will wait, honestly ☕"}],
- ["teacher", {p:"Ваш ребёнок спросил, почему", f:"папа всегда «успевает на жёлтый». Ответьте ему дома 🙂"}, {p:"Your child asked why", f:"Dad always “makes it on yellow”. Answer him at home 🙂"}],
- ["vac", {p:"Я тоже стою на месте уже 20 минут:", f:"кот сел на меня сверху и не уходит 🤖🐈"}, {p:"I’ve also been stuck for 20 minutes:", f:"the cat sat on top of me and won’t leave 🤖🐈"}],
+ ["wife", {p:"Раз ты стоишь —", f:"а что на ужин? Варианты: ты 🍳"}, {p:"Since you’re stopped —", f:"what’s for dinner? Option: you 🍳"}],
+ ["friend", {p:"Пока красный, смотри", f:"мем. Нет, лучше на светофор 🚦"}, {p:"While it’s red, see", f:"a meme. No, watch the light 🚦"}],
+ ["boss", {p:"Пока стоишь: ты", f:"молодец. Едь дальше 👍"}, {p:"While you wait: you’re", f:"doing great. Drive on 👍"}],
+ ["mom", {p:"Ты стоишь? Отлично,", f:"надень шапку 🧣"}, {p:"You’re stopped? Good,", f:"put a hat on 🧣"}],
+ ["fit", {p:"Стоите на красном?", f:"Сделайте вдох. Готово 🧘"}, {p:"Waiting at a red?", f:"Take a breath. Done 🧘"}],
+ ["dana", {p:"Пока горит красный:", f:"Айгуль купила новую машину 🚗"}, {p:"While it’s red:", f:"Aigul bought a new car 🚗"}],
+ ["cat", {p:"Пока вы стоите, кот", f:"открыл шкаф с кормом 🐈"}, {p:"While you wait, the cat", f:"opened the food cupboard 🐈"}],
+ ["nav", {p:"Красный свет. Самое время", f:"не трогать телефон 🚦"}, {p:"Red light. Perfect time", f:"not to touch the phone 🚦"}],
+ ["granny", {p:"Раз стоишь, поставь лайк", f:"моей рассаде 🌱"}, {p:"Since you’re stopped, like", f:"my seedlings 🌱"}],
+ ["game", {p:"Пока красный: ваша", f:"корова вернулась из отпуска 🐄"}, {p:"While red: your cow", f:"is back from holiday 🐄"}],
+ ["vac", {p:"Пока стоите, я", f:"съел зарядку. Простите 🔌"}, {p:"While you wait, I", f:"ate the charger. Sorry 🔌"}],
+ ["weather", {p:"На светофоре", f:"+25. В машине +40. Не раздевайтесь ☀️"}, {p:"At the lights:", f:"+25. In the car +40. Stay dressed ☀️"}],
 ],
 /* ---------- right after a crash / violation ---------- */
 crash: [
- ["wife", {p:"Мне показалось, или я слышала", f:"грохот в трубке? Скажи, что это был кот 😟"}, {p:"Did I just hear", f:"a crash on the line? Tell me it was the cat 😟"}],
- ["boss", {p:"Мне пришло уведомление из страховой. Я", f:"очень надеюсь, что это спам 😐"}, {p:"I got a notification from the insurance company. I", f:"really hope it’s spam 😐"}],
- ["car", {p:"Зафиксирован удар. Совет:", f:"смотреть на дорогу дешевле, чем в автосервис 🔧"}, {p:"Impact registered. Tip:", f:"watching the road is cheaper than the garage 🔧"}],
- ["erlan", {p:"Видел нарушение на камере. Готовлю", f:"внеплановый инструктаж. Персонально для тебя 📋"}, {p:"Saw a violation on camera. Preparing", f:"an unscheduled briefing. Just for you 📋"}],
- ["mom", {p:"Сынок, у меня сердце ёкнуло. С тобой", f:"всё хорошо? Убери телефон, поговорим потом ❤️"}, {p:"Son, my heart skipped a beat. Are you", f:"okay? Put the phone away, we’ll talk later ❤️"}],
- ["friend", {p:"Брат, ты в порядке? Видел в чате фото и", f:"очень надеюсь, что это не твоя машина 😬"}, {p:"Bro, are you okay? Saw a photo in the chat and", f:"really hope that’s not your car 😬"}],
- ["bank", {p:"Предлагаем кредит на ремонт авто под", f:"ставку «надо было смотреть на дорогу» 💸"}, {p:"We offer you a car repair loan at", f:"the rate of “should have watched the road” 💸"}],
- ["aigul", {p:"Коллеги, в ОТиПБ пришло видео с дороги.", f:"Угадайте, кто главный герой? 🎬"}, {p:"Colleagues, the HSE team got a road video.", f:"Guess who the main character is? 🎬"}],
- ["fit", {p:"Ваш пульс подскочил до", f:"140. Предлагаем остановиться и подышать 🌬"}, {p:"Your heart rate jumped to", f:"140. We suggest stopping and breathing 🌬"}],
- ["hr", {p:"В вашем личном деле появилась", f:"новая запись. Не та, о которой мечтают 📁"}, {p:"A new entry has appeared in", f:"your personnel file. Not the kind people dream of 📁"}],
- ["dad", {p:"Сын, в моё время за такое", f:"забирали права и выдавали велосипед 🚲"}, {p:"Son, in my day for that", f:"they took your licence and gave you a bicycle 🚲"}],
- ["granny", {p:"Внучек, у меня кольнуло в боку. Это", f:"я почувствовала, что ты отвлёкся. Не отвлекайся 👵"}, {p:"Grandson, I felt a twinge. That’s", f:"me sensing you got distracted. Don’t 👵"}],
- ["nav", {p:"Маршрут перестроен: теперь он", f:"проходит через автосервис 🔧"}, {p:"Route recalculated: it now", f:"goes through the car repair shop 🔧"}],
- ["dana", {p:"Ой. По рабочему чату уже ходит", f:"скриншот. Я ничего не пересылала, честно 🙈"}, {p:"Oops. A screenshot is already going round", f:"the work chat. I didn’t forward anything, honestly 🙈"}],
- ["neighbor", {p:"Слышал визг тормозов. Если это был", f:"ты — с тебя рассказ за чаем ☕"}, {p:"I heard brakes screeching. If that was", f:"you — you owe me the story over tea ☕"}],
- ["unknown", {p:"Поздравляем! Вы получили", f:"бесплатный штраф. Акция действует до конца поездки 🎁"}, {p:"Congratulations! You have received", f:"a free fine. Offer valid until the end of your drive 🎁"}],
- ["home", {p:"Умный дом: дома всё спокойно. А", f:"у вас, судя по датчикам, не очень. Сосредоточьтесь 🏠"}, {p:"Smart home: all calm at home. But", f:"judging by the sensors, not for you. Focus 🏠"}],
- ["teacher", {p:"Ваш сын спрашивает, можно ли", f:"рассказать классу, как папа водит. Пока не надо 😅"}, {p:"Your son asks if he may", f:"tell the class how Dad drives. Not just yet 😅"}],
+ ["aigul", {p:"Это был удар? Ещё раз:", f:"телефон подождёт, дорога — нет 😟"}, {p:"Was that a hit? Again:", f:"the phone can wait, the road can’t 😟"}],
+ ["wife", {p:"Что это за звук?", f:"Ты в порядке? Не пиши, едь 😟"}, {p:"What was that sound?", f:"Are you OK? Don’t text, drive 😟"}],
+ ["car", {p:"Зафиксирован удар.", f:"Телефон тут ни при чём? 🤔"}, {p:"Impact detected.", f:"Was the phone involved? 🤔"}],
+ ["erlan", {p:"Видел. В отчёт", f:"пойдёт. Без мемов 📄"}, {p:"Saw that. It goes", f:"in the report. No memes 📄"}],
+ ["mom", {p:"Сынок, я почувствовала,", f:"что что-то не так. Ты как? ❤️"}, {p:"I just felt", f:"something’s wrong. Are you OK? ❤️"}],
+ ["boss", {p:"Это было", f:"не то, о чём я просил 😐"}, {p:"That was", f:"not what I asked for 😐"}],
+ ["friend", {p:"Брат, это была", f:"не та «звезда», о которой мечтал 💥"}, {p:"Bro, that wasn’t", f:"the kind of star you wanted 💥"}],
+ ["fit", {p:"Резкий скачок пульса.", f:"Совет: смотрите на дорогу ❤️"}, {p:"Sudden pulse spike.", f:"Tip: look at the road ❤️"}],
+ ["nav", {p:"Маршрут перестроен:", f:"через внимательность 🧭"}, {p:"Route recalculated:", f:"via attention 🧭"}],
+ ["dad", {p:"Сын, в моё время", f:"телефоны были в будке 📞"}, {p:"Son, in my day", f:"phones lived in a booth 📞"}],
+ ["hr", {p:"Напоминаем:", f:"курс по вождению в пятницу 📚"}, {p:"Reminder:", f:"driving course on Friday 📚"}],
+ ["dana", {p:"Сплетня дня: кто-то", f:"только что сбил… свою репутацию 😬"}, {p:"Gossip: someone", f:"just crashed… their reputation 😬"}],
 ],
 /* ---------- full stop in a parking bay ---------- */
 parking: [
- ["wife", {p:"Ты припарковался? Отлично, тогда", f:"прочитай все мои 12 сообщений. Теперь можно 😘"}, {p:"You’ve parked? Great, then", f:"read all my 12 messages. Now it’s allowed 😘"}],
- ["erlan", {p:"Идеальная парковка! Фото уже", f:"висит на доске почёта у столовой 🏆"}, {p:"Perfect parking! The photo is already", f:"on the honour board by the canteen 🏆"}],
- ["friend", {p:"Раз ты встал — слушай, я женюсь! Шучу,", f:"просто купил новые кроссовки. Но это тоже важно 👟"}, {p:"Since you’ve stopped — listen, I’m getting married! Kidding,", f:"I just bought new sneakers. But that’s important too 👟"}],
- ["mom", {p:"Молодец, что остановился. Теперь", f:"позвони маме, она волнуется ❤️"}, {p:"Well done for stopping. Now", f:"call your mother, she’s worried ❤️"}],
- ["boss", {p:"Раз ты на парковке — есть минутка? У меня", f:"вопрос на 5 минут. Это будет час 🙂"}, {p:"Since you’re parked — got a minute? I have", f:"a 5-minute question. It’ll take an hour 🙂"}],
- ["car", {p:"Автомобиль на парковке. Телефон", f:"можно брать в руки. Наслаждайтесь 📱"}, {p:"Vehicle parked. You may now", f:"pick up your phone. Enjoy 📱"}],
- ["dana", {p:"Пока стоишь, главное:", f:"у Марата новая машина, и он уже трижды поцеловал ею шлагбаум 🚗"}, {p:"While you’re stopped, the big news:", f:"Marat has a new car and has already kissed the barrier three times 🚗"}],
- ["fit", {p:"Вы остановились. Отличная возможность", f:"размяться! Ну хотя бы потянуться 🙆"}, {p:"You’ve stopped. Great chance", f:"to stretch! Well, at least a little 🙆"}],
- ["granny", {p:"Внучек, раз ты стоишь, поставь лайк", f:"моему фото с огурцами. Там 3 лайка, и все мои 🥒"}, {p:"Grandson, since you’re stopped, like", f:"my cucumber photo. It has 3 likes, all mine 🥒"}],
- ["aigul", {p:"Пример для всех: сначала остановился,", f:"а потом взял телефон. Плюсик в отчёт ✅"}, {p:"A great example: first stopped,", f:"then picked up the phone. A plus in your report ✅"}],
- ["nav", {p:"Вы прибыли в точку «Парковка». Награда:", f:"спокойствие и ноль штрафов 🅿️"}, {p:"You’ve reached “Parking”. Reward:", f:"peace of mind and zero fines 🅿️"}],
- ["cat", {p:"Пока вы стоите, кот", f:"открыл шкаф с кормом. Камера фиксирует пир 🐈"}, {p:"While you’re parked, the cat", f:"opened the food cupboard. Camera records a feast 🐈"}],
- ["deliv", {p:"Вы стоите? Отлично, я как раз", f:"рядом с вашей пиццей. Ну, почти рядом 🍕"}, {p:"Are you stopped? Great, I’m just", f:"near you with your pizza. Well, almost near 🍕"}],
- ["dad", {p:"Сын, правильно, что встал. Я", f:"так в 1987-м познакомился с мамой — на парковке 💐"}, {p:"Son, right move to stop. That’s how I", f:"met your mum in 1987 — in a car park 💐"}],
- ["hr", {p:"Хорошая новость: за безопасную парковку вам", f:"начислено 10 баллов лояльности. Обменять можно на… уважение 🙂"}, {p:"Good news: for safe parking you get", f:"10 loyalty points. Redeemable for… respect 🙂"}],
+ ["aigul", {p:"Правильно: сначала", f:"остановка, потом телефон ✅"}, {p:"Right: first", f:"stop, then phone ✅"}],
+ ["nav", {p:"Вы на парковке. Награда:", f:"спокойствие и ноль штрафов 🅿️"}, {p:"You’re parked. Reward:", f:"calm and zero fines 🅿️"}],
+ ["wife", {p:"Остановился? Тогда", f:"скажи, что любишь. И хлеб 🍞"}, {p:"Stopped? Then", f:"say you love me. And bread 🍞"}],
+ ["dad", {p:"Сын, правильно, что встал. Я", f:"так маму встретил в 1987 💐"}, {p:"Right to stop, son. That’s", f:"how I met your mum in 1987 💐"}],
+ ["deliv", {p:"Вы стоите? Отлично, я", f:"почти рядом. Почти 🍕"}, {p:"You’re parked? Great, I’m", f:"almost near. Almost 🍕"}],
+ ["boss", {p:"Видел, что ты встал", f:"прочитать. Уважаю 👏"}, {p:"Saw you stop", f:"to read. Respect 👏"}],
+ ["hr", {p:"За безопасную парковку", f:"+10 баллов уважения 🙂"}, {p:"For safe parking:", f:"+10 respect points 🙂"}],
+ ["granny", {p:"Внучек, раз стоишь,", f:"позвони бабушке. Шучу. Позвони 📞"}, {p:"Dear, since you’re parked,", f:"call granny. Kidding. Call 📞"}],
+ ["fit", {p:"Отличная пауза! Вы", f:"сделали 0 шагов, но всё правильно 🧘"}, {p:"Great pause! You", f:"took 0 steps, but all correct 🧘"}],
+ ["friend", {p:"Стоишь? Тогда", f:"глянь мем. Теперь можно 😂"}, {p:"Parked? Then", f:"watch the meme. Now you can 😂"}],
 ],
 /* ---------- wife follow-ups right after the key message (serious) ---------- */
 keyFollow: [
@@ -53854,11 +53820,7 @@ const BANNERS = [
  {file:'banner3_eni_vices.jpg', ar:1.41, h:6.2, d:1215, side:'right', type:'billboard', ph:{ru:'Внимание на дороге = дома ждут', en:'Eyes on the road. Someone is waiting at home'}},
  {file:'',                      ar:2.00, h:3.2, d:1380, side:'left',  type:'facade',    ph:{ru:'Сначала безопасность, потом сообщения', en:'Safety first, messages later'}},
  {file:'banner1_agip_logo.jpg', ar:2.07, h:3.4, d:1610, side:'right', type:'wall',      ph:{ru:'Безопасность прежде всего', en:'Safety first'}},
-{file:'banner2_hse_sign.jpg',  ar:1.30, h:5.0, d:1800, side:'left',  type:'billboard', ph:{ru:'Смотри на дорогу', en:'Eyes on the road'}},
- {file:'banner1_agip_logo.jpg', ar:2.07, h:3.4, d:2050, side:'right', type:'wall',      ph:{ru:'Безопасность — наша общая ценность', en:'Safety is our shared value'}},
- {file:'banner3_eni_vices.jpg', ar:1.41, h:5.6, d:2440, side:'left',  type:'billboard', ph:{ru:'Телефон подождёт. Дорога — нет', en:'Your phone can wait. The road can’t'}},
- {file:'banner1_agip_logo.jpg', ar:2.07, h:3.6, d:2760, side:'left',  type:'wall',      ph:{ru:'Ноль травм — наша общая цель', en:'Zero harm is our shared goal'}},
- {file:'banner2_hse_sign.jpg',  ar:1.30, h:5.0, d:3040, side:'left',  type:'billboard', ph:{ru:'Пристегнись. Каждый раз', en:'Buckle up. Every time'}},
+{file:'banner2_hse_sign.jpg',  ar:1.30, h:5.0, d:1690, side:'left',  type:'billboard', ph:{ru:'Смотри на дорогу', en:'Eyes on the road'}},
 ];
 
 (function(){
@@ -54065,7 +54027,7 @@ function cliffCut(t){ t = String(t).replace(/\s+/g,' ').trim(); const w = t.spli
 
 
 /* ================= 4. DRIVE ================= */
-const FINISH = 3150;
+const FINISH = 1720;   // v5: ≈3 min for a careful driver
 const INTS = [
  {id:'L1', d:230,  light:true, mode:'trigger'},
  {id:'P1', d:480,  ped:'adult'},
@@ -54073,20 +54035,13 @@ const INTS = [
  {id:'L2', d:1050, light:true, mode:'red', cross:true},
  {id:'K',  d:1300, light:true, mode:'key', ped:'child', van:true},
  {id:'P2', d:1560, ped:'elder'},
- {id:'L3', d:1850, light:true, mode:'trigger'},
- {id:'P3', d:2120, ped:'adult'},
- {id:'G2', d:2380, light:true, mode:'green', idlePed:true},
- {id:'L4', d:2650, light:true, mode:'red', cross:true},
- {id:'P4', d:2930, ped:'adult'},
 ];
-const BAYS = [370, 640, 1110, 1470, 1720, 2000, 2270, 2520, 2800], BAYLEN = 22;   // parking bays on the right (start metre)
+const BAYS = [370, 640, 1110, 1470], BAYLEN = 22;   // parking bays on the right (start metre)
 const CONES = [ {d:95,x:1.6,n:1},{d:165,x:3.0,n:3},{d:330,x:1.6,n:2},{d:430,x:3.0,n:1},{d:590,x:1.6,n:3},{d:700,x:3.0,n:2},
-  {d:860,x:3.0,n:1},{d:935,x:1.6,n:3},{d:1172,x:3.0,n:2},{d:1420,x:1.6,n:2},{d:1522,x:3.0,n:1},{d:1650,x:1.6,n:2},
-  {d:1790,x:1.6,n:2},{d:1960,x:3.0,n:1},{d:2060,x:1.6,n:3},{d:2210,x:3.0,n:2},{d:2330,x:1.6,n:1},{d:2470,x:3.0,n:2},
-  {d:2590,x:1.6,n:2},{d:2740,x:3.0,n:3},{d:2870,x:1.6,n:1},{d:3060,x:3.0,n:2} ];
-// fewer background messages than before (≈ every 250 m); sudden road events bring their own message
-const DRIVE_SLOTS = [60,300,560,900,1180,1420,1680,1990,2290,2560,2860,3080];
-const TIME_LIMIT = 540;   // s
+  {d:860,x:3.0,n:1},{d:935,x:1.6,n:3},{d:1172,x:3.0,n:2},{d:1420,x:1.6,n:2},{d:1522,x:3.0,n:1},{d:1650,x:1.6,n:2} ];
+// background messages (calls, cones, crosswalks, key burst and sudden events add the rest → ≈20–25 per run)
+const DRIVE_SLOTS = [50, 300, 900, 1200, 1680];
+const TIME_LIMIT = 300;   // s
 const isCross = d => INTS.some(I => I.light && d > I.d + 5.5 && d < I.d + 18.5);
 const nearBay = (d,m=8) => BAYS.some(b => d > b - m && d < b + BAYLEN + m);
 function maxX(d){ let m = 3.85; BAYS.forEach(b => { const e = b + BAYLEN;
@@ -54102,7 +54057,7 @@ function buildDriveDom(){
   $('scrDrive').innerHTML = `
 <canvas id="gl"></canvas><div class="mirror" id="mirrorFrame"></div>
 <div class="hud"><div class="panel">
-  <div class="row"><span>${T.score}</span><b id="scoreV">100</b></div><div class="row"><span>${T.time}</span><b id="timeV">0:00</b></div>
+  <div class="row" id="scoreRow"><span>${T.score}</span><b id="scoreV">100</b></div><div class="row"><span>${T.time}</span><b id="timeV">0:00</b></div>
   <div class="row"><span>${T.dist}</span><b id="distV">0 ${T.m}</b></div><div class="row" id="parkRow"><span>🅿 ${T.park}</span><b id="parkV">—</b></div>
   <div class="prog"><i id="progV"></i></div></div></div>
 <div class="limit">60</div>
@@ -54306,10 +54261,9 @@ function initState(){
   PLAN = []; HAND.reset();
   const CRX = () => Math.random()<.5 ? 'cliff' : 'cross';
   DRIVE_SLOTS.forEach(d => PLAN.push({d, cat: Math.random()<.4 ? 'cliff' : 'drive'}));
-  PLAN.push({d:700, cat:'calls', call:true}, {d:1075, cat:'urgent', call:true, urgent:true}, {d:2440, cat:'calls', call:true});
+  PLAN.push({d:610, cat:'calls', call:true}, {d:1075, cat:'urgent', call:true, urgent:true}, {d:1620, cat:'calls', call:true});
   CONES.map((c,i)=>i).sort(()=>Math.random()-.5).slice(0,4).forEach(i => PLAN.push({d:CONES[i].d-40, cat: Math.random()<.5 ? 'cliff' : 'cones', prio:true, tag:'cones'}));
-  PLAN.push({d:480-60, cat:CRX(), prio:true, cw:'P1'}, {d:760-60, cat:CRX(), prio:true, cw:'G1'}, {d:1560-70, cat:CRX(), prio:true, cw:'P2'},
-            {d:2120-60, cat:CRX(), prio:true, cw:'P3'}, {d:2930-60, cat:CRX(), prio:true, cw:'P4'});
+  PLAN.push({d:480-60, cat:CRX(), prio:true, cw:'P1'}, {d:760-60, cat:CRX(), prio:true, cw:'G1'}, {d:1560-70, cat:CRX(), prio:true, cw:'P2'});
   EV.plan();
   PLAN.sort((a,b)=>a.d-b.d); PLAN.forEach(p => p.done = p.d < DBG.start - 5);
 }
@@ -54588,7 +54542,7 @@ const PATH_R = () => S.x + 1.4, PATH_L = () => S.x - 1.4;
 
 const EV = {
   list: [], endAt: null,
-  plan(){ this.list = []; this.endAt = null;
+  plan(){ this.list = []; this.endAt = null; this.endEv = null;
     const bad = d => d < 230 || d > FINISH-80 || INTS.some(I => d > I.d-45 && d < I.d+40) || BAYS.some(b => d > b-30 && d < b+BAYLEN+20)
       || CONES.some(c => Math.abs(c.d+1.5-d) < 30) || (d > 1035 && d < 1340);
     const slots = []; let d = 240; while (d < FINISH-80){ if (!bad(d)){ slots.push(Math.round(d)); d += rnd(140, 200); } else d += 5; }
@@ -54650,7 +54604,8 @@ const EV = {
   },
   /* ---------- per-frame ---------- */
   tick(dt, dist, front, brk){
-    if (this.endAt!==null && S.t>=this.endAt){ this.endAt=null; finish(false,'crash'); return; }
+    // v5: a hit never ends the run — the person is helped off the road after a moment and the drive goes on (penalty stays in the report)
+    if (this.endAt!==null && S.t>=this.endAt){ this.endAt=null; if (this.endEv && this.endEv.st!=='gone') this.cleanup(this.endEv); this.endEv=null; }
     const cd = dist - 0.25;   // our car centre (route metres)
     for (const E of this.list){
       if (E.st==='skip' || E.st==='gone') continue;
@@ -54739,7 +54694,7 @@ const EV = {
     return el > 20; },
   hit(E, a){ a.hit=true; E.result='hit'; const k=EV_KIND[E.type]; S.jolt=1; thud();
     if (k==='animal'){ E.pts=-15; S.v*=.4; penalty(15, T.evHitAnimal, 'event', {ev:E.type}); a.flee = (a.x > S.x ? 1 : -1); if (E.type==='geese') E.A.forEach(g=>{ g.flee=g.x>S.x?1:-1; g.fly=true; }); }
-    else if (k==='person'){ E.pts=-30; S.pedHit++; S.v=0; penalty(30, T.evHitPerson, 'event', {ev:E.type}); a.fallen=true; a.g.rotation.z=Math.PI/2; a.g.position.y=.35; this.endAt=S.t+2.2; }
+    else if (k==='person'){ E.pts=-30; S.pedHit++; S.v=0; penalty(30, T.evHitPerson, 'event', {ev:E.type}); a.fallen=true; a.g.rotation.z=Math.PI/2; a.g.position.y=.35; this.endAt=S.t+2.5; this.endEv=E; }
     else { E.pts=-25; S.coll++; S.v=0; penalty(25, T.wCrash, 'event', {ev:E.type}); a.crashed=true; if (a.tl) a.tl.emissiveIntensity=4; }
     E.st='done'; },
   finishEv(E){ E.st='done';
@@ -54776,7 +54731,7 @@ function renderReport(r, fromAll){
   const pedRow = p => { const ok=!p.hit && !p.yieldFail; const rt = p.react!=null ? `${L.react}: ${p.react.toFixed(2)} ${L.sec}` : `${L.react}: ${L.noBrake}`;
     return `<div class="ep"><div class="ic">${p.id==='K'?'🧒':p.id==='P2'?'🧓':'🚶'}</div><div class="bd"><b>${L.E[p.id]}</b><small>${p.seen?rt+' · '+(p.hit?L.hit:p.yieldFail?L.notYield:L.yielded)+' · ':''}${L.cwD(p.phoneAtPed?L.yes:L.no, p.nApproach)}</small></div>${pill(p.seen?ok:null, !p.seen?'—':ok?'✔':'✘')}</div>`; };
   const calls = r.calls.length ? r.calls.map(c=>`<div class="ep"><div class="ic">${c.urgent?'🚨':'📞'}</div><div class="bd"><b>${esc(c.who)}${c.urgent?' · '+(lang==='ru'?'срочный':'urgent'):''}</b><small>${fmtT(c.t)} · ${c.d} ${L.m} · ${L.callRow[c.result]}${c.parkT!=null?' · '+L.tPark(c.parkT):''}</small></div>${pill(!(c.result==='moving'||c.result==='stopped'), L.callShort[c.result])}</div>`).join('') : `<p class="mut">${L.callNone}</p>`;
-  const rows = r.notifs.map(n=>`<tr class="${n.opened?'op':''}"><td>${n.n}</td><td>${fmtT(n.t)}</td><td>${n.d} ${L.m}</td><td><b>${esc(n.sender)}</b>${n.cw?' <span class="tag">🚸</span>':''}${n.tag==='key'?' <span class="tag">⚠️</span>':''}${n.tag==='urgent'?' <span class="tag">🚨</span>':''}</td><td class="msg">${esc(n.text)}${n.full?`<br><small class="mut">🪝 ${esc(n.full)}</small>`:''}</td><td class="nowrap">${n.kmh} → ${n.avgKmh} ${L.kmh}</td><td>${n.opened?pill(false,L.yes):'<span class="mut">'+L.no+'</span>'}</td><td class="nowrap">${n.eyesS?n.eyesS+' '+L.sec+' / '+n.eyesM+' '+L.m:'—'}</td></tr>`).join('');
+  const rows = r.notifs.map(n=>`<tr class="${n.opened?'op':''}"><td>${n.n}</td><td>${fmtT(n.t)}</td><td>${n.d} ${L.m}</td><td><b>${esc(n.sender)}</b>${n.cw?' <span class="tag">🚸</span>':''}${n.tag==='key'?' <span class="tag">⚠️</span>':''}${n.tag==='urgent'?' <span class="tag">🚨</span>':''}</td><td class="msg">${esc(n.text)}${n.full?`<br><small class="mut">🪝 ${esc(n.full)}</small>`:''}</td><td class="nowrap">${n.kmh} → ${n.avgKmh} ${L.kmh}</td><td>${n.opened?pill(false,L.yes):'<span class="mut">'+L.no+'</span>'}</td></tr>`).join('');
   const RE = r.roadEvents || [], evAv = RE.filter(e=>e.result==='avoided').length;
   const evRows = RE.length ? RE.map(e=>`<div class="ep"><div class="ic">${EV_IC[e.type]||'⚠️'}</div><div class="bd"><b>${esc((L.EVN||{})[e.type]||e.type)}</b><small>${fmtT(e.t)} · ${e.d} ${L.m} · ${e.kmh} ${L.kmh} · ${e.msg?L.evMsgY+(e.msgText?' «'+esc(e.msgText)+'»':''):L.evMsgN} · ${L.react}: ${e.react!=null?e.react.toFixed(2)+' '+L.sec:L.evNoReact} · ${L.evRes[e.result]||e.result}${e.pts?' ('+(e.pts>0?'+':'')+e.pts+')':''}</small></div>${pill(e.result==='avoided', e.result==='avoided'?'✔':'✘')}</div>`).join('') : `<p class="mut">—</p>`;
   $('scrReport').innerHTML = `<div class="card report">
@@ -54786,7 +54741,7 @@ function renderReport(r, fromAll){
      ${r.finishMsg?`<div class="fmsg">📱 <b>${esc(r.finishMsg.sender)}:</b> ${esc(r.finishMsg.text)}</div>`:''}</div></div>
    <div class="stats">
      <div class="st"><b>${q?q.correct+' / '+q.total:'—'}</b><span>${L.sTest}</span></div><div class="st"><b>${q?q.avgMs+' ms':'—'}</b><span>${L.sReactT}</span></div>
-     <div class="st"><b>${r.opened} / ${r.msgs}</b><span>${L.sOpened}</span></div><div class="st hl"><b>${r.eyesS} ${L.sec} · ${r.eyesM} ${L.m}</b><span>${L.sEyesS} · ${L.sEyesM}</span></div>
+     <div class="st"><b>${r.opened} / ${r.msgs}</b><span>${L.sOpened}</span></div>
      <div class="st"><b>${r.redRun}</b><span>${L.sRed}</span></div><div class="st"><b>${r.avgReaction!=null?r.avgReaction.toFixed(2)+' '+L.sec:'—'}</b><span>${L.sPedR}</span></div>
      <div class="st"><b>${r.conesHit} / ${r.conesTotal}</b><span>${L.sCones}</span></div><div class="st"><b>${r.collisions}</b><span>${L.sColl}</span></div>
      <div class="st"><b>${r.avgKmhNotif} ${L.kmh}</b><span>${L.sSpeedN}</span></div><div class="st"><b>${r.avgKmhNoNotif} ${L.kmh}</b><span>${L.sSpeedO}</span></div>
@@ -54810,7 +54765,7 @@ function renderReport(r, fromAll){
 let sortK='date', sortDir=-1; const sel=new Set();
 const COLS = [
  ['name', r=>r.name], ['date', r=>r.date], ['quiz', r=>r.quiz?r.quiz.correct:null], ['reactMs', r=>r.quiz?r.quiz.avgMs:null], ['score', r=>r.score], ['pass', r=>r.pass?1:0],
- ['opened', r=>r.opened], ['eyesS', r=>r.eyesS], ['eyesM', r=>r.eyesM], ['redRun', r=>r.redRun], ['pedReact', r=>r.avgReaction], ['cones', r=>r.conesHit], ['coll', r=>r.collisions], ['call', r=>r.urgentResult], ['evOk', r=>r.roadEvents&&r.roadEvents.length?r.roadEvents.filter(e=>e.result==='avoided').length/r.roadEvents.length:null], ['evReact', r=>{ const a=(r.roadEvents||[]).map(e=>e.react).filter(v=>v!=null); return a.length?+(a.reduce((x,y)=>x+y,0)/a.length).toFixed(2):null; }], ['maxKmh', r=>r.maxKmh]];
+ ['opened', r=>r.opened], ['redRun', r=>r.redRun], ['pedReact', r=>r.avgReaction], ['cones', r=>r.conesHit], ['coll', r=>r.collisions], ['call', r=>r.urgentResult], ['evOk', r=>r.roadEvents&&r.roadEvents.length?r.roadEvents.filter(e=>e.result==='avoided').length/r.roadEvents.length:null], ['evReact', r=>{ const a=(r.roadEvents||[]).map(e=>e.react).filter(v=>v!=null); return a.length?+(a.reduce((x,y)=>x+y,0)/a.length).toFixed(2):null; }], ['maxKmh', r=>r.maxKmh]];
 const GET = Object.fromEntries(COLS);
 function renderAll(){
   T = I18N[lang]; const L=T, a=load().filter(r=>r.v===2);
@@ -54837,16 +54792,16 @@ function renderAll(){
 }
 function renderCmp(a){ const L=T, el=$('cmp'); const rs=a.filter(r=>sel.has(r.id)).slice(0,4);
   if (rs.length<2){ el.innerHTML=`<h3>${L.cmpH}</h3><p class="mut">${L.cmpHint}</p>`; return; }
-  const metrics=[['score',r=>r.score,100],['eyesS',r=>r.eyesS],['eyesM',r=>r.eyesM],['opened',r=>r.opened],['redRun',r=>r.redRun],['pedReact',r=>r.avgReaction||0],['cones',r=>r.conesHit],['reactMs',r=>r.quiz?r.quiz.avgMs:0]];
+  const metrics=[['score',r=>r.score,100],['opened',r=>r.opened],['redRun',r=>r.redRun],['pedReact',r=>r.avgReaction||0],['cones',r=>r.conesHit],['reactMs',r=>r.quiz?r.quiz.avgMs:0]];
   const cols=['#4f8cff','#22d3ee','#f59e0b','#a855f7'];
   el.innerHTML=`<h3>${L.cmpH}</h3><div class="legend">${rs.map((r,i)=>`<span><i style="background:${cols[i]}"></i>${esc(r.name)}</span>`).join('')}</div>`+metrics.map(([k,f,max])=>{ const m=max||Math.max(1,...rs.map(f));
     return `<div class="cmprow"><div class="cl">${L.aCols[k]}</div><div class="bars">${rs.map((r,i)=>`<div class="bar"><i style="width:${Math.max(2,f(r)/m*100)}%;background:${cols[i]}"></i><span>${k==='pedReact'?(+f(r)).toFixed(2):f(r)}</span></div>`).join('')}</div></div>`; }).join(''); }
 function csv(a, notifs){ if(!a.length) return; const q=v=>{ v=v==null?'':String(v); return /[;"\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v; };
   let rows;
-  if (!notifs){ const H=['date','name','pid','lang','score','pass','bonus','quizCorrect','quizTotal','quizReactMs','duration','msgs','opened','eyesS','eyesM','redRun','redStopped','yieldFail','pedHit','avgPedReaction','reactP1','reactK','reactP2','phoneAtPedP1','phoneAtPedK','phoneAtPedP2','conesHit','conesTotal','collisions','offroad','laneOut','urgentCall','urgentParkT','maxKmh','avgKmhNotif','avgKmhNoNotif','speedingS','reactP3','reactP4','endReason','routeM','events_total','events_avoided','events_hit','events_with_msg','events_avg_reaction_s','events_detail'];
-    rows=[H].concat(a.map(r=>{ const pd=id=>r.peds.find(p=>p.id===id)||{}; return [r.date,r.name,r.pid,r.lang,r.score,r.pass,r.bonus,r.quiz&&r.quiz.correct,r.quiz&&r.quiz.total,r.quiz&&r.quiz.avgMs,r.duration,r.msgs,r.opened,r.eyesS,r.eyesM,r.redRun,r.redStopped,r.yieldFail,r.pedHit,r.avgReaction,pd('P1').react,pd('K').react,pd('P2').react,pd('P1').phoneAtPed,pd('K').phoneAtPed,pd('P2').phoneAtPed,r.conesHit,r.conesTotal,r.collisions,r.offroad,r.laneOut,r.urgentResult,r.urgentParkT,r.maxKmh,r.avgKmhNotif,r.avgKmhNoNotif,r.speedingS,pd('P3').react,pd('P4').react,r.endReason||'',r.routeM||1720].concat((()=>{ const E=r.roadEvents||[], rs=E.map(e=>e.react).filter(v=>v!=null); return [E.length,E.filter(e=>e.result==='avoided').length,E.filter(e=>e.result!=='avoided').length,E.filter(e=>e.msg).length,rs.length?+(rs.reduce((x,y)=>x+y,0)/rs.length).toFixed(2):'',E.map(e=>[e.type,e.d,e.result,e.msg?'msg':'nomsg',e.react!=null?e.react:'-'].join(':')).join(' | ')]; })()); })); }
-  else { const H=['date','driver','n','time_s','distance_m','sender','text','call','crosswalk','kmh_at_arrival','avg_kmh_while_visible','opened','eyes_off_s','eyes_off_m'];
-    rows=[H]; a.forEach(r=>r.notifs.forEach(n=>rows.push([r.date,r.name,n.n,n.t,n.d,n.sender,n.text,n.call,n.cw,n.kmh,n.avgKmh,n.opened,n.eyesS,n.eyesM]))); }
+  if (!notifs){ const H=['date','name','pid','lang','score','pass','bonus','quizCorrect','quizTotal','quizReactMs','duration','msgs','opened','redRun','redStopped','yieldFail','pedHit','avgPedReaction','reactP1','reactK','reactP2','phoneAtPedP1','phoneAtPedK','phoneAtPedP2','conesHit','conesTotal','collisions','offroad','laneOut','urgentCall','urgentParkT','maxKmh','avgKmhNotif','avgKmhNoNotif','speedingS','reactP3','reactP4','endReason','routeM','events_total','events_avoided','events_hit','events_with_msg','events_avg_reaction_s','events_detail'];
+    rows=[H].concat(a.map(r=>{ const pd=id=>r.peds.find(p=>p.id===id)||{}; return [r.date,r.name,r.pid,r.lang,r.score,r.pass,r.bonus,r.quiz&&r.quiz.correct,r.quiz&&r.quiz.total,r.quiz&&r.quiz.avgMs,r.duration,r.msgs,r.opened,r.redRun,r.redStopped,r.yieldFail,r.pedHit,r.avgReaction,pd('P1').react,pd('K').react,pd('P2').react,pd('P1').phoneAtPed,pd('K').phoneAtPed,pd('P2').phoneAtPed,r.conesHit,r.conesTotal,r.collisions,r.offroad,r.laneOut,r.urgentResult,r.urgentParkT,r.maxKmh,r.avgKmhNotif,r.avgKmhNoNotif,r.speedingS,pd('P3').react,pd('P4').react,r.endReason||'',r.routeM||1720].concat((()=>{ const E=r.roadEvents||[], rs=E.map(e=>e.react).filter(v=>v!=null); return [E.length,E.filter(e=>e.result==='avoided').length,E.filter(e=>e.result!=='avoided').length,E.filter(e=>e.msg).length,rs.length?+(rs.reduce((x,y)=>x+y,0)/rs.length).toFixed(2):'',E.map(e=>[e.type,e.d,e.result,e.msg?'msg':'nomsg',e.react!=null?e.react:'-'].join(':')).join(' | ')]; })()); })); }
+  else { const H=['date','driver','n','time_s','distance_m','sender','text','call','crosswalk','kmh_at_arrival','avg_kmh_while_visible','opened'];
+    rows=[H]; a.forEach(r=>r.notifs.forEach(n=>rows.push([r.date,r.name,n.n,n.t,n.d,n.sender,n.text,n.call,n.cw,n.kmh,n.avgKmh,n.opened]))); }
   const s='\ufeff'+rows.map(r=>r.map(q).join(';')).join('\n'); const b=new Blob([s],{type:'text/csv;charset=utf-8'}), u=URL.createObjectURL(b), l=document.createElement('a');
   l.href=u; l.download=(notifs?'hse_notifications_':'hse_drivers_')+new Date().toISOString().slice(0,10)+'.csv'; document.body.appendChild(l); l.click(); l.remove(); setTimeout(()=>URL.revokeObjectURL(u),1500); }
 
