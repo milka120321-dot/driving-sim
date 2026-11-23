@@ -294,6 +294,12 @@ body.mob .hero.sm{margin-bottom:8px}body.mob .hero.sm .lead{display:none}body.mo
 body.mob .chk:has(#pproj){display:none}body.mob .in{padding:10px 12px}body.mob label.f{margin:8px 0 4px}body.mob .row2{margin-top:10px}body.mob .err{margin-top:4px;min-height:1em}
 body.mob #scrQuiz .hero.sm .eyebrow{display:none}body.mob .qprog{margin-bottom:8px}body.mob .opts{gap:7px}
 body.mob .hud{width:162px}body.mob .hud .row b{white-space:nowrap}body.mob .hud .row span{white-space:nowrap}
+/* iOS: no zoom / selection / callout / grey tap flash on touch devices */
+body.touch{touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+body.touch input,body.touch textarea{-webkit-user-select:text;user-select:text;font-size:16px!important}
+body.touch button,body.touch .opt,body.touch .nt,body.touch .langbtn{touch-action:manipulation}
+body.touch #scrDrive,body.touch .tc,body.touch .tc button,body.touch #tcL{touch-action:none!important}
+body.touch.driving{touch-action:none}
 
 </style>
 </head>
@@ -53747,7 +53753,18 @@ function goFull(){ if (!IS_MOB) return; const d = document.documentElement;
   try { if (!document.fullscreenElement && d.requestFullscreen && navigator.userActivation && navigator.userActivation.isActive) { const p = d.requestFullscreen({navigationUI:'hide'}); if (p && p.then) p.then(lock, ()=>{}); else lock(); } else lock(); } catch(e) { lock(); } }
 addEventListener('resize', checkOrient); addEventListener('orientationchange', () => setTimeout(checkOrient, 200)); document.addEventListener('visibilitychange', checkOrient);
 if (window.visualViewport) visualViewport.addEventListener('resize', checkOrient);
-document.addEventListener('gesturestart', e => e.preventDefault());   // iOS pinch-zoom
+/* ---- iOS Safari ignores user-scalable=no: block pinch / double-tap zoom ourselves ---- */
+['gesturestart','gesturechange','gestureend'].forEach(t => document.addEventListener(t, e => e.preventDefault(), {passive:false}));
+let lastTouchEnd = 0;
+document.addEventListener('touchend', e => { const now = Date.now(), quick = now - lastTouchEnd < 350; lastTouchEnd = now;
+  if (!quick || e.target.closest('input,textarea,select')) return;
+  if (e.cancelable) { e.preventDefault();   // stops double-tap zoom; the browser then skips this tap's click, so fire it ourselves
+    const b = e.target.closest('button,.opt,a,label,.ch-x'); if (b && !b.closest('.tc')) b.click(); } }, {passive:false});
+document.addEventListener('dblclick', e => { if (IS_TOUCH) e.preventDefault(); }, {passive:false});
+// if the page still got zoomed somehow: re-apply the viewport tag (iOS resets the zoom) and re-fit
+let zoomFixT = 0;
+if (window.visualViewport) visualViewport.addEventListener('resize', () => { if (visualViewport.scale > 1.01 && Date.now() - zoomFixT > 800) { zoomFixT = Date.now();
+  const m = document.querySelector('meta[name=viewport]'); if (m) { const c = m.content; m.content = c + ', minimum-scale=1'; setTimeout(() => { m.content = c; }, 60); } } });
 document.addEventListener('touchmove', e => { if (e.cancelable && document.body.classList.contains('driving') && !e.target.closest('.ch-b,.ov')) e.preventDefault(); }, {passive:false});
 document.addEventListener('contextmenu', e => { if (IS_TOUCH && e.target.closest('#scrDrive,.rcircle')) e.preventDefault(); });
 function setLang(l){ lang = l === 'en' ? 'en' : 'ru'; T = I18N[lang]; document.documentElement.lang = lang; try{ localStorage.setItem('hseLang', lang); }catch(e){} }
@@ -54090,6 +54107,8 @@ function initState(){
 
 /* ---------- input ---------- */
 function bindDriveUi(){
+  // controls: no native touch behaviour at all (no zoom, no scroll, no callout); pointer events still drive them
+  document.querySelectorAll('.tc, .tc button').forEach(el => ['touchstart','touchend','touchmove'].forEach(t => el.addEventListener(t, e => { if (e.cancelable) e.preventDefault(); }, {passive:false})));
   // pedals: one finger each, works together with steering (multitouch)
   document.querySelectorAll('#tcR button').forEach(b=>{ const k='t_'+b.dataset.k;
     const on=e=>{e.preventDefault(); try{b.setPointerCapture(e.pointerId)}catch(_){} keys[k]=true;b.classList.add('on')}, off=e=>{keys[k]=false;b.classList.remove('on')};
