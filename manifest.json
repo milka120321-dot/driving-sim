@@ -1,0 +1,17 @@
+{
+  "name": "HSE Safe Drive",
+  "short_name": "HSE Safe Drive",
+  "description": "HSE Safe Driving Challenge — симулятор безопасного вождения",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "display_override": ["fullscreen", "standalone"],
+  "orientation": "landscape",
+  "background_color": "#070b16",
+  "theme_color": "#070b16",
+  "icons": [
+    {"src": "icon-180.png", "sizes": "180x180", "type": "image/png"},
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
+  ]
+}

@@ -300,6 +300,27 @@ body.touch input,body.touch textarea{-webkit-user-select:text;user-select:text;f
 body.touch button,body.touch .opt,body.touch .nt,body.touch .langbtn{touch-action:manipulation}
 body.touch #scrDrive,body.touch .tc,body.touch .tc button,body.touch #tcL{touch-action:none!important}
 body.touch.driving{touch-action:none}
+/* phones v3: phone keeps its size; it LIGHTS UP on each notification; newest 1-2 notifications with FULL text */
+body.mob .scr{filter:brightness(.72);transition:filter .6s ease}
+body.mob #phone.lit .scr{filter:brightness(1.18);transition:filter .08s ease}
+body.mob #phone.lit{box-shadow:0 0 0 2px rgba(255,255,255,.55),0 0 28px 8px rgba(147,197,253,.75),0 25px 60px rgba(0,0,0,.6)}
+body.mob #phone.lit.hot{box-shadow:0 0 0 2px rgba(255,200,200,.7),0 0 30px 10px rgba(248,113,113,.8),0 25px 60px rgba(0,0,0,.6)}
+body.mob .lock{padding:14px 6px 0;display:flex;align-items:baseline;justify-content:center;gap:6px}
+body.mob .lock .tm{font-size:1rem;font-weight:600}body.mob .lock .dt{font-size:.52rem}
+body.mob #stack{top:36px;left:5px;right:5px;bottom:5px;gap:5px}
+body.mob .nt{padding:7px 8px;border-radius:12px;gap:6px}
+body.mob .nt .fr{font-size:.74rem}
+body.mob .nt .bd{font-size:.8rem;line-height:1.28;display:block;-webkit-line-clamp:unset;overflow:visible;overflow-wrap:anywhere}
+body.mob .nt.old{opacity:.7}
+body.mob .nt.s1 .bd{font-size:.74rem}body.mob .nt.s2 .bd{font-size:.68rem}body.mob .nt.s3 .bd{font-size:.62rem}
+body.mob .badge{top:12px}
+.nt.cliff .bd{font-style:italic}
+/* iPhone Safari hint: add to home screen for real full screen */
+.a2hs{display:flex;gap:10px;align-items:flex-start;max-width:520px;margin:14px auto 0;padding:10px 12px;border-radius:14px;background:rgba(255,209,0,.12);border:1px solid rgba(255,209,0,.5);color:#fff;font-size:.88rem;line-height:1.35;text-align:left}
+.a2hs span{flex:1}.a2hs small{color:#cbd5f5}.a2hs .shr{font-style:normal;display:inline-block;border:1px solid #FFD100;border-radius:5px;padding:0 4px;color:#FFD100}
+.a2hs button{flex:0 0 34px;height:34px;border-radius:10px;border:1px solid rgba(255,255,255,.3);background:rgba(15,23,42,.6);color:#fff;font-size:1rem}
+body.mob .a2hs{margin-top:8px;font-size:.78rem;padding:7px 10px}
+body.standalone{background:#070b16}
 
 </style>
 </head>
@@ -53483,6 +53504,29 @@ const GROUP = {mom:1, erlan:1, aigul:1, dad:1, granny:1, neighbor:1}; // shown a
    Each drive samples from these pools; ids shown recently (localStorage) are avoided, so repeat players see new jokes.
    Entry: [sender, RU, EN]. RU/EN may be an array = several messages in a row from the same sender. */
 const POOLS = {
+/* ---------- cliffhangers: the preview stops at the juicy part (shown with “…”); the punchline is only in the chat ---------- */
+cliff: [
+["friend", {p:"Брат, ты не поверишь, что случилось с", f:"машиной директора: её облепили наклейками «Спасибо, что не пишете за рулём» 😂 Это сделал наш отдел ОТ"}, {p:"Bro, you won’t believe what happened to", f:"the director’s car: someone covered it in “Thanks for not texting while driving” stickers 😂 It was the safety team"}],
+["boss", {p:"Срочно! Твоя машина на видео в", f:"нашем новом ролике по безопасности. Ты там образцово стоишь на красном. Молодец 👏"}, {p:"Urgent! Your car is on video in", f:"our new safety film. You’re standing perfectly at a red light. Well done 👏"}],
+["hr", {p:"По итогам года вам положена", f:"грамота «Самый внимательный водитель». Если, конечно, вы сейчас не читаете это за рулём 😉"}, {p:"Based on the year results you’re getting", f:"a “Most attentive driver” certificate. Unless you’re reading this while driving 😉"}],
+["wife", {p:"Не пугайся, но в нашей квартире сейчас", f:"мой мама. С пирогами. На неделю 🥧"}, {p:"Don’t panic, but right now in our flat there is", f:"my mother. With pies. For a week 🥧"}],
+["mom", {p:"Сынок, срочно позвони, это касается", f:"рецепта моих фирменных голубцов. Тётя Галя опять говорит, что её лучше 😤"}, {p:"Son, call me urgently, it’s about", f:"my signature cabbage rolls recipe. Aunt Galya says hers are better again 😤"}],
+["aigul", {p:"Ой… я случайно отправила твоё фото в", f:"общий чат всей компании. Но ничего, все поставили лайк 👍"}, {p:"Oops… I accidentally sent your photo to", f:"the whole company chat. But it’s fine, everyone liked it 👍"}],
+["erlan", {p:"Камера на въезде зафиксировала, как ты", f:"вовремя включил поворотник. Внесли в доску почёта 🏆"}, {p:"The gate camera recorded how you", f:"used your indicator on time. You’re on the honour board now 🏆"}],
+["bank", {p:"С вашей карты пытались списать", f:"0 ₸. Мы просто хотели, чтобы вы посмотрели в телефон. Не смотрите 🙃"}, {p:"Someone tried to charge your card", f:"0 ₸. We just wanted you to look at your phone. Don’t 🙃"}],
+["dana", {p:"Я узнала, кто съел торт в переговорке! Это", f:"кот уборщицы. Видео прилагается 🐈🎂"}, {p:"I found out who ate the cake in the meeting room! It was", f:"the cleaner’s cat. Video attached 🐈🎂"}],
+["neighbor", {p:"Сосед, у вас из двери течёт", f:"аромат плова. Можно я зайду? 🍚"}, {p:"Neighbour, something is leaking from your door:", f:"the smell of plov. Can I come in? 🍚"}],
+["car", {p:"Внимание! Обнаружена неисправность:", f:"водитель смотрит в телефон. Устраните неисправность 🚗"}, {p:"Warning! Fault detected:", f:"the driver is looking at the phone. Please fix the fault 🚗"}],
+["teacher", {p:"Ваш ребёнок сегодня на уроке сказал, что папа", f:"лучше всех соблюдает ПДД. Не подведите его 🙂"}, {p:"Today in class your child said that dad", f:"follows traffic rules better than anyone. Don’t let him down 🙂"}],
+["fridge", {p:"Хозяин, я должен признаться. Внутри меня", f:"сидит кот уже 10 минут. Он не хочет выходить 🐱❄️"}, {p:"Master, I must confess. Inside me there is", f:"the cat. For 10 minutes now. He refuses to leave 🐱❄️"}],
+["unknown", {p:"Здравствуйте! Вы выиграли", f:"ничего. Это просто проверка, читаете ли вы сообщения за рулём. Читаете 😏"}, {p:"Hello! You have won", f:"nothing. Just checking whether you read messages while driving. You do 😏"}],
+["granny", {p:"Внучек, я нашла в интернете, как", f:"отправлять голосовые. Сейчас пришлю 47 штук 🎤"}, {p:"Grandson, I found on the internet how to", f:"send voice messages. Sending you 47 now 🎤"}],
+["vac", {p:"Ваша заявка на отпуск: директор написал", f:"«Одобряю, если доедет без штрафов» 🏖️"}, {p:"Your leave request: the director wrote", f:"“Approved, if he gets here without fines” 🏖️"}],
+["friend", {p:"Слушай, только никому. Завтра в офисе", f:"внеплановый тест по технике безопасности. Тсс 🤫"}, {p:"Listen, don’t tell anyone. Tomorrow at the office there’s", f:"a surprise safety quiz. Shhh 🤫"}],
+["cat", {p:"Камера: кот пытается открыть", f:"холодильник уже третий раз. Шансы растут 📈"}, {p:"Camera: the cat is trying to open", f:"the fridge for the third time. Odds are improving 📈"}],
+["fit", {p:"Срочно! Ваш пульс подскочил до", f:"70. Потому что вы читаете это сообщение. Положите телефон ❤️"}, {p:"Urgent! Your heart rate jumped to", f:"70. Because you’re reading this. Put the phone down ❤️"}],
+["love", {p:"Кто-то из вашего офиса тайно", f:"поставил вам «нравится». Это охранник Бауыржан 💘"}, {p:"Someone from your office secretly", f:"liked your profile. It’s Baurzhan from security 💘"}],
+],
 /* ---------- regular driving ---------- */
 drive: [
  ['bank','Кешбэк 3 ₸ зачислен 💳 Не тратьте всё сразу','Cashback of 3 ₸ credited 💳 Don’t spend it all at once'],
@@ -53745,6 +53789,12 @@ const IS_TOUCH = Q.get('touch')==='1' || matchMedia('(pointer:coarse)').matches 
 const IS_MOB = Q.get('mobile')==='1' || (Q.get('mobile')!=='0' && IS_TOUCH && Math.min(screen.width, screen.height) <= 600);
 if (IS_TOUCH) document.body.classList.add('touch');
 if (IS_MOB) { document.body.classList.add('mob'); P.proj = false; }   // no big audience captions on phones
+/* home-screen web app (iPhone has no Fullscreen API: "Add to Home Screen" opens it full screen via the manifest / apple meta tags) */
+const IS_IOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+const IS_STANDALONE = navigator.standalone === true || matchMedia('(display-mode: fullscreen), (display-mode: standalone)').matches;
+if (IS_STANDALONE) document.body.classList.add('standalone');
+if (location.protocol.startsWith('http')) [['manifest','manifest.json'],['apple-touch-icon','icon-180.png'],['icon','icon-192.png']].forEach(([rel, href]) => {
+  const l = document.createElement('link'); l.rel = rel; l.href = href; if (rel === 'icon') l.type = 'image/png'; document.head.appendChild(l); });
 let PAUSED = false;
 function checkOrient(){ const portrait = IS_MOB && innerHeight > innerWidth; document.body.classList.toggle('portrait', portrait);
   PAUSED = portrait || document.hidden; if (PAUSED) for (const k in keys) keys[k] = false; }
@@ -53776,8 +53826,10 @@ function renderLang(){
    <h1 class="title">HSE SAFE <span>DRIVING</span><br>CHALLENGE</h1>
    <div class="accent"></div><p class="lead">Выберите язык · Choose your language</p></div>
    <div class="langs"><button class="langbtn" data-l="ru"><b>RU</b><span>Русский</span></button><button class="langbtn" data-l="en"><b>EN</b><span>English</span></button></div>
-   <div class="links"><button class="btn ghost" id="lAll">📊 Отчёт по всем водителям · All drivers report</button></div>`;
+   <div class="links"><button class="btn ghost" id="lAll">📊 Отчёт по всем водителям · All drivers report</button></div>
+   ${IS_IOS && !IS_STANDALONE && !localStorage.getItem('hseA2HS') ? `<div class="a2hs" id="a2hs"><span>📲 <b>Для полного экрана:</b> Поделиться <i class="shr">⬆︎</i> → «На экран „Домой“»<br><small>Full screen: Share <i class="shr">⬆︎</i> → “Add to Home Screen”</small></span><button id="a2hsX" aria-label="close">✕</button></div>` : ''}`;
   document.querySelectorAll('.langbtn').forEach(b => b.onclick = () => { goFull(); setLang(b.dataset.l); renderName(); show('scrName'); });
+  if ($('a2hsX')) $('a2hsX').onclick = () => { try { localStorage.setItem('hseA2HS','1'); } catch(e){} $('a2hs').remove(); };
   $('lAll').onclick = () => { setLang(localStorage.getItem('hseLang') || 'ru'); renderAll(); show('scrAll'); };
 }
 /* ================= 2. NAME ================= */
@@ -53864,7 +53916,7 @@ function pick(cat){ if (!ORDER[cat]) prepPools();
   const i = ORDER[cat].shift(); ORDER[cat].push(i); seen[cat+i] = Date.now();
   try { localStorage.setItem(SEEN, JSON.stringify(seen)); } catch(e) {}
   const e = POOLS[cat][i]; return { id:cat+i, cat, w:e[0], e }; }
-function msgParts(m){ const v = m.e[lang==='ru'?1:2]; return Array.isArray(v) ? v : [v]; }
+function msgParts(m){ const v = m.e[lang==='ru'?1:2]; return Array.isArray(v) ? v : [v]; }   // a {p,f} object = cliffhanger (preview + punchline)
 
 
 /* ================= 4. DRIVE ================= */
@@ -54097,11 +54149,12 @@ function initState(){
   EP = {}; INTS.forEach(I => { EP[I.id] = {}; I.t=0; I.trig=false; I.stopT=0; I.redMsg=false; if (I.light) setLight(I, I.mode==='red'?'red':'green'); });
   PH.reset();
   PLAN = [];
-  DRIVE_SLOTS.forEach(d => PLAN.push({d, cat:'drive'}));
+  const CRX = () => Math.random()<.5 ? 'cliff' : 'cross';
+  DRIVE_SLOTS.forEach(d => PLAN.push({d, cat: Math.random()<.25 ? 'cliff' : 'drive'}));
   PLAN.push({d:700, cat:'calls', call:true}, {d:1075, cat:'urgent', call:true, urgent:true});
-  CONES.map((c,i)=>i).sort(()=>Math.random()-.5).slice(0,5).forEach(i => PLAN.push({d:CONES[i].d-40, cat:'cones', prio:true, tag:'cones'}));
-  PLAN.push({d:480-72, cat:'cross', prio:true, cw:'P1'}, {d:480-50, cat:'cross', prio:true, cw:'P1'}, {d:760-60, cat:'cross', prio:true, cw:'G1'},
-            {d:1560-82, cat:'cross', prio:true, cw:'P2'}, {d:1560-58, cat:'calls', call:true, cw:'P2'});
+  CONES.map((c,i)=>i).sort(()=>Math.random()-.5).slice(0,5).forEach(i => PLAN.push({d:CONES[i].d-40, cat: Math.random()<.5 ? 'cliff' : 'cones', prio:true, tag:'cones'}));
+  PLAN.push({d:480-72, cat:CRX(), prio:true, cw:'P1'}, {d:480-50, cat:CRX(), prio:true, cw:'P1'}, {d:760-60, cat:CRX(), prio:true, cw:'G1'},
+            {d:1560-82, cat:CRX(), prio:true, cw:'P2'}, {d:1560-58, cat:'calls', call:true, cw:'P2'});
   PLAN.sort((a,b)=>a.d-b.d); PLAN.forEach(p => p.done = p.d < DBG.start - 5);
 }
 
@@ -54130,6 +54183,11 @@ addEventListener('keydown', e => { const k=e.key.toLowerCase(); keys[k]=true;
 addEventListener('keyup', e => keys[e.key.toLowerCase()] = false);
 // QA autopilot (?auto=2): obeys lights & pedestrians, avoids cones, parks for the urgent call
 const SMART = () => DBG.auto==='2';
+// phones: newest 1-2 notifications with FULL text; drop the older one first, then shrink the font a little if still too long
+function fitStack(st){ const box=st.closest('.scr')||st.parentElement; const over=()=>{ if (st.scrollHeight>st.clientHeight+1) return true; const l=st.lastElementChild; return !!l && l.getBoundingClientRect().bottom > Math.min(box.getBoundingClientRect().bottom, st.getBoundingClientRect().bottom)+1; };
+  [...st.children].forEach(c=>c.classList.remove('s1','s2','s3'));
+  while (st.children.length>1 && over()) st.lastElementChild.remove();
+  const n=st.firstElementChild; for (const k of ['s1','s2','s3']) { if (!n || !over()) break; n.classList.remove('s1','s2'); n.classList.add(k); } }
 function urgentTalkParked(){ return PH.call && PH.call.urgent && PH.call.state==='talk' && inBay(-S.z,S.x); }
 function urgentRinging(){ return PH.call && PH.call.urgent && PH.call.state==='ring'; }
 function smartBrake(){ const d=-S.z, front=d+2;
@@ -54160,18 +54218,19 @@ const PH = {
   reset(){ this.threads={}; this.unread=0; this.queue=[]; this.lastPop=-9; this.vis=[]; this.chat=null; this.call=null; this.keyT=-1; this.missed=0; },
   queueMsg(m, o={}){ const items=msgParts(m).map(txt=>({m,txt,o})); if (o.prio) this.queue.unshift(...items); else this.queue.push(...items); },
   push(m, txt, o={}){
+    let full=null; if (txt && typeof txt==='object'){ full=txt.p+' '+txt.f; txt=txt.p+'…'; }
     const who=WHO[m.w], app=APPS[who.app], grp=!!GROUP[m.w];
     S.recv++; this.unread++;
-    const rec={n:S.notifs.length+1, id:m.id, cat:m.cat, t:+S.t.toFixed(1), d:Math.round(-S.z), w:m.w, sender: grp? app[lang]+' · '+who[lang] : who[lang], text:txt, kmh:Math.round(S.v*3.6), opened:false, eyesS:0, eyesM:0, visT:0, visV:0, cw:o.cw||null, tag:o.tag||null, hot:!!o.hot};
+    const rec={n:S.notifs.length+1, id:m.id, cat:m.cat, t:+S.t.toFixed(1), d:Math.round(-S.z), w:m.w, sender: grp? app[lang]+' · '+who[lang] : who[lang], text:txt, kmh:Math.round(S.v*3.6), opened:false, eyesS:0, eyesM:0, visT:0, visV:0, cw:o.cw||null, tag:o.tag||null, hot:!!o.hot, full};
     S.notifs.push(rec);
-    (this.threads[m.w]=this.threads[m.w]||[]).push({text:txt,t:$('ptime').textContent,au:grp?who[lang]:''});
-    const el=document.createElement('div'); el.className='nt'+(o.hot?' key':'');
+    (this.threads[m.w]=this.threads[m.w]||[]).push({text:full||txt,t:$('ptime').textContent,au:grp?who[lang]:''});
+    const el=document.createElement('div'); el.className='nt'+(o.hot?' key':'')+(full?' cliff':'');
     el.innerHTML=`<div class="ai" style="background:${app.c}">${who.ic}</div><div class="tx"><div class="hd"><span>${app[lang]}</span><span>${T.now}</span></div><div class="fr"></div><div class="bd"></div></div>`;
     el.querySelector('.fr').textContent = grp ? app[lang] : who[lang]; el.querySelector('.bd').textContent = grp ? who[lang]+': '+txt : txt;
     el.addEventListener('pointerdown',e=>{ e.preventDefault(); this.openChat(m.w, rec); });   // pointerdown: robust when new messages shift the stack under the finger
-    const st=$('stack'); st.prepend(el); [...st.children].forEach((c,i)=>{ if(i>0) c.classList.add('old'); if(i>4) c.remove(); });
+    const st=$('stack'); st.prepend(el); [...st.children].forEach((c,i)=>{ if(i>0) c.classList.add('old'); if(i>(IS_MOB?1:4)) c.remove(); }); if (IS_MOB){ fitStack(st); setTimeout(()=>{ if(!this.chat) fitStack(st); }, 420); }
     $('badge').style.display='block'; $('badge').textContent=this.unread;
-    const ph=$('phone'); ph.classList.remove('buzz'); void ph.offsetWidth; ph.classList.add('buzz'); sndMsg(); if(o.hot) setTimeout(sndMsg,250);
+    const ph=$('phone'); ph.classList.remove('buzz'); void ph.offsetWidth; ph.classList.add('buzz'); if (IS_MOB){ ph.classList.toggle('hot',!!o.hot); ph.classList.add('lit'); clearTimeout(this.litT); this.litT=setTimeout(()=>ph.classList.remove('lit'), o.hot?1800:1200); } sndMsg(); if(o.hot) setTimeout(sndMsg,250);
     this.vis.push({until:S.t+(o.hot?9:6), rec});
     aud({ic:who.ic,c:app.c}, rec.sender, txt, o.hot);
     try { if (navigator.vibrate && navigator.userActivation && navigator.userActivation.hasBeenActive) navigator.vibrate(o.hot?[120,80,120]:120); } catch(e){}
@@ -54181,7 +54240,7 @@ const PH = {
     const who=WHO[w]; $('chAi').textContent=who.ic; $('chAi').style.background=APPS[who.app].c; $('chName').textContent=GROUP[w]?APPS[who.app][lang]:who[lang];
     const b=$('chBody'); b.innerHTML=''; (this.threads[w]||[]).forEach(m=>{ const d=document.createElement('div'); d.className='bub'; d.innerHTML=(m.au?'<div class="au"></div>':'')+'<span></span><small></small>'; if(m.au) d.querySelector('.au').textContent=m.au; d.querySelector('span').textContent=m.text; d.querySelector('small').textContent=m.t; b.appendChild(d); });
     b.scrollTop=1e5; $('chat').classList.add('on'); $('phone').classList.add('open'); this.unread=0; $('badge').style.display='none'; },
-  closeChat(){ if(!this.chat) return; this.chat=null; $('chat').classList.remove('on'); $('phone').classList.remove('open'); },
+  closeChat(){ if(!this.chat) return; this.chat=null; $('chat').classList.remove('on'); $('phone').classList.remove('open'); if (IS_MOB) setTimeout(()=>fitStack($('stack')), 380); },
   startCall(m, o={}){
     const urgent=!!o.urgent, e=m.e, w = urgent ? 'wife' : e[0];
     const sub = urgent ? (lang==='ru'?e[0]:e[1]) : T.calling, talk = urgent ? (lang==='ru'?e[2]:e[3]) : (lang==='ru'?e[1]:e[2]);
@@ -54204,6 +54263,7 @@ const PH = {
   endCall(){ const c=this.call; if(c){ c.state='done'; if(c.result==='missed') this.missed++; } this.call=null; $('call').className=''; $('callYes').style.display=''; $('phone').classList.remove('buzz','open'); },
   keyBurst(){ this.keyT=0; this.keyMsgs=[ {e:['wife', I18N.ru.keyText, I18N.en.keyText], id:'keyFixed', cat:'key', w:'wife'}, pick('keyFollow'), pick('keyFollow'), pick('cross') ]; this.keyAt=[0,1.3,2.4,3.4]; },
   tick(dt, dist){
+    if (IS_MOB){ this.fitT=(this.fitT||0)-dt; if (this.fitT<=0){ this.fitT=0.5; if(!this.chat) fitStack($('stack')); } }
     PLAN.forEach(p=>{ if(p.done || dist < p.d) return; p.done=true;
       if (p.call){ if (this.call) return; this.startCall(pick(p.cat), {urgent:p.urgent, cw:p.cw}); return; }
       this.queueMsg(pick(p.cat), {prio:p.prio, cw:p.cw, tag:p.tag}); });
@@ -54211,7 +54271,7 @@ const PH = {
     if (this.queue.length && S.t-this.lastPop>gap && !(this.call && this.call.state==='ring')){ const q=this.queue.shift(); this.lastPop=S.t; this.push(q.m, q.txt, q.o); }
     if (this.keyT>=0){ const prev=this.keyT; this.keyT+=dt; this.keyAt.forEach((at,i)=>{ if(at>=prev && at<this.keyT){ const m=this.keyMsgs[i]; this.lastPop=S.t; msgParts(m).forEach(t=>this.push(m,t,{hot:m.w==='wife', tag:'key'})); } }); if(this.keyT>4) this.keyT=-1; }
     const c=this.call;
-    if (c){ if (c.state==='ring'){ this.ringBeat+=dt; if(this.ringBeat>2.2){ this.ringBeat=0; sndRing(); const ph=$('phone'); ph.classList.remove('buzz'); void ph.offsetWidth; ph.classList.add('buzz'); }
+    if (c){ if (c.state==='ring'){ this.ringBeat+=dt; if(this.ringBeat>2.2){ this.ringBeat=0; sndRing(); const ph=$('phone'); ph.classList.remove('buzz'); void ph.offsetWidth; ph.classList.add('buzz'); if (IS_MOB){ ph.classList.toggle('hot',!!o.hot); ph.classList.add('lit'); clearTimeout(this.litT); this.litT=setTimeout(()=>ph.classList.remove('lit'), o.hot?1800:1200); } }
         if (c.urgent && c.parkT===null && S.v<0.15 && inBay(dist,S.x)) c.parkT=+(S.t-c.t0).toFixed(1);
         c.ringLeft-=dt; if (c.ringLeft<=0 || (c.urgent && dist>1235)) this.endCall(); }
       else if (c.state==='talk'){ c.talkLeft-=dt; if (c.talkLeft<=0) this.endCall(); } }
@@ -54351,7 +54411,7 @@ function renderReport(r, fromAll){
   const pedRow = p => { const ok=!p.hit && !p.yieldFail; const rt = p.react!=null ? `${L.react}: ${p.react.toFixed(2)} ${L.sec}` : `${L.react}: ${L.noBrake}`;
     return `<div class="ep"><div class="ic">${p.id==='K'?'🧒':p.id==='P2'?'🧓':'🚶'}</div><div class="bd"><b>${L.E[p.id]}</b><small>${p.seen?rt+' · '+(p.hit?L.hit:p.yieldFail?L.notYield:L.yielded)+' · ':''}${L.cwD(p.phoneAtPed?L.yes:L.no, p.nApproach)}</small></div>${pill(p.seen?ok:null, !p.seen?'—':ok?'✔':'✘')}</div>`; };
   const calls = r.calls.length ? r.calls.map(c=>`<div class="ep"><div class="ic">${c.urgent?'🚨':'📞'}</div><div class="bd"><b>${esc(c.who)}${c.urgent?' · '+(lang==='ru'?'срочный':'urgent'):''}</b><small>${fmtT(c.t)} · ${c.d} ${L.m} · ${L.callRow[c.result]}${c.parkT!=null?' · '+L.tPark(c.parkT):''}</small></div>${pill(!(c.result==='moving'||c.result==='stopped'), L.callShort[c.result])}</div>`).join('') : `<p class="mut">${L.callNone}</p>`;
-  const rows = r.notifs.map(n=>`<tr class="${n.opened?'op':''}"><td>${n.n}</td><td>${fmtT(n.t)}</td><td>${n.d} ${L.m}</td><td><b>${esc(n.sender)}</b>${n.cw?' <span class="tag">🚸</span>':''}${n.tag==='key'?' <span class="tag">⚠️</span>':''}${n.tag==='urgent'?' <span class="tag">🚨</span>':''}</td><td class="msg">${esc(n.text)}</td><td class="nowrap">${n.kmh} → ${n.avgKmh} ${L.kmh}</td><td>${n.opened?pill(false,L.yes):'<span class="mut">'+L.no+'</span>'}</td><td class="nowrap">${n.eyesS?n.eyesS+' '+L.sec+' / '+n.eyesM+' '+L.m:'—'}</td></tr>`).join('');
+  const rows = r.notifs.map(n=>`<tr class="${n.opened?'op':''}"><td>${n.n}</td><td>${fmtT(n.t)}</td><td>${n.d} ${L.m}</td><td><b>${esc(n.sender)}</b>${n.cw?' <span class="tag">🚸</span>':''}${n.tag==='key'?' <span class="tag">⚠️</span>':''}${n.tag==='urgent'?' <span class="tag">🚨</span>':''}</td><td class="msg">${esc(n.text)}${n.full?`<br><small class="mut">🪝 ${esc(n.full)}</small>`:''}</td><td class="nowrap">${n.kmh} → ${n.avgKmh} ${L.kmh}</td><td>${n.opened?pill(false,L.yes):'<span class="mut">'+L.no+'</span>'}</td><td class="nowrap">${n.eyesS?n.eyesS+' '+L.sec+' / '+n.eyesM+' '+L.m:'—'}</td></tr>`).join('');
   $('scrReport').innerHTML = `<div class="card report">
    <div class="rhead"><div class="eyebrow">${L.repEy} · ${new Date(r.date).toLocaleString(lang==='ru'?'ru-RU':'en-GB')}</div><div class="noprint"><button class="btn ghost sm" id="rPrint">${L.btnPrint}</button></div></div>
    <div class="res-top">${ring(r.score, r.pass)}<div><span class="pill ${r.pass?'ok':'bad'}" style="font-size:1rem;padding:7px 16px">${r.pass?L.pass:L.fail}</span>
