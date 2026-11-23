@@ -54040,7 +54040,7 @@ const BAYS = [370, 640, 1110, 1470], BAYLEN = 22;   // parking bays on the right
 const CONES = [ {d:95,x:1.6,n:1},{d:165,x:3.0,n:3},{d:330,x:1.6,n:2},{d:430,x:3.0,n:1},{d:590,x:1.6,n:3},{d:700,x:3.0,n:2},
   {d:860,x:3.0,n:1},{d:935,x:1.6,n:3},{d:1172,x:3.0,n:2},{d:1420,x:1.6,n:2},{d:1522,x:3.0,n:1},{d:1650,x:1.6,n:2} ];
 // background messages (calls, cones, crosswalks, key burst and sudden events add the rest → ≈20–25 per run)
-const DRIVE_SLOTS = [50, 300, 900, 1200, 1680];
+const DRIVE_SLOTS = [300, 900, 1680];
 const TIME_LIMIT = 300;   // s
 const isCross = d => INTS.some(I => I.light && d > I.d + 5.5 && d < I.d + 18.5);
 const nearBay = (d,m=8) => BAYS.some(b => d > b - m && d < b + BAYLEN + m);
