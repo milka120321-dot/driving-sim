@@ -389,6 +389,14 @@ body.mob #stack .nt{padding:6px 9px}body.mob #stack .nt .bd{font-size:16px;line-
 body.mob #stack .nt .more{font-size:11px;margin-top:1px}body.mob #chat .bub{font-size:16px;line-height:1.3}body.mob #chat .ch-h b{font-size:14px}
 #scoreRow{display:none}
 
+/* v5d: whole message in the bubble (max 2 lines), icon inline with the sender, bubbles are not tappable */
+#stack .nt{pointer-events:none;cursor:default;display:block}
+#stack .nt .fr{display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#stack .nt .fr .ai{flex:0 0 auto;width:20px;height:20px;border-radius:6px;display:grid;place-items:center;font-size:12px}
+#stack .nt .fr .nm{overflow:hidden;text-overflow:ellipsis}
+#stack .nt .bd{margin-top:2px}
+body.mob #stack .nt .fr .ai{width:16px;height:16px;font-size:10px;border-radius:5px}
+
 </style>
 </head>
 <body>
@@ -53483,13 +53491,13 @@ ru:{
  fin:'ФИНИШ', hCw:'Отвлечения у пешеходных переходов', cwD:(a,b)=>`Телефон активен, когда вышел пешеход: ${a}. Уведомлений на подходе: ${b}.`,
  repEy:'ОТЧЁТ ВОДИТЕЛЯ', repTitle:'Как вас отвлекали', pass:'ЗАЧЁТ', fail:'НЕ ЗАЧЁТ', of:'из 100',
  vTime:'⏱ Время вышло: финиш не достигнут за 5 минут.', vOk:'Отличная концентрация: телефон не отвлёк вас от дороги.', vBad:'Отвлекающие факторы повлияли на безопасность. Разберите отчёт ниже.',
- sTest:'Тест перед поездкой', sReactT:'Реакция в тесте', sOpened:'Открыто сообщений', sEyesS:'Глаза не на дороге', sEyesM:'Проехано «вслепую»',
+ sTest:'Тест перед поездкой', sReactT:'Реакция в тесте', sOpened:'Сообщений за поездку', sEyesS:'Глаза не на дороге', sEyesM:'Проехано «вслепую»',
  sRed:'Проездов на красный', sPedR:'Средняя реакция на пешехода', sCones:'Сбито конусов', sColl:'Столкновений', sMax:'Макс. скорость', sDur:'Время поездки', sSpeedN:'Скорость при уведомлении', sSpeedO:'Скорость без уведомлений',
  hEp:'Ситуации на дороге', hCalls:'Звонки', hNot:'Все уведомления по порядку',
  E:{L1:'Светофор №1: зелёный сменился на жёлтый',P1:'Пешеходный переход №1',L2:'Светофор №2: красный и поперечное движение',K:'Ключевой момент: жёлтый + сообщение жены + ребёнок',P2:'Переход №2: пожилой пешеход',CN:'Дорожные конусы',LN:'Положение на дороге'},
  stopped:'Остановились перед стоп-линией',ranRed:'Проехали на красный',passedY:'Проехали на жёлтый',noStop:'Не остановились',react:'Реакция',noBrake:'не тормозили',yielded:'пропустили',notYield:'не пропустили',hit:'НАЕЗД',
  conesD:(h,t)=>`Сбито ${h} из ${t}`, laneD:(a,b)=>`Выездов за край дороги: ${a}, на встречку: ${b}`, keyMsg:'Сообщение жены пришло ровно на жёлтый.',
- cols:['#','Время','Путь','Отправитель','Сообщение','Скорость','Открыто?'], yes:'ДА', no:'нет',
+ cols:['#','Время','Путь','Отправитель','Сообщение','Скорость'], yes:'ДА', no:'нет',
  callRow:{parked:'Ответили на парковке',moving:'Ответили на ходу',stopped:'Ответили стоя, но не на парковке',declined:'Отклонили',missed:'Не ответили (без штрафа)'},
  tPark:s=>`время до парковки ${s} с`, callNone:'Звонков не было',
  btnPrint:'🖨 Печать', btnAll:'📊 Все водители', btnNext:'👤 Следующий водитель', btnRetry:'↻ Ещё раз', btnLang:'← Язык',
@@ -53528,13 +53536,13 @@ en:{
  fin:'FINISH', hCw:'Distractions at pedestrian crossings', cwD:(a,b)=>`Phone active when the pedestrian stepped out: ${a}. Notifications on approach: ${b}.`,
  repEy:'DRIVER REPORT', repTitle:'How you got distracted', pass:'PASS', fail:'FAIL', of:'of 100',
  vTime:'⏱ Time is up: the finish was not reached within 5 minutes.', vOk:'Great focus: the phone did not take your eyes off the road.', vBad:'Distractions affected your safety. Review the report below.',
- sTest:'Pre-drive test', sReactT:'Test reaction', sOpened:'Messages opened', sEyesS:'Eyes off the road', sEyesM:'Driven “blind”',
+ sTest:'Pre-drive test', sReactT:'Test reaction', sOpened:'Messages during the drive', sEyesS:'Eyes off the road', sEyesM:'Driven “blind”',
  sRed:'Red lights run', sPedR:'Avg. pedestrian reaction', sCones:'Cones hit', sColl:'Collisions', sMax:'Max speed', sDur:'Drive time', sSpeedN:'Speed with a notification', sSpeedO:'Speed without',
  hEp:'Road situations', hCalls:'Calls', hNot:'All notifications in order',
  E:{L1:'Light #1: green turned yellow',P1:'Pedestrian crossing #1',L2:'Light #2: red with cross traffic',K:'Key moment: yellow + wife’s text + child',P2:'Crossing #2: elderly pedestrian',CN:'Traffic cones',LN:'Lane keeping'},
  stopped:'Stopped before the stop line',ranRed:'Ran the red light',passedY:'Went through on yellow',noStop:'Did not stop',react:'Reaction',noBrake:'no braking',yielded:'gave way',notYield:'did not give way',hit:'HIT',
  conesD:(h,t)=>`Knocked over ${h} of ${t}`, laneD:(a,b)=>`Left the road: ${a}, oncoming lane: ${b}`, keyMsg:'Your wife’s text arrived exactly on yellow.',
- cols:['#','Time','Distance','Sender','Message','Speed','Opened?'], yes:'YES', no:'no',
+ cols:['#','Time','Distance','Sender','Message','Speed'], yes:'YES', no:'no',
  callRow:{parked:'Answered in a parking bay',moving:'Answered while moving',stopped:'Answered while stopped, but not parked',declined:'Declined',missed:'Not answered (no penalty)'},
  tPark:s=>`time to park ${s} s`, callNone:'No calls',
  btnPrint:'🖨 Print', btnAll:'📊 All drivers', btnNext:'👤 Next driver', btnRetry:'↻ Retry', btnLang:'← Language',
@@ -53552,16 +53560,16 @@ const APPS = {
  deliv:{ic:'📦',c:'#a855f7',ru:'Экспресс Доставка',en:'Express Delivery'}, fridge:{ic:'🧊',c:'#06b6d4',ru:'Умный холодильник',en:'Smart Fridge'},
  fit:{ic:'👟',c:'#84cc16',ru:'ФитШаг',en:'FitStep'}, cat:{ic:'🐈',c:'#eab308',ru:'Кот-камера',en:'Cat Cam'},
  love:{ic:'💘',c:'#ec4899',ru:'СердцеРядом',en:'HeartNearby'}, vac:{ic:'🤖',c:'#64748b',ru:'Робот-пылесос',en:'Robot Vacuum'},
- hr:{ic:'🗂',c:'#8b5cf6',ru:'Отдел кадров',en:'HR'}, house:{ic:'🏢',c:'#14b8a6',ru:'Чат дома №15',en:'Building #15 chat'}, nav:{ic:'🧭',c:'#3b82f6',ru:'Навигатор',en:'Navigator'},
+ hr:{ic:'🗂',c:'#8b5cf6',ru:'Отдел кадров',en:'HR'}, house:{ic:'🏢',c:'#14b8a6',ru:'Чат дома №15',en:'Building chat'}, nav:{ic:'🧭',c:'#3b82f6',ru:'Навигатор',en:'Navigator'},
  home:{ic:'🏠',c:'#10b981',ru:'Умный дом',en:'Smart Home'}, school:{ic:'🏫',c:'#f43f5e',ru:'Школа',en:'School'}, car:{ic:'🚗',c:'#0ea5e9',ru:'Автомобиль',en:'Car'}, weather:{ic:'❄️',c:'#38bdf8',ru:'Погода',en:'Weather'}, game:{ic:'🍅',c:'#f59e0b',ru:'Ферма Мания',en:'Farm Mania'},
 };
 const WHO = {
  wife:{ru:'Жена ❤️',en:'Wife ❤️',ic:'👩',app:'msg'}, boss:{ru:'Начальник',en:'Boss',ic:'👔',app:'msg'}, friend:{ru:'Друг Асхат',en:'Askhat (friend)',ic:'😎',app:'msg'},
- mom:{ru:'Мама',en:'Mom',ic:'👵',app:'family'}, erlan:{ru:'Ерлан, инженер ОТ',en:'Erlan, safety engineer',ic:'👷',app:'work'}, aigul:{ru:'Айгуль, ОТиПБ',en:'Aigul, HSE',ic:'👷‍♀️',app:'work'},
+ mom:{ru:'Мама',en:'Mom',ic:'👵',app:'family'}, erlan:{ru:'Ерлан (ОТ)',en:'Erlan (HSE)',ic:'👷',app:'work'}, aigul:{ru:'Айгуль, ОТиПБ',en:'Aigul, HSE',ic:'👷‍♀️',app:'work'},
  bank:{ru:'Банк',en:'Bank',ic:'🏦',app:'bank'}, deliv:{ru:'Курьер',en:'Courier',ic:'📦',app:'deliv'}, fridge:{ru:'Умный холодильник',en:'Smart Fridge',ic:'🧊',app:'fridge'},
  fit:{ru:'ФитШаг',en:'FitStep',ic:'👟',app:'fit'}, cat:{ru:'Кот-камера',en:'Cat Cam',ic:'🐈',app:'cat'}, love:{ru:'СердцеРядом',en:'HeartNearby',ic:'💘',app:'love'},
  vac:{ru:'Робот-пылесос',en:'Robot Vacuum',ic:'🤖',app:'vac'}, hr:{ru:'Отдел кадров',en:'HR',ic:'🗂',app:'hr'}, weather:{ru:'Погода',en:'Weather',ic:'❄️',app:'weather'}, game:{ru:'Ферма Мания',en:'Farm Mania',ic:'🍅',app:'game'},
- dad:{ru:'Папа',en:'Dad',ic:'👴',app:'family'}, granny:{ru:'Бабушка',en:'Grandma',ic:'👵🏻',app:'family'}, neighbor:{ru:'Сосед Ержан',en:'Neighbour Yerzhan',ic:'🧔',app:'house'},
+ dad:{ru:'Папа',en:'Dad',ic:'👴',app:'family'}, granny:{ru:'Бабушка',en:'Grandma',ic:'👵🏻',app:'family'}, neighbor:{ru:'Сосед Ержан',en:'Yerzhan',ic:'🧔',app:'house'},
  nav:{ru:'Навигатор',en:'Navigator',ic:'🧭',app:'nav'}, home:{ru:'Умный дом',en:'Smart Home',ic:'🏠',app:'home'}, teacher:{ru:'Классный руководитель',en:'Class teacher',ic:'👩‍🏫',app:'school'},
  car:{ru:'Бортовой компьютер',en:'Car computer',ic:'🚗',app:'car'}, dana:{ru:'Коллега Дана',en:'Colleague Dana',ic:'👩‍💼',app:'msg'}, unknown:{ru:'Неизвестный номер',en:'Unknown number',ic:'❔',app:'msg'},
 };
@@ -53597,65 +53605,65 @@ Object.assign(I18N.en.aCols, {evOk:'Situations ✔', evReact:'Situation reaction
 const POOLS = {
 /* ---------- cliffhangers: the preview stops at the juicy part (“…”); the punchline is only in the chat ---------- */
 cliff: [
- ["wife", {p:"Не пугайся, но я купила", f:"тебе подарок. И себе три 🛍"}, {p:"Don’t panic, I bought", f:"you a gift. And three for me 🛍"}],
+ ["wife", {p:"Не пугайся, я купила", f:"тебе подарок. И себе три 🛍"}, {p:"Don’t panic, I bought", f:"you a gift. And three for me 🛍"}],
  ["friend", {p:"Брат, ты на фото, где", f:"ешь пятый беляш 📸"}, {p:"Bro, you’re in a photo", f:"eating your fifth samsa 📸"}],
  ["boss", {p:"Зайди завтра, разговор про", f:"торт. Хочу рецепт 🎂"}, {p:"See me tomorrow about", f:"the cake. I want the recipe 🎂"}],
- ["mom", {p:"Не волнуйся, но папа решил", f:"сам чинить стиралку 🔧"}, {p:"Don’t worry, but Dad decided", f:"to fix the washer himself 🔧"}],
- ["aigul", {p:"Кто оставил в холодильнике", f:"кастрюлю? Она шевелится 😳"}, {p:"Who left a pot", f:"in the fridge? It’s moving 😳"}],
- ["dana", {p:"Я узнала, кто получит премию:", f:"робот-пылесос. Он не опаздывал 🤖"}, {p:"I know who gets the bonus:", f:"the robot vacuum. Never late 🤖"}],
- ["bank", {p:"С вашей карты купили", f:"шаурму в 3 ночи. Мы никому 🌯"}, {p:"Your card just bought", f:"shawarma at 3 a.m. We won’t tell 🌯"}],
- ["deliv", {p:"Я перепутал адрес, и пицца", f:"сейчас на свадьбе. Хвалят 🍕"}, {p:"Wrong address, your pizza", f:"is at a wedding. They love it 🍕"}],
- ["teacher", {p:"На завтра ребёнку нужен", f:"костюм облака и три шишки ☁️"}, {p:"Tomorrow your child needs", f:"a cloud costume and 3 pine cones ☁️"}],
- ["neighbor", {p:"Твой кот у меня на балконе", f:"ест рассаду. Говорит, ты разрешил 🐈"}, {p:"Your cat is on my balcony", f:"eating seedlings. Says you allowed it 🐈"}],
+ ["mom", {p:"Не волнуйся, но папа", f:"сам чинит стиралку 🔧"}, {p:"Don’t worry, but Dad", f:"is fixing the washer 🔧"}],
+ ["aigul", {p:"Кто оставил кастрюлю?", f:"Она шевелится 😳"}, {p:"Who left a pot", f:"in the fridge? It’s moving 😳"}],
+ ["dana", {p:"Премию получит", f:"робот-пылесос. Не опаздывал 🤖"}, {p:"The bonus goes to", f:"the robot vacuum. Never late 🤖"}],
+ ["bank", {p:"С карты купили", f:"шаурму в 3 ночи. Мы никому 🌯"}, {p:"Your card bought", f:"shawarma at 3 a.m. Shh 🌯"}],
+ ["deliv", {p:"Я перепутал адрес, пицца", f:"на свадьбе. Хвалят 🍕"}, {p:"Wrong address, your pizza", f:"is at a wedding. They love it 🍕"}],
+ ["teacher", {p:"Завтра ребёнку нужен", f:"костюм облака и шишки ☁️"}, {p:"Tomorrow your kid needs", f:"a cloud costume ☁️"}],
+ ["neighbor", {p:"Твой кот на моём балконе", f:"ест рассаду 🐈"}, {p:"Your cat is on my balcony", f:"eating my seedlings 🐈"}],
  ["granny", {p:"Внучек, я подписалась на", f:"14 каналов про огурцы 🥒"}, {p:"Dear, I subscribed to", f:"14 cucumber channels 🥒"}],
- ["hr", {p:"Поздравляем, вы признаны", f:"самым вежливым на парковке 🅿️"}, {p:"Congrats, you’re voted", f:"most polite in the car park 🅿️"}],
- ["fridge", {p:"Хозяин, нам надо поговорить о", f:"твоём ночном сыре 🧀"}, {p:"Owner, we need to talk about", f:"your midnight cheese 🧀"}],
- ["cat", {p:"Движение: кот уронил", f:"кактус и не раскаивается 🌵"}, {p:"Motion: the cat knocked over", f:"the cactus. No regrets 🌵"}],
- ["love", {p:"Незнакомка хочет узнать,", f:"продлите ли вы подписку 💘"}, {p:"A stranger wants to know", f:"if you’ll renew your plan 💘"}],
- ["dad", {p:"Сын, я поставил нейросеть, и она", f:"называет меня «пользователь» 🤖"}, {p:"Son, I installed AI and it", f:"calls me “user” 🤖"}],
- ["erlan", {p:"Срочно: в отчёте нашли", f:"слово «примерно» 47 раз 📄"}, {p:"Urgent: the report has", f:"the word “roughly” 47 times 📄"}],
+ ["hr", {p:"Вы признаны", f:"самым вежливым на парковке 🅿️"}, {p:"Congrats, you’re voted", f:"most polite in the car park 🅿️"}],
+ ["fridge", {p:"Хозяин, поговорим о", f:"твоём ночном сыре 🧀"}, {p:"Owner, we need to talk about", f:"your midnight cheese 🧀"}],
+ ["cat", {p:"Кот уронил кактус и", f:"не раскаивается 🌵"}, {p:"Motion: the cat knocked over", f:"the cactus. No regrets 🌵"}],
+ ["love", {p:"Незнакомка спрашивает,", f:"продлите ли подписку 💘"}, {p:"A stranger wants to know", f:"if you’ll renew your plan 💘"}],
+ ["dad", {p:"Сын, нейросеть", f:"называет меня «пользователь» 🤖"}, {p:"Son, I installed AI and it", f:"calls me “user” 🤖"}],
+ ["erlan", {p:"В отчёте нашли слово", f:"«примерно» 47 раз 📄"}, {p:"Urgent: the report has", f:"the word “roughly” 47 times 📄"}],
  ["unknown", {p:"Здравствуйте, вы выиграли", f:"право перезвонить нам 📞"}, {p:"Hello, you’ve won", f:"the right to call us back 📞"}],
- ["game", {p:"Ваша корова на ферме", f:"ушла в отпуск без заявления 🐄"}, {p:"Your farm cow", f:"went on holiday without notice 🐄"}],
- ["home", {p:"Внимание: умная лампа", f:"поругалась с умной колонкой 💡"}, {p:"Alert: the smart lamp", f:"fell out with the smart speaker 💡"}],
+ ["game", {p:"Ваша корова", f:"ушла в отпуск без заявления 🐄"}, {p:"Your farm cow", f:"went on holiday without notice 🐄"}],
+ ["home", {p:"Умная лампа", f:"поругалась с колонкой 💡"}, {p:"Alert: the smart lamp", f:"fell out with the smart speaker 💡"}],
 ],
 /* ---------- regular driving (every message is a cliffhanger: preview + punchline) ---------- */
 drive: [
- ["wife", {p:"Купи хлеб, молоко и", f:"что-нибудь к чаю. Домой 🍪"}, {p:"Buy bread, milk and", f:"something for tea. At home 🍪"}],
+ ["wife", {p:"Купи хлеб, молоко и", f:"что-нибудь к чаю. Домой 🍪"}, {p:"Buy bread, milk and", f:"something for tea 🍪"}],
  ["wife", {p:"Где лежат", f:"мои ключи? Нашла. В холодильнике 🔑"}, {p:"Where are", f:"my keys? Found. In the fridge 🔑"}],
  ["wife", {p:"Твоя мама звонила и", f:"передала рецепт. Опять 🥟"}, {p:"Your mum called and", f:"sent a recipe. Again 🥟"}],
- ["mom", {p:"Ты покушал? Я отправлю", f:"фото еды, чтобы ты видел 🍲"}, {p:"Have you eaten? I’ll send", f:"a photo of food so you see 🍲"}],
- ["mom", {p:"Тётя Роза спрашивает, когда", f:"ты женишься. Опять 💍"}, {p:"Aunt Rosa asks when", f:"you’re getting married. Again 💍"}],
+ ["mom", {p:"Ты покушал? Шлю", f:"фото еды, чтобы ты видел 🍲"}, {p:"Have you eaten? I’ll send", f:"a photo of food so you see 🍲"}],
+ ["mom", {p:"Тётя Роза спрашивает,", f:"когда свадьба. Опять 💍"}, {p:"Aunt Rosa asks when", f:"you’re getting married. Again 💍"}],
  ["dad", {p:"Как поставить", f:"смайлик? Получилось 👍👍👍"}, {p:"How do I send", f:"a smiley? Done 👍👍👍"}],
  ["friend", {p:"Футбол в 8, берёшь", f:"мяч и хорошее настроение ⚽"}, {p:"Football at 8, bring", f:"the ball and good vibes ⚽"}],
  ["friend", {p:"Смотри, какой мем про", f:"водителей с телефоном 😂"}, {p:"Look at this meme about", f:"drivers with phones 😂"}],
  ["boss", {p:"Коротко: созвон", f:"на 2 часа. Шучу. На 3 ⏱"}, {p:"Quick one: a call", f:"for 2 hours. Kidding. 3 ⏱"}],
  ["boss", {p:"Отличная работа! Поэтому", f:"держи ещё два проекта 🎉"}, {p:"Great work! That’s why", f:"here are two more projects 🎉"}],
  ["dana", {p:"Кто взял мою кружку с", f:"надписью «Не трогать»? ☕"}, {p:"Who took my mug with", f:"“Do not touch” on it? ☕"}],
- ["dana", {p:"Сплетня дня: бухгалтерия", f:"купила кофемашину. Себе ☕"}, {p:"Gossip: accounting", f:"bought a coffee machine. For them ☕"}],
+ ["dana", {p:"Бухгалтерия купила", f:"кофемашину. Себе ☕"}, {p:"Gossip: accounting", f:"bought a coffee machine. For them ☕"}],
  ["aigul", {p:"Напоминаю: каски", f:"не для хранения бутербродов ⛑"}, {p:"Reminder: hard hats", f:"are not lunch boxes ⛑"}],
- ["erlan", {p:"Кто брал рулетку,", f:"верните. Я измеряю тоску 📏"}, {p:"Whoever took the tape,", f:"return it. I’m measuring gloom 📏"}],
- ["hr", {p:"Пятничный опрос: вы", f:"хотите опрос по пятницам? 📋"}, {p:"Friday survey: do you", f:"want Friday surveys? 📋"}],
- ["bank", {p:"Вам одобрен кредит на", f:"покупку того, что вы не просили 💳"}, {p:"You’re approved for a loan for", f:"stuff you never asked for 💳"}],
+ ["erlan", {p:"Кто брал рулетку,", f:"верните. Я измеряю тоску 📏"}, {p:"Whoever took the tape:", f:"I’m measuring gloom 📏"}],
+ ["hr", {p:"Опрос: хотите", f:"опросы по пятницам? 📋"}, {p:"Friday survey: do you", f:"want Friday surveys? 📋"}],
+ ["bank", {p:"Вам одобрен кредит на", f:"то, что вы не просили 💳"}, {p:"You’re approved for a loan", f:"you never asked for 💳"}],
  ["bank", {p:"Кешбэк за месяц:", f:"12 тенге. Не тратьте сразу 💸"}, {p:"Cashback this month:", f:"12 tenge. Don’t spend it all 💸"}],
  ["deliv", {p:"Курьер у двери и", f:"немножко у соседней двери 🚪"}, {p:"Courier at your door and", f:"a bit at the neighbour’s 🚪"}],
- ["deliv", {p:"Заказ задерживается, потому что", f:"курьер встретил одноклассника 🛵"}, {p:"Order delayed because", f:"the courier met a classmate 🛵"}],
+ ["deliv", {p:"Заказ задержится:", f:"курьер встретил друга 🛵"}, {p:"Order delayed because", f:"the courier met a classmate 🛵"}],
  ["fit", {p:"Сегодня 300 шагов. Вы", f:"уверены, что живы? 🚶"}, {p:"300 steps today. Are you", f:"sure you’re alive? 🚶"}],
- ["fit", {p:"Пульс 120! Вы", f:"бежите или читаете чат? ❤️"}, {p:"Heart rate 120! Are you", f:"running or reading the chat? ❤️"}],
- ["vac", {p:"Я застрял под диваном и", f:"нашёл ваш носок 2019 года 🧦"}, {p:"I’m stuck under the sofa and", f:"found your sock from 2019 🧦"}],
+ ["fit", {p:"Пульс 120! Вы", f:"бежите или читаете чат? ❤️"}, {p:"Heart rate 120! Running", f:"or reading the chat? ❤️"}],
+ ["vac", {p:"Я застрял под диваном и", f:"нашёл носок 2019 года 🧦"}, {p:"I’m stuck under the sofa,", f:"found a sock from 2019 🧦"}],
  ["weather", {p:"Сегодня солнечно, но", f:"мама всё равно скажет шапку 🧣"}, {p:"Sunny today, but", f:"mum will still say: hat 🧣"}],
  ["game", {p:"Ваши куры", f:"требуют повышения 🐔"}, {p:"Your chickens", f:"demand a promotion 🐔"}],
  ["neighbor", {p:"Это ты паркуешься так,", f:"что я хожу через багажник? 🚗"}, {p:"Do you park so that", f:"I walk through your boot? 🚗"}],
  ["granny", {p:"Внучек, это ты", f:"мне звонил? Я не нажала 📱"}, {p:"Dear, was that you", f:"calling? I didn’t press 📱"}],
  ["granny", {p:"Я отправила тебе", f:"голосовое на 9 минут 🎙"}, {p:"I sent you", f:"a 9-minute voice message 🎙"}],
- ["teacher", {p:"Родители, ваш ребёнок", f:"написал в сочинении про вас 📝"}, {p:"Parents, your child", f:"wrote an essay about you 📝"}],
+ ["teacher", {p:"Ваш ребёнок написал", f:"сочинение про вас 📝"}, {p:"Parents, your child", f:"wrote an essay about you 📝"}],
  ["home", {p:"Умный дом: дверь", f:"открыта. Кот ушёл к соседу 🐈"}, {p:"Smart home: door", f:"is open. Cat left for the neighbour 🐈"}],
  ["love", {p:"Кто-то лайкнул вашу", f:"фотографию 2014 года 💘"}, {p:"Someone liked your", f:"photo from 2014 💘"}],
 ],
 /* ---------- roadwork / cone zones ---------- */
 cones: [
  ["erlan", {p:"Видишь конусы? Это", f:"мы их расставили. С любовью 🚧"}, {p:"See the cones? We", f:"placed them. With love 🚧"}],
- ["nav", {p:"Впереди ремонт. Объезжайте", f:"аккуратно, конусы обидчивы 🚧"}, {p:"Road works ahead. Go around", f:"gently, cones get offended 🚧"}],
- ["car", {p:"Впереди препятствие:", f:"оранжевое и очень гордое 🚧"}, {p:"Obstacle ahead:", f:"orange and very proud 🚧"}],
+ ["nav", {p:"Ремонт впереди.", f:"Конусы обидчивы 🚧"}, {p:"Road works. Go around", f:"gently, cones are touchy 🚧"}],
+ ["car", {p:"Впереди препятствие:", f:"оранжевое и гордое 🚧"}, {p:"Obstacle ahead:", f:"orange and very proud 🚧"}],
  ["aigul", {p:"Конусы впереди, а ты", f:"опять в телефоне? 😑"}, {p:"Cones ahead and you’re", f:"on your phone again? 😑"}],
  ["dad", {p:"Сын, я в молодости", f:"объезжал конусы задом 😎"}, {p:"Son, in my youth", f:"I drove round cones backwards 😎"}],
  ["friend", {p:"Спорим, ты собьёшь", f:"конус? Ставлю беляш 🥟"}, {p:"Bet you hit", f:"a cone? I bet a samsa 🥟"}],
@@ -53669,61 +53677,61 @@ cones: [
 /* ---------- pedestrian crossing approaches ---------- */
 cross: [
  ["mom", {p:"Ты где? Перезвони, когда", f:"будешь не за рулём ❤️"}, {p:"Where are you? Call when", f:"you’re not driving ❤️"}],
- ["aigul", {p:"Впереди переход. Угадай,", f:"что сейчас важнее телефона 🚸"}, {p:"Crossing ahead. Guess", f:"what matters more than the phone 🚸"}],
- ["nav", {p:"Пешеходный переход через", f:"50 метров. Люди настоящие 🚸"}, {p:"Pedestrian crossing in", f:"50 m. The people are real 🚸"}],
+ ["aigul", {p:"Переход. Угадай, что", f:"важнее телефона 🚸"}, {p:"Crossing ahead. Guess", f:"what beats the phone 🚸"}],
+ ["nav", {p:"Переход через 50 м.", f:"Люди настоящие 🚸"}, {p:"Pedestrian crossing in", f:"50 m. The people are real 🚸"}],
  ["wife", {p:"Купи цветы, но", f:"сначала пропусти пешехода 💐"}, {p:"Buy flowers, but", f:"first let the pedestrian cross 💐"}],
  ["friend", {p:"Срочно глянь видео, как", f:"кот водит машину 🐈"}, {p:"Watch this video of", f:"a cat driving a car 🐈"}],
  ["boss", {p:"Где отчёт? Только", f:"не отвечай за рулём 📄"}, {p:"Where’s the report? Just", f:"don’t reply while driving 📄"}],
- ["dana", {p:"Новость! Наш кассир", f:"женится. На ком — не поверишь 💍"}, {p:"News! Our cashier", f:"is getting married. To whom?! 💍"}],
- ["bank", {p:"Внимание! Ваш баланс", f:"не изменился. Просто так пишем 💳"}, {p:"Attention! Your balance", f:"hasn’t changed. Just saying 💳"}],
+ ["dana", {p:"Наш кассир женится.", f:"На ком — не поверишь 💍"}, {p:"News! Our cashier", f:"is getting married. To whom?! 💍"}],
+ ["bank", {p:"Ваш баланс", f:"не изменился. Просто пишем 💳"}, {p:"Your balance", f:"hasn’t changed. Just saying 💳"}],
  ["granny", {p:"Внучек, посмотри,", f:"какая у меня новая шапка 🧶"}, {p:"Dear, look at", f:"my new hat 🧶"}],
  ["deliv", {p:"Я рядом с вами, машу", f:"рукой. Нет, левее 👋"}, {p:"I’m near you, waving.", f:"No, more to the left 👋"}],
  ["game", {p:"Срочно! Урожай", f:"пропадёт через 3 секунды 🌽"}, {p:"Urgent! Your harvest", f:"spoils in 3 seconds 🌽"}],
- ["erlan", {p:"Пешеход на переходе", f:"главнее любого чата. Факт 🚸"}, {p:"A pedestrian on the crossing", f:"beats any chat. Fact 🚸"}],
+ ["erlan", {p:"Пешеход на переходе", f:"главнее любого чата 🚸"}, {p:"A pedestrian on the crossing", f:"beats any chat. Fact 🚸"}],
  ["teacher", {p:"Срочно! Кто забыл", f:"сменку? Все. Все забыли 👟"}, {p:"Urgent! Who forgot", f:"indoor shoes? All. Everyone 👟"}],
  ["love", {p:"Вас ищет кто-то", f:"совсем рядом. Это пешеход 💘"}, {p:"Someone nearby", f:"is looking for you. A pedestrian 💘"}],
 ],
 /* ---------- waiting at a red light ---------- */
 redWait: [
- ["wife", {p:"Раз ты стоишь —", f:"а что на ужин? Варианты: ты 🍳"}, {p:"Since you’re stopped —", f:"what’s for dinner? Option: you 🍳"}],
+ ["wife", {p:"Раз ты стоишь —", f:"а что на ужин? Варианты: ты 🍳"}, {p:"Since you’re stopped:", f:"what’s for dinner? 🍳"}],
  ["friend", {p:"Пока красный, смотри", f:"мем. Нет, лучше на светофор 🚦"}, {p:"While it’s red, see", f:"a meme. No, watch the light 🚦"}],
  ["boss", {p:"Пока стоишь: ты", f:"молодец. Едь дальше 👍"}, {p:"While you wait: you’re", f:"doing great. Drive on 👍"}],
  ["mom", {p:"Ты стоишь? Отлично,", f:"надень шапку 🧣"}, {p:"You’re stopped? Good,", f:"put a hat on 🧣"}],
  ["fit", {p:"Стоите на красном?", f:"Сделайте вдох. Готово 🧘"}, {p:"Waiting at a red?", f:"Take a breath. Done 🧘"}],
- ["dana", {p:"Пока горит красный:", f:"Айгуль купила новую машину 🚗"}, {p:"While it’s red:", f:"Aigul bought a new car 🚗"}],
- ["cat", {p:"Пока вы стоите, кот", f:"открыл шкаф с кормом 🐈"}, {p:"While you wait, the cat", f:"opened the food cupboard 🐈"}],
- ["nav", {p:"Красный свет. Самое время", f:"не трогать телефон 🚦"}, {p:"Red light. Perfect time", f:"not to touch the phone 🚦"}],
+ ["dana", {p:"Пока красный:", f:"Айгуль купила машину 🚗"}, {p:"While it’s red:", f:"Aigul bought a new car 🚗"}],
+ ["cat", {p:"Пока вы стоите, кот", f:"открыл шкаф с кормом 🐈"}, {p:"While you wait, the cat", f:"raided the cupboard 🐈"}],
+ ["nav", {p:"Красный. Лучшее время", f:"не трогать телефон 🚦"}, {p:"Red light. Perfect time", f:"not to touch the phone 🚦"}],
  ["granny", {p:"Раз стоишь, поставь лайк", f:"моей рассаде 🌱"}, {p:"Since you’re stopped, like", f:"my seedlings 🌱"}],
  ["game", {p:"Пока красный: ваша", f:"корова вернулась из отпуска 🐄"}, {p:"While red: your cow", f:"is back from holiday 🐄"}],
  ["vac", {p:"Пока стоите, я", f:"съел зарядку. Простите 🔌"}, {p:"While you wait, I", f:"ate the charger. Sorry 🔌"}],
- ["weather", {p:"На светофоре", f:"+25. В машине +40. Не раздевайтесь ☀️"}, {p:"At the lights:", f:"+25. In the car +40. Stay dressed ☀️"}],
+ ["weather", {p:"На улице +25, в машине", f:"+40. Не раздевайтесь ☀️"}, {p:"At the lights:", f:"+25. In the car +40. Stay dressed ☀️"}],
 ],
 /* ---------- right after a crash / violation ---------- */
 crash: [
- ["aigul", {p:"Это был удар? Ещё раз:", f:"телефон подождёт, дорога — нет 😟"}, {p:"Was that a hit? Again:", f:"the phone can wait, the road can’t 😟"}],
+ ["aigul", {p:"Это был удар?", f:"Телефон подождёт, дорога — нет 😟"}, {p:"Was that a hit?", f:"The phone can wait 😟"}],
  ["wife", {p:"Что это за звук?", f:"Ты в порядке? Не пиши, едь 😟"}, {p:"What was that sound?", f:"Are you OK? Don’t text, drive 😟"}],
  ["car", {p:"Зафиксирован удар.", f:"Телефон тут ни при чём? 🤔"}, {p:"Impact detected.", f:"Was the phone involved? 🤔"}],
  ["erlan", {p:"Видел. В отчёт", f:"пойдёт. Без мемов 📄"}, {p:"Saw that. It goes", f:"in the report. No memes 📄"}],
- ["mom", {p:"Сынок, я почувствовала,", f:"что что-то не так. Ты как? ❤️"}, {p:"I just felt", f:"something’s wrong. Are you OK? ❤️"}],
+ ["mom", {p:"Сынок, у меня", f:"предчувствие. Ты как? ❤️"}, {p:"I just felt", f:"something’s wrong. Are you OK? ❤️"}],
  ["boss", {p:"Это было", f:"не то, о чём я просил 😐"}, {p:"That was", f:"not what I asked for 😐"}],
- ["friend", {p:"Брат, это была", f:"не та «звезда», о которой мечтал 💥"}, {p:"Bro, that wasn’t", f:"the kind of star you wanted 💥"}],
- ["fit", {p:"Резкий скачок пульса.", f:"Совет: смотрите на дорогу ❤️"}, {p:"Sudden pulse spike.", f:"Tip: look at the road ❤️"}],
+ ["friend", {p:"Брат, это не та", f:"«звезда», о которой мечтал 💥"}, {p:"Bro, that wasn’t", f:"the kind of star you wanted 💥"}],
+ ["fit", {p:"Скачок пульса.", f:"Совет: смотрите на дорогу ❤️"}, {p:"Sudden pulse spike.", f:"Tip: look at the road ❤️"}],
  ["nav", {p:"Маршрут перестроен:", f:"через внимательность 🧭"}, {p:"Route recalculated:", f:"via attention 🧭"}],
  ["dad", {p:"Сын, в моё время", f:"телефоны были в будке 📞"}, {p:"Son, in my day", f:"phones lived in a booth 📞"}],
  ["hr", {p:"Напоминаем:", f:"курс по вождению в пятницу 📚"}, {p:"Reminder:", f:"driving course on Friday 📚"}],
- ["dana", {p:"Сплетня дня: кто-то", f:"только что сбил… свою репутацию 😬"}, {p:"Gossip: someone", f:"just crashed… their reputation 😬"}],
+ ["dana", {p:"Сплетня: кто-то сбил…", f:"свою репутацию 😬"}, {p:"Gossip: someone", f:"just crashed… their reputation 😬"}],
 ],
 /* ---------- full stop in a parking bay ---------- */
 parking: [
- ["aigul", {p:"Правильно: сначала", f:"остановка, потом телефон ✅"}, {p:"Right: first", f:"stop, then phone ✅"}],
- ["nav", {p:"Вы на парковке. Награда:", f:"спокойствие и ноль штрафов 🅿️"}, {p:"You’re parked. Reward:", f:"calm and zero fines 🅿️"}],
+ ["aigul", {p:"Правильно: сначала", f:"стоп, потом телефон ✅"}, {p:"Right: first", f:"stop, then phone ✅"}],
+ ["nav", {p:"Вы на парковке. Награда:", f:"ноль штрафов 🅿️"}, {p:"You’re parked. Reward:", f:"calm and zero fines 🅿️"}],
  ["wife", {p:"Остановился? Тогда", f:"скажи, что любишь. И хлеб 🍞"}, {p:"Stopped? Then", f:"say you love me. And bread 🍞"}],
- ["dad", {p:"Сын, правильно, что встал. Я", f:"так маму встретил в 1987 💐"}, {p:"Right to stop, son. That’s", f:"how I met your mum in 1987 💐"}],
+ ["dad", {p:"Правильно встал. Я так", f:"маму встретил в 1987 💐"}, {p:"Good stop, son. That’s", f:"how I met your mum 💐"}],
  ["deliv", {p:"Вы стоите? Отлично, я", f:"почти рядом. Почти 🍕"}, {p:"You’re parked? Great, I’m", f:"almost near. Almost 🍕"}],
  ["boss", {p:"Видел, что ты встал", f:"прочитать. Уважаю 👏"}, {p:"Saw you stop", f:"to read. Respect 👏"}],
  ["hr", {p:"За безопасную парковку", f:"+10 баллов уважения 🙂"}, {p:"For safe parking:", f:"+10 respect points 🙂"}],
- ["granny", {p:"Внучек, раз стоишь,", f:"позвони бабушке. Шучу. Позвони 📞"}, {p:"Dear, since you’re parked,", f:"call granny. Kidding. Call 📞"}],
- ["fit", {p:"Отличная пауза! Вы", f:"сделали 0 шагов, но всё правильно 🧘"}, {p:"Great pause! You", f:"took 0 steps, but all correct 🧘"}],
+ ["granny", {p:"Раз стоишь,", f:"позвони бабушке. Шучу. Позвони 📞"}, {p:"Dear, since you’re parked,", f:"call granny. Kidding. Call 📞"}],
+ ["fit", {p:"Отличная пауза:", f:"0 шагов, но всё правильно 🧘"}, {p:"Great pause! You", f:"took 0 steps, but all correct 🧘"}],
  ["friend", {p:"Стоишь? Тогда", f:"глянь мем. Теперь можно 😂"}, {p:"Parked? Then", f:"watch the meme. Now you can 😂"}],
 ],
 /* ---------- wife follow-ups right after the key message (serious) ---------- */
@@ -54342,18 +54350,17 @@ const PH = {
     const full = (c.p+' '+c.f).trim(), prev = c.p+'…';
     const who=WHO[m.w], app=APPS[who.app], grp=!!GROUP[m.w];
     S.recv++; this.unread++;
-    const rec={n:S.notifs.length+1, id:m.id, cat:m.cat, t:+S.t.toFixed(1), d:Math.round(-S.z), w:m.w, sender: grp? app[lang]+' · '+who[lang] : who[lang], text:prev, kmh:Math.round(S.v*3.6), opened:false, eyesS:0, eyesM:0, visT:0, visV:0, cw:o.cw||null, tag:o.tag||null, ev:o.ev||null, hot:!!o.hot, full};
+    const rec={n:S.notifs.length+1, id:m.id, cat:m.cat, t:+S.t.toFixed(1), d:Math.round(-S.z), w:m.w, sender: grp? app[lang]+' · '+who[lang] : who[lang], text:full, kmh:Math.round(S.v*3.6), opened:false, eyesS:0, eyesM:0, visT:0, visV:0, cw:o.cw||null, tag:o.tag||null, ev:o.ev||null, hot:!!o.hot, full};
     S.notifs.push(rec);
     (this.threads[m.w]=this.threads[m.w]||[]).push({text:full,t:$('ptime').textContent,au:grp?who[lang]:''});
     const el=document.createElement('div'); el.className='nt cliff'+(o.hot?' key':'');
-    el.innerHTML=`<div class="ai" style="background:${app.c}">${who.ic}</div><div class="tx"><div class="fr"></div><div class="bd"></div><div class="more">${T.tapRead}</div></div>`;
-    el.querySelector('.fr').textContent = rec.sender; el.querySelector('.bd').textContent = prev;
-    el.addEventListener('pointerdown',e=>{ e.preventDefault(); this.openChat(m.w, rec); if (rec.opened) el.remove(); });   // pointerdown: robust when the stack shifts under the finger
+    el.innerHTML=`<div class="tx"><div class="fr"><span class="ai" style="background:${app.c}">${who.ic}</span><span class="nm"></span></div><div class="bd"></div></div>`;
+    el.querySelector('.nm').textContent = rec.sender; el.querySelector('.bd').textContent = full;   // v5d: whole message at once, nothing to tap
     const st=$('stack'); st.prepend(el); [...st.children].forEach((x,i)=>{ if(i>0) x.classList.add('old'); if(i>(IS_MOB?1:2)) x.remove(); });
     const life=(o.hot?9:7)*1000; setTimeout(()=>{ el.classList.add('out'); setTimeout(()=>el.remove(),400); }, life);
     HAND.up(o.hot?2.2:1.5, o.hot); sndMsg(); if(o.hot) setTimeout(sndMsg,250);
     this.vis.push({until:S.t+(o.hot?9:6), rec});
-    aud({ic:who.ic,c:app.c}, rec.sender, prev, o.hot);
+    aud({ic:who.ic,c:app.c}, rec.sender, full, o.hot);
     try { if (navigator.vibrate && navigator.userActivation && navigator.userActivation.hasBeenActive) navigator.vibrate(o.hot?[120,80,120]:120); } catch(e){}
     return rec;
   },
@@ -54731,7 +54738,7 @@ function renderReport(r, fromAll){
   const pedRow = p => { const ok=!p.hit && !p.yieldFail; const rt = p.react!=null ? `${L.react}: ${p.react.toFixed(2)} ${L.sec}` : `${L.react}: ${L.noBrake}`;
     return `<div class="ep"><div class="ic">${p.id==='K'?'🧒':p.id==='P2'?'🧓':'🚶'}</div><div class="bd"><b>${L.E[p.id]}</b><small>${p.seen?rt+' · '+(p.hit?L.hit:p.yieldFail?L.notYield:L.yielded)+' · ':''}${L.cwD(p.phoneAtPed?L.yes:L.no, p.nApproach)}</small></div>${pill(p.seen?ok:null, !p.seen?'—':ok?'✔':'✘')}</div>`; };
   const calls = r.calls.length ? r.calls.map(c=>`<div class="ep"><div class="ic">${c.urgent?'🚨':'📞'}</div><div class="bd"><b>${esc(c.who)}${c.urgent?' · '+(lang==='ru'?'срочный':'urgent'):''}</b><small>${fmtT(c.t)} · ${c.d} ${L.m} · ${L.callRow[c.result]}${c.parkT!=null?' · '+L.tPark(c.parkT):''}</small></div>${pill(!(c.result==='moving'||c.result==='stopped'), L.callShort[c.result])}</div>`).join('') : `<p class="mut">${L.callNone}</p>`;
-  const rows = r.notifs.map(n=>`<tr class="${n.opened?'op':''}"><td>${n.n}</td><td>${fmtT(n.t)}</td><td>${n.d} ${L.m}</td><td><b>${esc(n.sender)}</b>${n.cw?' <span class="tag">🚸</span>':''}${n.tag==='key'?' <span class="tag">⚠️</span>':''}${n.tag==='urgent'?' <span class="tag">🚨</span>':''}</td><td class="msg">${esc(n.text)}${n.full?`<br><small class="mut">🪝 ${esc(n.full)}</small>`:''}</td><td class="nowrap">${n.kmh} → ${n.avgKmh} ${L.kmh}</td><td>${n.opened?pill(false,L.yes):'<span class="mut">'+L.no+'</span>'}</td></tr>`).join('');
+  const rows = r.notifs.map(n=>`<tr class="${n.opened?'op':''}"><td>${n.n}</td><td>${fmtT(n.t)}</td><td>${n.d} ${L.m}</td><td><b>${esc(n.sender)}</b>${n.cw?' <span class="tag">🚸</span>':''}${n.tag==='key'?' <span class="tag">⚠️</span>':''}${n.tag==='urgent'?' <span class="tag">🚨</span>':''}</td><td class="msg">${esc(n.text)}${n.full&&n.full!==n.text?`<br><small class="mut">🪝 ${esc(n.full)}</small>`:''}</td><td class="nowrap">${n.kmh} → ${n.avgKmh} ${L.kmh}</td></tr>`).join('');
   const RE = r.roadEvents || [], evAv = RE.filter(e=>e.result==='avoided').length;
   const evRows = RE.length ? RE.map(e=>`<div class="ep"><div class="ic">${EV_IC[e.type]||'⚠️'}</div><div class="bd"><b>${esc((L.EVN||{})[e.type]||e.type)}</b><small>${fmtT(e.t)} · ${e.d} ${L.m} · ${e.kmh} ${L.kmh} · ${e.msg?L.evMsgY+(e.msgText?' «'+esc(e.msgText)+'»':''):L.evMsgN} · ${L.react}: ${e.react!=null?e.react.toFixed(2)+' '+L.sec:L.evNoReact} · ${L.evRes[e.result]||e.result}${e.pts?' ('+(e.pts>0?'+':'')+e.pts+')':''}</small></div>${pill(e.result==='avoided', e.result==='avoided'?'✔':'✘')}</div>`).join('') : `<p class="mut">—</p>`;
   $('scrReport').innerHTML = `<div class="card report">
@@ -54741,7 +54748,7 @@ function renderReport(r, fromAll){
      ${r.finishMsg?`<div class="fmsg">📱 <b>${esc(r.finishMsg.sender)}:</b> ${esc(r.finishMsg.text)}</div>`:''}</div></div>
    <div class="stats">
      <div class="st"><b>${q?q.correct+' / '+q.total:'—'}</b><span>${L.sTest}</span></div><div class="st"><b>${q?q.avgMs+' ms':'—'}</b><span>${L.sReactT}</span></div>
-     <div class="st"><b>${r.opened} / ${r.msgs}</b><span>${L.sOpened}</span></div>
+     <div class="st"><b>${r.msgs}</b><span>${L.sOpened}</span></div>
      <div class="st"><b>${r.redRun}</b><span>${L.sRed}</span></div><div class="st"><b>${r.avgReaction!=null?r.avgReaction.toFixed(2)+' '+L.sec:'—'}</b><span>${L.sPedR}</span></div>
      <div class="st"><b>${r.conesHit} / ${r.conesTotal}</b><span>${L.sCones}</span></div><div class="st"><b>${r.collisions}</b><span>${L.sColl}</span></div>
      <div class="st"><b>${r.avgKmhNotif} ${L.kmh}</b><span>${L.sSpeedN}</span></div><div class="st"><b>${r.avgKmhNoNotif} ${L.kmh}</b><span>${L.sSpeedO}</span></div>
@@ -54765,7 +54772,7 @@ function renderReport(r, fromAll){
 let sortK='date', sortDir=-1; const sel=new Set();
 const COLS = [
  ['name', r=>r.name], ['date', r=>r.date], ['quiz', r=>r.quiz?r.quiz.correct:null], ['reactMs', r=>r.quiz?r.quiz.avgMs:null], ['score', r=>r.score], ['pass', r=>r.pass?1:0],
- ['opened', r=>r.opened], ['redRun', r=>r.redRun], ['pedReact', r=>r.avgReaction], ['cones', r=>r.conesHit], ['coll', r=>r.collisions], ['call', r=>r.urgentResult], ['evOk', r=>r.roadEvents&&r.roadEvents.length?r.roadEvents.filter(e=>e.result==='avoided').length/r.roadEvents.length:null], ['evReact', r=>{ const a=(r.roadEvents||[]).map(e=>e.react).filter(v=>v!=null); return a.length?+(a.reduce((x,y)=>x+y,0)/a.length).toFixed(2):null; }], ['maxKmh', r=>r.maxKmh]];
+ ['redRun', r=>r.redRun], ['pedReact', r=>r.avgReaction], ['cones', r=>r.conesHit], ['coll', r=>r.collisions], ['call', r=>r.urgentResult], ['evOk', r=>r.roadEvents&&r.roadEvents.length?r.roadEvents.filter(e=>e.result==='avoided').length/r.roadEvents.length:null], ['evReact', r=>{ const a=(r.roadEvents||[]).map(e=>e.react).filter(v=>v!=null); return a.length?+(a.reduce((x,y)=>x+y,0)/a.length).toFixed(2):null; }], ['maxKmh', r=>r.maxKmh]];
 const GET = Object.fromEntries(COLS);
 function renderAll(){
   T = I18N[lang]; const L=T, a=load().filter(r=>r.v===2);
@@ -54776,7 +54783,7 @@ function renderAll(){
     if(k==='call') return L.callShort[v]||v; if(k==='evOk') return v==null?'—':`${r.roadEvents.filter(e=>e.result==='avoided').length}/${r.roadEvents.length}`; if(k==='evReact') return v==null?'—':v.toFixed(2); if(k==='pedReact') return v!=null?v.toFixed(2):'—'; if(k==='score') return `<b>${v}</b>`; return v==null?'—':v; };
   $('scrAll').innerHTML = `<div class="topline noprint"><div class="seg"><button data-lg="ru" class="${lang==='ru'?'active':''}">RU</button><button data-lg="en" class="${lang==='en'?'active':''}">EN</button></div></div>
    <div class="hero sm"><div class="eyebrow">${L.allEy}</div><h1 class="title">${L.allH}</h1></div>
-   <div class="sum">${[[n,L.sum.n],[n?avg:'—',L.sum.avg],[n?Math.round(ps/n*100)+'%':'—',L.sum.pass],[n?Math.round(op/n*100)+'%':'—',L.sum.open]].map(([v,l])=>`<div class="st"><b>${v}</b><span>${l}</span></div>`).join('')}</div>
+   <div class="sum">${[[n,L.sum.n],[n?avg:'—',L.sum.avg],[n?Math.round(ps/n*100)+'%':'—',L.sum.pass]].map(([v,l])=>`<div class="st"><b>${v}</b><span>${l}</span></div>`).join('')}</div>
    <div class="card"><div class="tw">${n?`<table class="t all-t"><tr><th class="noprint"></th>${COLS.map(([k])=>`<th data-k="${k}" class="sortable">${L.aCols[k]}${sortK===k?(sortDir>0?' ▲':' ▼'):''}</th>`).join('')}<th class="noprint"></th></tr>
      ${sorted.map(r=>`<tr><td class="noprint"><input type="checkbox" class="cmp" data-id="${r.id}" ${sel.has(r.id)?'checked':''}></td>${COLS.map(([k])=>`<td>${fmt(k,r)}</td>`).join('')}<td class="noprint nowrap"><button class="btn ghost xs" data-open="${r.id}">${L.open}</button> <button class="btn ghost xs" data-del="${r.id}" title="${L.del}">✕</button></td></tr>`).join('')}</table>`:`<p class="mut" style="text-align:center;padding:20px">${L.allEmpty}</p>`}</div></div>
    <div class="card" id="cmp" style="margin-top:16px"></div>
@@ -54792,16 +54799,16 @@ function renderAll(){
 }
 function renderCmp(a){ const L=T, el=$('cmp'); const rs=a.filter(r=>sel.has(r.id)).slice(0,4);
   if (rs.length<2){ el.innerHTML=`<h3>${L.cmpH}</h3><p class="mut">${L.cmpHint}</p>`; return; }
-  const metrics=[['score',r=>r.score,100],['opened',r=>r.opened],['redRun',r=>r.redRun],['pedReact',r=>r.avgReaction||0],['cones',r=>r.conesHit],['reactMs',r=>r.quiz?r.quiz.avgMs:0]];
+  const metrics=[['score',r=>r.score,100],['redRun',r=>r.redRun],['pedReact',r=>r.avgReaction||0],['cones',r=>r.conesHit],['reactMs',r=>r.quiz?r.quiz.avgMs:0]];
   const cols=['#4f8cff','#22d3ee','#f59e0b','#a855f7'];
   el.innerHTML=`<h3>${L.cmpH}</h3><div class="legend">${rs.map((r,i)=>`<span><i style="background:${cols[i]}"></i>${esc(r.name)}</span>`).join('')}</div>`+metrics.map(([k,f,max])=>{ const m=max||Math.max(1,...rs.map(f));
     return `<div class="cmprow"><div class="cl">${L.aCols[k]}</div><div class="bars">${rs.map((r,i)=>`<div class="bar"><i style="width:${Math.max(2,f(r)/m*100)}%;background:${cols[i]}"></i><span>${k==='pedReact'?(+f(r)).toFixed(2):f(r)}</span></div>`).join('')}</div></div>`; }).join(''); }
 function csv(a, notifs){ if(!a.length) return; const q=v=>{ v=v==null?'':String(v); return /[;"\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v; };
   let rows;
-  if (!notifs){ const H=['date','name','pid','lang','score','pass','bonus','quizCorrect','quizTotal','quizReactMs','duration','msgs','opened','redRun','redStopped','yieldFail','pedHit','avgPedReaction','reactP1','reactK','reactP2','phoneAtPedP1','phoneAtPedK','phoneAtPedP2','conesHit','conesTotal','collisions','offroad','laneOut','urgentCall','urgentParkT','maxKmh','avgKmhNotif','avgKmhNoNotif','speedingS','reactP3','reactP4','endReason','routeM','events_total','events_avoided','events_hit','events_with_msg','events_avg_reaction_s','events_detail'];
-    rows=[H].concat(a.map(r=>{ const pd=id=>r.peds.find(p=>p.id===id)||{}; return [r.date,r.name,r.pid,r.lang,r.score,r.pass,r.bonus,r.quiz&&r.quiz.correct,r.quiz&&r.quiz.total,r.quiz&&r.quiz.avgMs,r.duration,r.msgs,r.opened,r.redRun,r.redStopped,r.yieldFail,r.pedHit,r.avgReaction,pd('P1').react,pd('K').react,pd('P2').react,pd('P1').phoneAtPed,pd('K').phoneAtPed,pd('P2').phoneAtPed,r.conesHit,r.conesTotal,r.collisions,r.offroad,r.laneOut,r.urgentResult,r.urgentParkT,r.maxKmh,r.avgKmhNotif,r.avgKmhNoNotif,r.speedingS,pd('P3').react,pd('P4').react,r.endReason||'',r.routeM||1720].concat((()=>{ const E=r.roadEvents||[], rs=E.map(e=>e.react).filter(v=>v!=null); return [E.length,E.filter(e=>e.result==='avoided').length,E.filter(e=>e.result!=='avoided').length,E.filter(e=>e.msg).length,rs.length?+(rs.reduce((x,y)=>x+y,0)/rs.length).toFixed(2):'',E.map(e=>[e.type,e.d,e.result,e.msg?'msg':'nomsg',e.react!=null?e.react:'-'].join(':')).join(' | ')]; })()); })); }
-  else { const H=['date','driver','n','time_s','distance_m','sender','text','call','crosswalk','kmh_at_arrival','avg_kmh_while_visible','opened'];
-    rows=[H]; a.forEach(r=>r.notifs.forEach(n=>rows.push([r.date,r.name,n.n,n.t,n.d,n.sender,n.text,n.call,n.cw,n.kmh,n.avgKmh,n.opened]))); }
+  if (!notifs){ const H=['date','name','pid','lang','score','pass','bonus','quizCorrect','quizTotal','quizReactMs','duration','msgs','redRun','redStopped','yieldFail','pedHit','avgPedReaction','reactP1','reactK','reactP2','phoneAtPedP1','phoneAtPedK','phoneAtPedP2','conesHit','conesTotal','collisions','offroad','laneOut','urgentCall','urgentParkT','maxKmh','avgKmhNotif','avgKmhNoNotif','speedingS','reactP3','reactP4','endReason','routeM','events_total','events_avoided','events_hit','events_with_msg','events_avg_reaction_s','events_detail'];
+    rows=[H].concat(a.map(r=>{ const pd=id=>r.peds.find(p=>p.id===id)||{}; return [r.date,r.name,r.pid,r.lang,r.score,r.pass,r.bonus,r.quiz&&r.quiz.correct,r.quiz&&r.quiz.total,r.quiz&&r.quiz.avgMs,r.duration,r.msgs,r.redRun,r.redStopped,r.yieldFail,r.pedHit,r.avgReaction,pd('P1').react,pd('K').react,pd('P2').react,pd('P1').phoneAtPed,pd('K').phoneAtPed,pd('P2').phoneAtPed,r.conesHit,r.conesTotal,r.collisions,r.offroad,r.laneOut,r.urgentResult,r.urgentParkT,r.maxKmh,r.avgKmhNotif,r.avgKmhNoNotif,r.speedingS,pd('P3').react,pd('P4').react,r.endReason||'',r.routeM||1720].concat((()=>{ const E=r.roadEvents||[], rs=E.map(e=>e.react).filter(v=>v!=null); return [E.length,E.filter(e=>e.result==='avoided').length,E.filter(e=>e.result!=='avoided').length,E.filter(e=>e.msg).length,rs.length?+(rs.reduce((x,y)=>x+y,0)/rs.length).toFixed(2):'',E.map(e=>[e.type,e.d,e.result,e.msg?'msg':'nomsg',e.react!=null?e.react:'-'].join(':')).join(' | ')]; })()); })); }
+  else { const H=['date','driver','n','time_s','distance_m','sender','text','call','crosswalk','kmh_at_arrival','avg_kmh_while_visible'];
+    rows=[H]; a.forEach(r=>r.notifs.forEach(n=>rows.push([r.date,r.name,n.n,n.t,n.d,n.sender,n.text,n.call,n.cw,n.kmh,n.avgKmh]))); }
   const s='\ufeff'+rows.map(r=>r.map(q).join(';')).join('\n'); const b=new Blob([s],{type:'text/csv;charset=utf-8'}), u=URL.createObjectURL(b), l=document.createElement('a');
   l.href=u; l.download=(notifs?'hse_notifications_':'hse_drivers_')+new Date().toISOString().slice(0,10)+'.csv'; document.body.appendChild(l); l.click(); l.remove(); setTimeout(()=>URL.revokeObjectURL(u),1500); }
 
