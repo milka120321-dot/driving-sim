@@ -322,6 +322,63 @@ body.mob .badge{top:12px}
 body.mob .a2hs{margin-top:8px;font-size:.78rem;padding:7px 10px}
 body.standalone{background:#070b16}
 
+/* ================= v4: hand with phone + compact cliffhanger bubbles (no phone widget) ================= */
+#phone,#phone[hidden]{display:none!important}
+#hand{position:fixed;right:max(10px,env(safe-area-inset-right));bottom:0;z-index:18;width:clamp(170px,19vw,300px);pointer-events:none;
+  transform:translate(35%,95%) rotate(22deg);opacity:0;transform-origin:85% 100%;transition:transform .32s cubic-bezier(.2,.8,.25,1),opacity .2s}
+#hand svg{display:block;width:100%;height:auto;filter:drop-shadow(0 14px 22px rgba(0,0,0,.45))}
+#hand.up{transform:translate(0,0) rotate(-4deg);opacity:1}
+#hand.up svg{animation:hbob 1.6s ease-in-out infinite}
+@keyframes hbob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-4px) rotate(-1.5deg)}}
+#hand .thumb{transform-box:view-box;transform-origin:160px 175px}
+#hand.up .thumb{animation:thumbTap 1.05s ease-in-out infinite}
+@keyframes thumbTap{0%,100%{transform:rotate(0) translate(0,0)}18%{transform:rotate(-7deg) translate(-3px,-5px)}30%{transform:rotate(-7deg) translate(-3px,-3px) scale(.97)}
+  55%{transform:rotate(3deg) translate(0,8px)}75%{transform:rotate(-3deg) translate(-1px,-2px)}}
+#hand .hlist{transform-box:view-box}
+#hand.up .hlist{animation:hscroll 2.1s ease-in-out infinite}
+@keyframes hscroll{0%,30%{transform:translateY(0)}55%,80%{transform:translateY(-26px)}100%{transform:translateY(0)}}
+#hand .hscr{transition:filter .15s}
+#hand.lit .hscr{animation:hlit .7s ease-out 1}
+@keyframes hlit{0%{filter:brightness(2.1) saturate(1.3)}100%{filter:brightness(1)}}
+#hand.hot .hscr{fill:#dc2626}
+#rcol{position:fixed;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));z-index:21;width:min(330px,30vw);display:flex;flex-direction:column;gap:8px;pointer-events:none}
+#rcol>*{pointer-events:auto}
+#stack{position:static;display:flex;flex-direction:column;gap:6px;overflow:visible;inset:auto}
+#stack .nt{display:flex;gap:9px;align-items:flex-start;padding:9px 11px;border-radius:14px;background:rgba(15,23,42,.9);border:1px solid rgba(148,163,184,.35);
+  box-shadow:0 10px 24px rgba(0,0,0,.35);color:#fff;cursor:pointer;animation:ntIn .28s cubic-bezier(.2,.8,.25,1);transition:opacity .35s,transform .35s;backdrop-filter:blur(8px)}
+@keyframes ntIn{from{transform:translateX(30px) scale(.96);opacity:0}to{transform:none;opacity:1}}
+#stack .nt.old{opacity:.6;transform:scale(.97)}#stack .nt.out{opacity:0;transform:translateX(30px)}
+#stack .nt.key{background:rgba(127,29,29,.92);border-color:#f87171}
+#stack .nt .ai{flex:0 0 30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:1rem}
+#stack .nt .tx{flex:1;min-width:0}#stack .nt .fr{font-weight:800;font-size:.78rem;color:#cbd5f5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#stack .nt .bd{font-size:.9rem;line-height:1.3;font-style:normal;display:block;-webkit-line-clamp:unset;overflow:visible}
+#stack .nt .more{font-size:.68rem;color:#93c5fd;margin-top:2px;font-weight:700}
+#chat{position:relative;inset:auto;display:none;flex-direction:column;background:rgba(11,18,32,.96);border:1px solid rgba(148,163,184,.35);border-radius:14px;max-height:62vh;overflow:hidden;box-shadow:0 12px 30px rgba(0,0,0,.45)}
+#chat.on{display:flex}#chat .ch-b{overflow:auto;padding:8px 10px;display:flex;flex-direction:column;gap:6px}
+#chat .ch-h{display:flex;align-items:center;gap:8px;padding:8px 10px;border-bottom:1px solid rgba(148,163,184,.2)}#chat .ch-h b{flex:1;font-size:.9rem}
+#chat .ch-h .ai{width:28px;height:28px;border-radius:8px;display:grid;place-items:center}
+#chat .ch-x{border:0;border-radius:10px;padding:7px 12px;background:#334155;color:#fff;font-weight:800;cursor:pointer}
+#chat .bub{background:#1e293b;border-radius:12px;padding:7px 9px;font-size:.88rem;line-height:1.35}#chat .bub small{display:block;opacity:.55;font-size:.65rem;margin-top:2px}
+#call{position:relative;inset:auto;display:none;flex-direction:column;gap:8px;padding:10px 12px;border-radius:16px;background:rgba(6,78,59,.95);border:1px solid #34d399;box-shadow:0 12px 30px rgba(0,0,0,.45)}
+#call.on{display:flex}#call.urgent{background:rgba(127,29,29,.96);border-color:#f87171;animation:callPulse 1s infinite}
+@keyframes callPulse{50%{box-shadow:0 0 0 6px rgba(248,113,113,.35),0 12px 30px rgba(0,0,0,.45)}}
+#call .crow{display:flex;gap:10px;align-items:center}#call .av{flex:0 0 40px;width:40px;height:40px;border-radius:50%;background:#334155;display:grid;place-items:center;font-size:1.3rem;margin:0;animation:none}
+#call .cinfo{min-width:0}#call .cinfo b{display:block;font-size:.95rem}#call .csub{font-size:.8rem;margin:0;color:#e2e8f0}#call .ctalk{font-size:.75rem;opacity:.85;margin:0}
+#call .cb{display:flex;gap:8px}#call .cb button{flex:1;width:auto;height:40px;border-radius:12px;border:0;font-size:.95rem;font-weight:800;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
+#call .cb small{position:static;transform:none;font-size:.8rem;white-space:nowrap}
+.evs .ep small{white-space:normal}
+/* phones: right column stays compact; the hand rises between the bubbles and the pedals */
+body.mob #rcol{width:min(230px,28vw);top:max(6px,env(safe-area-inset-top));right:max(6px,env(safe-area-inset-right));gap:5px}
+body.mob #stack .nt{padding:6px 8px;gap:7px;border-radius:11px}body.mob #stack .nt .ai{flex-basis:22px;height:22px;font-size:.78rem;border-radius:7px}
+body.mob #stack .nt .fr{font-size:.66rem}body.mob #stack .nt .bd{font-size:.76rem;line-height:1.25}body.mob #stack .nt .more{font-size:.58rem}
+body.mob #chat{max-height:58vh}body.mob #chat .bub{font-size:.76rem}body.mob #chat .ch-h{padding:5px 8px}body.mob #chat .ch-x{padding:6px 10px}
+body.mob #call{padding:7px 8px;gap:6px}body.mob #call .av{flex-basis:30px;width:30px;height:30px;font-size:1rem}body.mob #call .cinfo b{font-size:.78rem}
+body.mob #call .csub{font-size:.68rem}body.mob #call .ctalk{font-size:.62rem}body.mob #call .cb button{height:34px;font-size:.78rem}body.mob #call .cb small{font-size:.66rem}
+body.mob #hand{width:min(150px,19vw);bottom:calc(max(8px,env(safe-area-inset-bottom)) + 96px);right:max(4px,env(safe-area-inset-right))}
+body.touch #tcR{right:max(18px,env(safe-area-inset-right))}
+
+body.touch #scrDrive,body.touch #scrDrive *{touch-action:none}
+
 </style>
 </head>
 <body>
@@ -53500,6 +53557,30 @@ const WHO = {
 };
 const GROUP = {mom:1, erlan:1, aigul:1, dad:1, granny:1, neighbor:1}; // shown as "group chat · author"
 
+/* ---- v4: hand + cliffhanger bubbles, longer route, sudden road events ---- */
+Object.assign(I18N.ru, {
+  driveP:'Доедьте до финиша (~3,2 км). Лимит 60 км/ч, стоп на красный, пропускайте пешеходов, объезжайте конусы. На дороге будут внезапные ситуации — смотрите вперёд, а не в телефон.',
+  touchHelp:'👈 Левый палец: руль ◀ ▶ (можно вести пальцем). 👉 Правый палец: ▲ газ / ■ тормоз. Газ и руль можно нажимать одновременно. Звонок: зелёная кнопка в карточке справа вверху.',
+  tapRead:'👆 дочитать', evOk:'✅ Успели среагировать  +3', evHitAnimal:'💥 Сбили животное  −15', evHitPerson:'💥 Наезд на человека — поездка остановлена  −30',
+  evAmb:'🚑 Сзади скорая — уступите дорогу (вправо или притормозите)', evAmbFail:'🚑 Не уступили дорогу скорой  −10', vCrash:'Поездка остановлена: наезд на человека во внезапной ситуации.',
+  hEv:'Внезапные ситуации на дороге', sEv:'Внезапные ситуации: избежали', evMsgY:'📱 в этот момент пришло сообщение', evMsgN:'без сообщения', evNoReact:'без реакции',
+  evRes:{avoided:'избежали', hit:'наезд / столкновение', fail:'не уступили'},
+  EVN:{dog:'Собака выбежала на дорогу',cat:'Кошка перебежала дорогу',ballKid:'Мяч, а за ним ребёнок',carOut:'Машина выезжает с парковки',brakeAhead:'Машина впереди резко тормозит',cyclist:'Велосипедист вильнул в полосу',scooter:'Самокатчик выскочил наперерез',pedBetween:'Пешеход из-за припаркованных машин',door:'Открылась дверь припаркованной машины',stray:'Бездомная собака лежит на дороге',ambulance:'Скорая помощь сзади',geese:'Гуси переходят дорогу',phonePed:'Пешеход с телефоном шагнул на дорогу'},
+});
+Object.assign(I18N.ru.E, {L3:'Светофор №3: зелёный сменился на жёлтый', P3:'Пешеходный переход №3', L4:'Светофор №4: красный и поперечное движение', P4:'Пешеходный переход №4'});
+Object.assign(I18N.ru.aCols, {evOk:'Ситуации ✔', evReact:'Реакция в ситуациях, с'});
+Object.assign(I18N.en, {
+  driveP:'Drive to the finish (~3.2 km). Limit 60 km/h, stop on red, give way to pedestrians, steer around cones. Expect sudden situations on the road — keep your eyes ahead, not on the phone.',
+  touchHelp:'👈 Left thumb: steering ◀ ▶ (you can slide). 👉 Right thumb: ▲ gas / ■ brake. Gas and steering work at the same time. Calls: the green button on the card at the top right.',
+  tapRead:'👆 read more', evOk:'✅ Reacted in time  +3', evHitAnimal:'💥 Animal hit  −15', evHitPerson:'💥 Person hit — drive stopped  −30',
+  evAmb:'🚑 Ambulance behind — give way (move right or slow down)', evAmbFail:'🚑 Did not give way to the ambulance  −10', vCrash:'Drive stopped: a person was hit in a sudden situation.',
+  hEv:'Sudden road situations', sEv:'Sudden situations: avoided', evMsgY:'📱 a message arrived at that moment', evMsgN:'no message', evNoReact:'no reaction',
+  evRes:{avoided:'avoided', hit:'hit / collision', fail:'did not give way'},
+  EVN:{dog:'A dog ran into the road',cat:'A cat ran across',ballKid:'A ball, then a child after it',carOut:'A car pulls out of a parking spot',brakeAhead:'The car ahead brakes hard',cyclist:'A cyclist swerved into the lane',scooter:'A scooter rider darted out',pedBetween:'A pedestrian steps out between parked cars',door:'A parked car’s door opens',stray:'A stray dog lying on the road',ambulance:'Ambulance behind you',geese:'Geese crossing the road',phonePed:'A pedestrian on the phone steps into the road'},
+});
+Object.assign(I18N.en.E, {L3:'Light #3: green turned yellow', P3:'Pedestrian crossing #3', L4:'Light #4: red with cross traffic', P4:'Pedestrian crossing #4'});
+Object.assign(I18N.en.aCols, {evOk:'Situations ✔', evReact:'Situation reaction, s'});
+
 /* ===== Message pools =====
    Each drive samples from these pools; ids shown recently (localStorage) are avoided, so repeat players see new jokes.
    Entry: [sender, RU, EN]. RU/EN may be an array = several messages in a row from the same sender. */
@@ -53758,7 +53839,7 @@ urgent: [
    type:  'billboard' = roadside board on posts, turned towards the driver (h = board height, m)
           'wall'      = big sign on the front of a building, turned towards the driver (h = sign height, m)
           'facade'    = sign flat on a building wall (h = sign height, m)
-   side: 'left' | 'right'.   d = route metre (start 0 ... finish 1720; key crosswalk with the child is at 1300). */
+   side: 'left' | 'right'.   d = route metre (start 0 ... finish 3150; key crosswalk with the child is at 1300). */
 const BANNERS = [
  {file:'banner2_hse_sign.jpg',  ar:1.30, h:5.0, d:115,  side:'left',  type:'billboard', ph:{ru:'Техника безопасности прежде всего', en:'Safety comes first'}},
  {file:'banner1_agip_logo.jpg', ar:2.07, h:3.4, d:290,  side:'right', type:'wall',      ph:{ru:'Безопасность — наша общая ценность', en:'Safety is our shared value'}},
@@ -53768,6 +53849,11 @@ const BANNERS = [
  {file:'banner3_eni_vices.jpg', ar:1.41, h:6.2, d:1215, side:'right', type:'billboard', ph:{ru:'Внимание на дороге = дома ждут', en:'Eyes on the road. Someone is waiting at home'}},
  {file:'',                      ar:2.00, h:3.2, d:1380, side:'left',  type:'facade',    ph:{ru:'Сначала безопасность, потом сообщения', en:'Safety first, messages later'}},
  {file:'banner1_agip_logo.jpg', ar:2.07, h:3.4, d:1610, side:'right', type:'wall',      ph:{ru:'Безопасность прежде всего', en:'Safety first'}},
+{file:'banner2_hse_sign.jpg',  ar:1.30, h:5.0, d:1800, side:'left',  type:'billboard', ph:{ru:'Смотри на дорогу', en:'Eyes on the road'}},
+ {file:'banner1_agip_logo.jpg', ar:2.07, h:3.4, d:2050, side:'right', type:'wall',      ph:{ru:'Безопасность — наша общая ценность', en:'Safety is our shared value'}},
+ {file:'banner3_eni_vices.jpg', ar:1.41, h:5.6, d:2440, side:'left',  type:'billboard', ph:{ru:'Телефон подождёт. Дорога — нет', en:'Your phone can wait. The road can’t'}},
+ {file:'banner1_agip_logo.jpg', ar:2.07, h:3.6, d:2760, side:'left',  type:'wall',      ph:{ru:'Ноль травм — наша общая цель', en:'Zero harm is our shared goal'}},
+ {file:'banner2_hse_sign.jpg',  ar:1.30, h:5.0, d:3040, side:'left',  type:'billboard', ph:{ru:'Пристегнись. Каждый раз', en:'Buckle up. Every time'}},
 ];
 
 (function(){
@@ -53919,8 +54005,62 @@ function pick(cat){ if (!ORDER[cat]) prepPools();
 function msgParts(m){ const v = m.e[lang==='ru'?1:2]; return Array.isArray(v) ? v : [v]; }   // a {p,f} object = cliffhanger (preview + punchline)
 
 
+/* ---------- first-person hand with the phone (replaces the on-screen phone widget) ---------- */
+const HAND_SVG = `<svg viewBox="0 0 220 300" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <linearGradient id="hgSk" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3c9a6"/><stop offset=".6" stop-color="#e0a57d"/><stop offset="1" stop-color="#b97852"/></linearGradient>
+  <linearGradient id="hgSl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1e293b"/><stop offset=".55" stop-color="#3b4a63"/><stop offset="1" stop-color="#0f172a"/></linearGradient>
+  <linearGradient id="hgScr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2563eb"/><stop offset="1" stop-color="#7c3aed"/></linearGradient>
+  <clipPath id="hgClip"><rect x="57" y="30" width="86" height="166" rx="9"/></clipPath>
+ </defs>
+ <path class="hsl" d="M146 300 L114 200 Q126 176 156 174 L220 262 L220 300 Z" fill="url(#hgSl)"/>
+ <path d="M112 204 Q126 178 158 175 L165 190 Q138 192 122 216 Z" fill="#e2e8f0"/>
+ <path d="M64 150 Q52 206 98 220 Q146 228 156 186 L156 118 Q118 104 64 150 Z" fill="url(#hgSk)"/>
+ <g transform="rotate(-8 100 112)">
+  <rect x="48" y="18" width="104" height="190" rx="17" fill="#0b0f19" stroke="#64748b" stroke-width="2"/>
+  <rect class="hscr" x="57" y="30" width="86" height="166" rx="9" fill="url(#hgScr)"/>
+  <g clip-path="url(#hgClip)"><g class="hlist">
+   <rect x="63" y="52" width="64" height="15" rx="7" fill="#fff" opacity=".9"/><rect x="63" y="73" width="46" height="11" rx="5.5" fill="#fff" opacity=".55"/>
+   <rect x="76" y="92" width="61" height="15" rx="7" fill="#86efac" opacity=".9"/><rect x="63" y="113" width="56" height="11" rx="5.5" fill="#fff" opacity=".55"/>
+   <rect x="63" y="131" width="68" height="15" rx="7" fill="#fff" opacity=".9"/><rect x="80" y="152" width="50" height="11" rx="5.5" fill="#86efac" opacity=".8"/>
+   <rect x="63" y="171" width="62" height="15" rx="7" fill="#fff" opacity=".9"/><rect x="63" y="192" width="44" height="11" rx="5.5" fill="#fff" opacity=".55"/>
+   <rect x="76" y="211" width="58" height="15" rx="7" fill="#86efac" opacity=".9"/>
+  </g></g>
+  <rect x="84" y="33" width="32" height="8" rx="4" fill="#000"/>
+ </g>
+ <g fill="url(#hgSk)" stroke="#a86c47" stroke-width="1.2">
+  <ellipse cx="52" cy="92" rx="12" ry="9"/><ellipse cx="50" cy="116" rx="12.5" ry="9.5"/><ellipse cx="51" cy="140" rx="12" ry="9.5"/><ellipse cx="55" cy="163" rx="11" ry="9"/>
+ </g>
+ <g class="thumb"><path d="M156 182 Q132 156 112 132 Q103 120 111 113 Q121 108 130 119 Q150 142 166 164 Z" fill="url(#hgSk)" stroke="#a86c47" stroke-width="1.2"/>
+  <ellipse cx="113" cy="118" rx="6" ry="4.2" fill="#fbe3d3" opacity=".85" transform="rotate(-40 113 118)"/></g>
+</svg>`;
+const HAND = {
+  t: 0,
+  reset(){ this.t = 0; const h = $('hand'); if (h) h.className = ''; },
+  // raise the hand for `sec` seconds of game time (a short glance), flash the screen
+  up(sec, hot){ const h = $('hand'); if (!h) return; this.t = Math.max(this.t, sec);
+    h.classList.add('up'); h.classList.toggle('hot', !!hot); h.classList.remove('lit'); void h.offsetWidth; h.classList.add('lit'); },
+  tick(dt, hold){ const h = $('hand'); if (!h) return; this.t -= dt;
+    const up = hold || this.t > 0; if (up !== h.classList.contains('up')) h.classList.toggle('up', up); h.classList.toggle('hold', !!hold); },
+};
+/* every preview is an intriguing cliffhanger: the player can't finish reading because the text is cut, not because of speed */
+const SHORTW = new Set('в во на что кто у к с со и а но за из от по про о об не ни как где когда если чтобы потому мне тебе твой твоя твоё твои мой моя the a an to of in on at your my that who what if but and for with about'.split(' '));
+function cliffCut(t){ t = String(t).replace(/\s+/g,' ').trim(); const w = t.split(' ');
+  if (w.length < 2) { const n = Math.max(1, Math.min(t.length-1, Math.ceil(t.length*0.55))); return {p: t.slice(0,n), f: t.slice(n)}; }
+  if (w.length < 4) return {p: w.slice(0, w.length-1).join(' '), f: w.slice(w.length-1).join(' ')};
+  const ok = n => n >= 2 && n <= w.length-2 && w.slice(0,n).join(' ').length <= 54;
+  let n = Math.min(w.length-2, Math.max(2, Math.round(w.length*0.45)));
+  while (n > 2 && !ok(n)) n--;
+  // prefer to stop right after a short "hook" word (в / на / что / your…) and never on a finished sentence
+  const score = k => { if (!ok(k)) return -9; const lw = w[k-1].toLowerCase().replace(/[^\p{L}]/gu,''); let s = 0;
+    if (SHORTW.has(lw)) s += 3; if (/[.!?…)]$/.test(w[k-1])) s -= 4; if (/[,:;—-]$/.test(w[k-1])) s -= 1; return s - Math.abs(k-n)*0.4; };
+  let best = n; for (let k = n-2; k <= n+2; k++) if (score(k) > score(best)) best = k;
+  return {p: w.slice(0,best).join(' ').replace(/[,:;—-]+$/,''), f: w.slice(best).join(' ')};
+}
+
+
 /* ================= 4. DRIVE ================= */
-const FINISH = 1720;
+const FINISH = 3150;
 const INTS = [
  {id:'L1', d:230,  light:true, mode:'trigger'},
  {id:'P1', d:480,  ped:'adult'},
@@ -53928,11 +54068,20 @@ const INTS = [
  {id:'L2', d:1050, light:true, mode:'red', cross:true},
  {id:'K',  d:1300, light:true, mode:'key', ped:'child', van:true},
  {id:'P2', d:1560, ped:'elder'},
+ {id:'L3', d:1850, light:true, mode:'trigger'},
+ {id:'P3', d:2120, ped:'adult'},
+ {id:'G2', d:2380, light:true, mode:'green', idlePed:true},
+ {id:'L4', d:2650, light:true, mode:'red', cross:true},
+ {id:'P4', d:2930, ped:'adult'},
 ];
-const BAYS = [370, 640, 1110, 1470], BAYLEN = 22;   // parking bays on the right (start metre)
+const BAYS = [370, 640, 1110, 1470, 1720, 2000, 2270, 2520, 2800], BAYLEN = 22;   // parking bays on the right (start metre)
 const CONES = [ {d:95,x:1.6,n:1},{d:165,x:3.0,n:3},{d:330,x:1.6,n:2},{d:430,x:3.0,n:1},{d:590,x:1.6,n:3},{d:700,x:3.0,n:2},
-  {d:860,x:3.0,n:1},{d:935,x:1.6,n:3},{d:1172,x:3.0,n:2},{d:1420,x:1.6,n:2},{d:1522,x:3.0,n:1},{d:1650,x:1.6,n:2} ];
-const DRIVE_SLOTS = [30,100,160,215,290,345,415,540,610,665,810,860,905,960,1010,1150,1188,1222,1415,1465,1530,1605,1665];
+  {d:860,x:3.0,n:1},{d:935,x:1.6,n:3},{d:1172,x:3.0,n:2},{d:1420,x:1.6,n:2},{d:1522,x:3.0,n:1},{d:1650,x:1.6,n:2},
+  {d:1790,x:1.6,n:2},{d:1960,x:3.0,n:1},{d:2060,x:1.6,n:3},{d:2210,x:3.0,n:2},{d:2330,x:1.6,n:1},{d:2470,x:3.0,n:2},
+  {d:2590,x:1.6,n:2},{d:2740,x:3.0,n:3},{d:2870,x:1.6,n:1},{d:3060,x:3.0,n:2} ];
+// fewer background messages than before (≈ every 250 m); sudden road events bring their own message
+const DRIVE_SLOTS = [60,300,560,900,1180,1420,1680,1990,2290,2560,2860,3080];
+const TIME_LIMIT = 540;   // s
 const isCross = d => INTS.some(I => I.light && d > I.d + 5.5 && d < I.d + 18.5);
 const nearBay = (d,m=8) => BAYS.some(b => d > b - m && d < b + BAYLEN + m);
 function maxX(d){ let m = 3.85; BAYS.forEach(b => { const e = b + BAYLEN;
@@ -53954,13 +54103,14 @@ function buildDriveDom(){
 <div class="limit">60</div>
 <div class="dash"><div><div class="lbl">${T.gear}</div><div class="big" id="gearV">D</div></div><canvas id="gauge" width="300" height="192"></canvas><div><div class="lbl">${T.lim}</div><div class="big">60</div></div></div>
 <div id="warn"></div><div id="flash"></div><div id="aud"></div>
-<div id="phone"><div class="scr"><div class="island"></div><div class="badge" id="badge">0</div>
-  <div class="lock"><div class="tm" id="ptime">8:12</div><div class="dt">${lang==='ru'?'суббота, 22 ноября':'Saturday, 22 November'}</div></div>
+<div id="phone" hidden><span id="ptime">8:12</span><span id="badge"></span></div>
+<div id="hand" aria-hidden="true">${HAND_SVG}</div>
+<div id="rcol">
+  <div id="call"><div class="crow"><div class="av" id="callAv">👔</div><div class="cinfo"><b id="callName"></b><div class="csub" id="callSub"></div><div class="ctalk" id="callTalk"></div></div></div>
+   <div class="cb"><button id="callNo" title="${T.callDec}">✆ <small>${T.callDec}</small></button><button id="callYes" title="${T.callAns}">✆ <small>${T.callAns}</small></button></div></div>
+  <div id="chat"><div class="ch-h"><div class="ai" id="chAi"></div><b id="chName"></b><button class="ch-x" id="chClose">${T.close}</button></div><div class="ch-b" id="chBody"></div></div>
   <div id="stack"></div>
-  <div id="chat"><div class="ch-h"><div class="ai" id="chAi"></div><b id="chName"></b><button class="ch-x" id="chClose">${T.close}</button></div><div class="ch-b" id="chBody"></div><div class="ch-f"><span>${T.reply}</span></div></div>
-  <div id="call"><div style="text-align:center"><div class="av" id="callAv">👔</div><h3 id="callName" style="margin-top:14px"></h3><div class="csub" id="callSub"></div><div class="ctalk" id="callTalk"></div></div>
-   <div class="cb"><button id="callNo" title="${T.callDec}">✆<small>${T.callDec}</small></button><button id="callYes" title="${T.callAns}">✆<small>${T.callAns} ⏎</small></button></div></div>
-</div></div>
+</div>
 <div class="tc" id="tcL"><button data-k="left">◀</button><button data-k="right">▶</button></div>
 <div class="tc" id="tcR"><button class="gas" data-k="gas">▲</button><button class="brk" data-k="brake">■</button></div>
 <div id="cd"></div>
@@ -54134,7 +54284,7 @@ function initWorld(){
   // cockpit (default first-person height, unchanged)
   const hood=box(2.7,.3,3.2,M(0x1e3a8a,{metalness:.6,roughness:.3})); hood.position.set(.35,-1.22,-2.5); hood.rotation.x=.06; camera.add(hood);
   const dashM=box(2.6,.35,.6,M(0x0f172a,{roughness:.7})); dashM.position.set(.35,-.78,-.9); camera.add(dashM);
-  W = { renderer, scene, camera, rearCam, sun, lightObjs, peds, cones, makeCar, carCols, traffic:[] };
+  W = { renderer, scene, camera, rearCam, sun, lightObjs, peds, cones, makeCar, makePed, carCols, traffic:[], M, box };
   const fit=()=>{ const w=innerWidth, h=innerHeight; if(!w||!h) return; camera.aspect=w/h; camera.updateProjectionMatrix(); renderer.setSize(w,h); checkOrient(); };
   addEventListener('resize',fit); addEventListener('orientationchange',()=>setTimeout(fit,250)); if (window.visualViewport) visualViewport.addEventListener('resize',fit);
 }
@@ -54148,13 +54298,14 @@ function initState(){
     maxV:0, eyesS:0, eyesM:0, opened:0, recv:0, nV:0, nT:0, oV:0, oT:0, events:[], speedingT:0, notifs:[], calls:[], crashCd:0, finishMsg:null, parkedBays:{} };
   EP = {}; INTS.forEach(I => { EP[I.id] = {}; I.t=0; I.trig=false; I.stopT=0; I.redMsg=false; if (I.light) setLight(I, I.mode==='red'?'red':'green'); });
   PH.reset();
-  PLAN = [];
+  PLAN = []; HAND.reset();
   const CRX = () => Math.random()<.5 ? 'cliff' : 'cross';
-  DRIVE_SLOTS.forEach(d => PLAN.push({d, cat: Math.random()<.25 ? 'cliff' : 'drive'}));
-  PLAN.push({d:700, cat:'calls', call:true}, {d:1075, cat:'urgent', call:true, urgent:true});
-  CONES.map((c,i)=>i).sort(()=>Math.random()-.5).slice(0,5).forEach(i => PLAN.push({d:CONES[i].d-40, cat: Math.random()<.5 ? 'cliff' : 'cones', prio:true, tag:'cones'}));
-  PLAN.push({d:480-72, cat:CRX(), prio:true, cw:'P1'}, {d:480-50, cat:CRX(), prio:true, cw:'P1'}, {d:760-60, cat:CRX(), prio:true, cw:'G1'},
-            {d:1560-82, cat:CRX(), prio:true, cw:'P2'}, {d:1560-58, cat:'calls', call:true, cw:'P2'});
+  DRIVE_SLOTS.forEach(d => PLAN.push({d, cat: Math.random()<.4 ? 'cliff' : 'drive'}));
+  PLAN.push({d:700, cat:'calls', call:true}, {d:1075, cat:'urgent', call:true, urgent:true}, {d:2440, cat:'calls', call:true});
+  CONES.map((c,i)=>i).sort(()=>Math.random()-.5).slice(0,4).forEach(i => PLAN.push({d:CONES[i].d-40, cat: Math.random()<.5 ? 'cliff' : 'cones', prio:true, tag:'cones'}));
+  PLAN.push({d:480-60, cat:CRX(), prio:true, cw:'P1'}, {d:760-60, cat:CRX(), prio:true, cw:'G1'}, {d:1560-70, cat:CRX(), prio:true, cw:'P2'},
+            {d:2120-60, cat:CRX(), prio:true, cw:'P3'}, {d:2930-60, cat:CRX(), prio:true, cw:'P4'});
+  EV.plan();
   PLAN.sort((a,b)=>a.d-b.d); PLAN.forEach(p => p.done = p.d < DBG.start - 5);
 }
 
@@ -54162,19 +54313,30 @@ function initState(){
 function bindDriveUi(){
   // controls: no native touch behaviour at all (no zoom, no scroll, no callout); pointer events still drive them
   document.querySelectorAll('.tc, .tc button').forEach(el => ['touchstart','touchend','touchmove'].forEach(t => el.addEventListener(t, e => { if (e.cancelable) e.preventDefault(); }, {passive:false})));
-  // pedals: one finger each, works together with steering (multitouch)
+  // pedals & steering on phones: track each finger by its touch id. Pointer events are not used for touch here, because a
+  // second finger (e.g. tapping "Answer" while holding gas) makes the browser send pointercancel → the pedal "let go" under the
+  // finger and the car would not move again until the finger was lifted (part of the "car freezes after a call" report).
+  const fingers = {};   // touch identifier -> {b} pedal button or {steer:true}
   document.querySelectorAll('#tcR button').forEach(b=>{ const k='t_'+b.dataset.k;
-    const on=e=>{e.preventDefault(); try{b.setPointerCapture(e.pointerId)}catch(_){} keys[k]=true;b.classList.add('on')}, off=e=>{keys[k]=false;b.classList.remove('on')};
-    b.addEventListener('pointerdown',on); ['pointerup','pointercancel','lostpointercapture'].forEach(ev=>b.addEventListener(ev,off)); });
+    const on=()=>{ keys[k]=true; b.classList.add('on'); }, off=()=>{ keys[k]=false; b.classList.remove('on'); };
+    b.addEventListener('pointerdown',e=>{ if(e.pointerType==='touch') return; e.preventDefault(); try{b.setPointerCapture(e.pointerId)}catch(_){} on(); });
+    ['pointerup','pointercancel','lostpointercapture'].forEach(ev=>b.addEventListener(ev,e=>{ if(e.pointerType!=='touch') off(); }));
+    b.addEventListener('touchstart',e=>{ if(e.cancelable) e.preventDefault(); for (const t of e.changedTouches) fingers[t.identifier]={b}; on(); },{passive:false}); });
   // steering: the whole left pad is one zone, slide the thumb between ◀ and ▶
   const z=$('tcL'), [bl,br]=z.querySelectorAll('button'); let sid=null;
   const setSt=x=>{ const r=z.getBoundingClientRect(), left=x<r.left+r.width/2; keys.t_left=left; keys.t_right=!left; bl.classList.toggle('on',left); br.classList.toggle('on',!left); };
-  const stOff=e=>{ if(e.pointerId!==sid) return; sid=null; keys.t_left=keys.t_right=false; bl.classList.remove('on'); br.classList.remove('on'); };
-  z.addEventListener('pointerdown',e=>{ e.preventDefault(); sid=e.pointerId; try{z.setPointerCapture(sid)}catch(_){} setSt(e.clientX); });
-  z.addEventListener('pointermove',e=>{ if(e.pointerId===sid) setSt(e.clientX); });
-  ['pointerup','pointercancel','lostpointercapture'].forEach(ev=>z.addEventListener(ev,stOff));
+  const stRel=()=>{ keys.t_left=keys.t_right=false; bl.classList.remove('on'); br.classList.remove('on'); };
+  z.addEventListener('pointerdown',e=>{ if(e.pointerType==='touch') return; e.preventDefault(); sid=e.pointerId; try{z.setPointerCapture(sid)}catch(_){} setSt(e.clientX); });
+  z.addEventListener('pointermove',e=>{ if(e.pointerType!=='touch' && e.pointerId===sid) setSt(e.clientX); });
+  ['pointerup','pointercancel','lostpointercapture'].forEach(ev=>z.addEventListener(ev,e=>{ if(e.pointerType==='touch' || e.pointerId!==sid) return; sid=null; stRel(); }));
+  z.addEventListener('touchstart',e=>{ if(e.cancelable) e.preventDefault(); const t=e.changedTouches[0]; for (const k in fingers) if (fingers[k].steer) delete fingers[k]; fingers[t.identifier]={steer:true}; setSt(t.clientX); },{passive:false});
+  z.addEventListener('touchmove',e=>{ if(e.cancelable) e.preventDefault(); for (const t of e.changedTouches) if (fingers[t.identifier] && fingers[t.identifier].steer) setSt(t.clientX); },{passive:false});
+  const fingerUp=e=>{ for (const t of e.changedTouches){ const f=fingers[t.identifier]; if(!f) continue; delete fingers[t.identifier];
+      if (f.steer) stRel(); else if (!Object.values(fingers).some(o=>o.b===f.b)){ keys['t_'+f.b.dataset.k]=false; f.b.classList.remove('on'); } } };
+  document.addEventListener('touchend',fingerUp,{passive:true}); document.addEventListener('touchcancel',fingerUp,{passive:true});
   $('warn').addEventListener('pointerdown',()=>{ $('warn').classList.remove('on'); });   // tap to dismiss
-  $('chClose').onclick = () => PH.closeChat(); $('callYes').onclick = () => PH.answer(); $('callNo').onclick = () => PH.decline();
+  // call / reader buttons react on pointerdown: works as a second-finger tap while the other thumb holds a pedal
+  [['chClose',()=>PH.closeChat()],['callYes',()=>PH.answer()],['callNo',()=>PH.decline()]].forEach(([id,f])=>$(id).addEventListener('pointerdown',e=>{ e.preventDefault(); f(); }));
 }
 addEventListener('keydown', e => { const k=e.key.toLowerCase(); keys[k]=true;
   if (!document.body.classList.contains('driving')) return;
@@ -54183,20 +54345,18 @@ addEventListener('keydown', e => { const k=e.key.toLowerCase(); keys[k]=true;
 addEventListener('keyup', e => keys[e.key.toLowerCase()] = false);
 // QA autopilot (?auto=2): obeys lights & pedestrians, avoids cones, parks for the urgent call
 const SMART = () => DBG.auto==='2';
-// phones: newest 1-2 notifications with FULL text; drop the older one first, then shrink the font a little if still too long
-function fitStack(st){ const box=st.closest('.scr')||st.parentElement; const over=()=>{ if (st.scrollHeight>st.clientHeight+1) return true; const l=st.lastElementChild; return !!l && l.getBoundingClientRect().bottom > Math.min(box.getBoundingClientRect().bottom, st.getBoundingClientRect().bottom)+1; };
-  [...st.children].forEach(c=>c.classList.remove('s1','s2','s3'));
-  while (st.children.length>1 && over()) st.lastElementChild.remove();
-  const n=st.firstElementChild; for (const k of ['s1','s2','s3']) { if (!n || !over()) break; n.classList.remove('s1','s2'); n.classList.add(k); } }
+function fitStack(){}
 function urgentTalkParked(){ return PH.call && PH.call.urgent && PH.call.state==='talk' && inBay(-S.z,S.x); }
 function urgentRinging(){ return PH.call && PH.call.urgent && PH.call.state==='ring'; }
 function smartBrake(){ const d=-S.z, front=d+2;
   if (urgentRinging()){ const b=BAYS.find(b=>b+BAYLEN-2>d && b-70<d); if (b!==undefined && ((S.v>6.5 && d<b+BAYLEN) || (d > b+7 && S.x>4.7))) return true; }
   if (urgentTalkParked()) return true;
+  if (EV.smartBrake()) return true;
   return INTS.some(I=>{ const toLine=I.d-front; if(toLine<-1||toLine>70) return false; const need=S.v*S.v/(2*6)+3, p=I.pedObj;
     if (I.light && I.state!=='green' && toLine<need+2) return true; if (p && !p.idle && p.state==='walk' && p.x>-1.8 && toLine<need+4) return true; return false; }); }
 function smartTargetX(){ const d=-S.z;
   if (urgentRinging() || urgentTalkParked()){ const b=BAYS.find(b=>b+BAYLEN-4>d && b-6<d); if (b!==undefined) return 5.9; }
+  const ex = EV.smartX(); if (ex!=null) return ex;
   const c = W.cones.find(c=>!c.hit && c.d>d-1 && c.d<d+30); if (c) return c.x<2.3 ? 3.25 : 1.35; return 2.25; }
 const inGas = () => (DBG.auto && !(SMART() && (smartBrake() || S.v>15.8)) && -S.z < FINISH+5 && !(SMART() && urgentRinging() && S.x>4.7 && S.v<0.2)) || keys.w || keys.arrowup || keys.t_gas;
 const inBrake = () => (SMART() && smartBrake()) || keys.s || keys.arrowdown || keys[' '] || keys.t_brake;
@@ -54215,32 +54375,36 @@ function aud(ic,who,text,hot){ if(!P.proj) return; const a=$('aud'); a.innerHTML
 
 /* ---------- phone ---------- */
 const PH = {
-  reset(){ this.threads={}; this.unread=0; this.queue=[]; this.lastPop=-9; this.vis=[]; this.chat=null; this.call=null; this.keyT=-1; this.missed=0; },
-  queueMsg(m, o={}){ const items=msgParts(m).map(txt=>({m,txt,o})); if (o.prio) this.queue.unshift(...items); else this.queue.push(...items); },
+  reset(){ this.threads={}; this.unread=0; this.queue=[]; this.lastPop=-9; this.vis=[]; this.chat=null; this.call=null; this.keyT=-1; this.missed=0; this.ringBeat=0; },
+  // one bubble per message (multi-part texts are joined), preview is always a cliffhanger
+  queueMsg(m, o={}){ const v=msgParts(m), txt = v.length===1 ? v[0] : v.join(' '); const it={m,txt,o}; if (o.prio) this.queue.unshift(it); else this.queue.push(it); },
   push(m, txt, o={}){
-    let full=null; if (txt && typeof txt==='object'){ full=txt.p+' '+txt.f; txt=txt.p+'…'; }
+    const c = (txt && typeof txt==='object') ? {p:txt.p, f:txt.f} : cliffCut(txt);
+    const full = (c.p+' '+c.f).trim(), prev = c.p+'…';
     const who=WHO[m.w], app=APPS[who.app], grp=!!GROUP[m.w];
     S.recv++; this.unread++;
-    const rec={n:S.notifs.length+1, id:m.id, cat:m.cat, t:+S.t.toFixed(1), d:Math.round(-S.z), w:m.w, sender: grp? app[lang]+' · '+who[lang] : who[lang], text:txt, kmh:Math.round(S.v*3.6), opened:false, eyesS:0, eyesM:0, visT:0, visV:0, cw:o.cw||null, tag:o.tag||null, hot:!!o.hot, full};
+    const rec={n:S.notifs.length+1, id:m.id, cat:m.cat, t:+S.t.toFixed(1), d:Math.round(-S.z), w:m.w, sender: grp? app[lang]+' · '+who[lang] : who[lang], text:prev, kmh:Math.round(S.v*3.6), opened:false, eyesS:0, eyesM:0, visT:0, visV:0, cw:o.cw||null, tag:o.tag||null, ev:o.ev||null, hot:!!o.hot, full};
     S.notifs.push(rec);
-    (this.threads[m.w]=this.threads[m.w]||[]).push({text:full||txt,t:$('ptime').textContent,au:grp?who[lang]:''});
-    const el=document.createElement('div'); el.className='nt'+(o.hot?' key':'')+(full?' cliff':'');
-    el.innerHTML=`<div class="ai" style="background:${app.c}">${who.ic}</div><div class="tx"><div class="hd"><span>${app[lang]}</span><span>${T.now}</span></div><div class="fr"></div><div class="bd"></div></div>`;
-    el.querySelector('.fr').textContent = grp ? app[lang] : who[lang]; el.querySelector('.bd').textContent = grp ? who[lang]+': '+txt : txt;
-    el.addEventListener('pointerdown',e=>{ e.preventDefault(); this.openChat(m.w, rec); });   // pointerdown: robust when new messages shift the stack under the finger
-    const st=$('stack'); st.prepend(el); [...st.children].forEach((c,i)=>{ if(i>0) c.classList.add('old'); if(i>(IS_MOB?1:4)) c.remove(); }); if (IS_MOB){ fitStack(st); setTimeout(()=>{ if(!this.chat) fitStack(st); }, 420); }
-    $('badge').style.display='block'; $('badge').textContent=this.unread;
-    const ph=$('phone'); ph.classList.remove('buzz'); void ph.offsetWidth; ph.classList.add('buzz'); if (IS_MOB){ ph.classList.toggle('hot',!!o.hot); ph.classList.add('lit'); clearTimeout(this.litT); this.litT=setTimeout(()=>ph.classList.remove('lit'), o.hot?1800:1200); } sndMsg(); if(o.hot) setTimeout(sndMsg,250);
+    (this.threads[m.w]=this.threads[m.w]||[]).push({text:full,t:$('ptime').textContent,au:grp?who[lang]:''});
+    const el=document.createElement('div'); el.className='nt cliff'+(o.hot?' key':'');
+    el.innerHTML=`<div class="ai" style="background:${app.c}">${who.ic}</div><div class="tx"><div class="fr"></div><div class="bd"></div><div class="more">${T.tapRead}</div></div>`;
+    el.querySelector('.fr').textContent = rec.sender; el.querySelector('.bd').textContent = (grp ? who[lang]+': ' : '')+prev;
+    el.addEventListener('pointerdown',e=>{ e.preventDefault(); this.openChat(m.w, rec); });   // pointerdown: robust when the stack shifts under the finger
+    const st=$('stack'); st.prepend(el); [...st.children].forEach((x,i)=>{ if(i>0) x.classList.add('old'); if(i>(IS_MOB?1:2)) x.remove(); });
+    const life=(o.hot?9:7)*1000; setTimeout(()=>{ el.classList.add('out'); setTimeout(()=>el.remove(),400); }, life);
+    HAND.up(o.hot?2.2:1.5, o.hot); sndMsg(); if(o.hot) setTimeout(sndMsg,250);
     this.vis.push({until:S.t+(o.hot?9:6), rec});
-    aud({ic:who.ic,c:app.c}, rec.sender, txt, o.hot);
+    aud({ic:who.ic,c:app.c}, rec.sender, prev, o.hot);
     try { if (navigator.vibrate && navigator.userActivation && navigator.userActivation.hasBeenActive) navigator.vibrate(o.hot?[120,80,120]:120); } catch(e){}
+    return rec;
   },
   openChat(w, rec){ if(!S.running || this.chat || this.call) return;
-    this.chat={w, rec}; S.opened++; rec.opened=true; penalty(10,T.wPhone,'phone',{n:rec.n});
+    this.chat={w, rec}; S.opened++; rec.opened=true;
+    if (S.v>0.3) penalty(10,T.wPhone,'phone',{n:rec.n}); else S.events.push({t:+S.t.toFixed(1),d:Math.round(-S.z),type:'phoneStopped',pts:0,n:rec.n});
     const who=WHO[w]; $('chAi').textContent=who.ic; $('chAi').style.background=APPS[who.app].c; $('chName').textContent=GROUP[w]?APPS[who.app][lang]:who[lang];
-    const b=$('chBody'); b.innerHTML=''; (this.threads[w]||[]).forEach(m=>{ const d=document.createElement('div'); d.className='bub'; d.innerHTML=(m.au?'<div class="au"></div>':'')+'<span></span><small></small>'; if(m.au) d.querySelector('.au').textContent=m.au; d.querySelector('span').textContent=m.text; d.querySelector('small').textContent=m.t; b.appendChild(d); });
-    b.scrollTop=1e5; $('chat').classList.add('on'); $('phone').classList.add('open'); this.unread=0; $('badge').style.display='none'; },
-  closeChat(){ if(!this.chat) return; this.chat=null; $('chat').classList.remove('on'); $('phone').classList.remove('open'); if (IS_MOB) setTimeout(()=>fitStack($('stack')), 380); },
+    const b=$('chBody'); b.innerHTML=''; (this.threads[w]||[]).slice(-3).forEach(m=>{ const d=document.createElement('div'); d.className='bub'; d.innerHTML=(m.au?'<div class="au"></div>':'')+'<span></span><small></small>'; if(m.au) d.querySelector('.au').textContent=m.au; d.querySelector('span').textContent=m.text; d.querySelector('small').textContent=m.t; b.appendChild(d); });
+    b.scrollTop=1e5; $('chat').classList.add('on'); this.unread=0; HAND.up(0.5); },
+  closeChat(){ if(!this.chat) return; this.chat=null; $('chat').classList.remove('on'); },
   startCall(m, o={}){
     const urgent=!!o.urgent, e=m.e, w = urgent ? 'wife' : e[0];
     const sub = urgent ? (lang==='ru'?e[0]:e[1]) : T.calling, talk = urgent ? (lang==='ru'?e[2]:e[3]) : (lang==='ru'?e[1]:e[2]);
@@ -54248,8 +54412,8 @@ const PH = {
     S.notifs.push(rec); S.recv++;
     const call={rec, w, urgent, talk, state:'ring', ringLeft: urgent?999:8, t0:S.t, result:'missed', parkT:null};
     this.closeChat(); this.call=call; S.calls.push(call); this.vis.push({until:S.t+(urgent?12:8), rec});
-    $('callAv').textContent=WHO[w].ic; $('callName').textContent=WHO[w][lang]; $('callSub').textContent=sub; $('callTalk').textContent='';
-    $('call').className = 'on' + (urgent?' urgent':''); $('phone').classList.add('buzz'); sndRing(); this.ringBeat=0;
+    $('callAv').textContent=WHO[w].ic; $('callName').textContent=WHO[w][lang]; $('callSub').textContent=sub; $('callTalk').textContent=''; $('callYes').style.display='';
+    $('call').className = 'on' + (urgent?' urgent':''); sndRing(); this.ringBeat=0; HAND.up(1.2, urgent);
     aud({ic:'📞',c:urgent?'#ef4444':'#22c55e'}, WHO[w][lang], '📞 '+sub, urgent);
     if (urgent) setTimeout(()=>{ if(this.call===call && call.state==='ring') warn(T.wParkHint,'info'); }, 2500);
   },
@@ -54257,27 +54421,30 @@ const PH = {
     const parked = S.v<0.15 && inBay(-S.z, S.x), stopped = S.v<0.15;
     c.state='talk'; c.talkLeft=5; c.rec.opened=true; c.result = parked?'parked':stopped?'stopped':'moving';
     if (parked) bonus(10, T.wCallOk); else { S.opened++; penalty(10, stopped?T.wPhone:T.wCallMove, 'call', {n:c.rec.n}); }
-    $('callSub').textContent=T.onCall; $('callTalk').textContent=c.talk; $('callYes').style.display='none'; $('phone').classList.add('open'); $('phone').classList.remove('buzz');
+    $('callSub').textContent=T.onCall; $('callTalk').textContent=c.talk; $('callYes').style.display='none';
     aud({ic:'📞',c:'#22c55e'}, WHO[c.w][lang], c.talk, false); },
   decline(){ const c=this.call; if(c && c.state==='talk'){ this.endCall(); return; } if(!c || c.state!=='ring') return; c.result='declined'; this.endCall(); },
-  endCall(){ const c=this.call; if(c){ c.state='done'; if(c.result==='missed') this.missed++; } this.call=null; $('call').className=''; $('callYes').style.display=''; $('phone').classList.remove('buzz','open'); },
-  keyBurst(){ this.keyT=0; this.keyMsgs=[ {e:['wife', I18N.ru.keyText, I18N.en.keyText], id:'keyFixed', cat:'key', w:'wife'}, pick('keyFollow'), pick('keyFollow'), pick('cross') ]; this.keyAt=[0,1.3,2.4,3.4]; },
+  endCall(){ const c=this.call; if(c){ c.state='done'; if(c.result==='missed') this.missed++; } this.call=null; $('call').className=''; $('callYes').style.display=''; },
+  keyBurst(){ this.keyT=0; this.keyMsgs=[ {e:['wife', I18N.ru.keyText, I18N.en.keyText], id:'keyFixed', cat:'key', w:'wife'}, pick('keyFollow') ]; this.keyAt=[0,1.8]; },
   tick(dt, dist){
-    if (IS_MOB){ this.fitT=(this.fitT||0)-dt; if (this.fitT<=0){ this.fitT=0.5; if(!this.chat) fitStack($('stack')); } }
     PLAN.forEach(p=>{ if(p.done || dist < p.d) return; p.done=true;
       if (p.call){ if (this.call) return; this.startCall(pick(p.cat), {urgent:p.urgent, cw:p.cw}); return; }
       this.queueMsg(pick(p.cat), {prio:p.prio, cw:p.cw, tag:p.tag}); });
-    const gap = this.queue.length && this.queue[0].o.prio ? 1.2 : 2.0;
+    const gap = this.queue.length && this.queue[0].o.prio ? 2.5 : 4.5;
     if (this.queue.length && S.t-this.lastPop>gap && !(this.call && this.call.state==='ring')){ const q=this.queue.shift(); this.lastPop=S.t; this.push(q.m, q.txt, q.o); }
-    if (this.keyT>=0){ const prev=this.keyT; this.keyT+=dt; this.keyAt.forEach((at,i)=>{ if(at>=prev && at<this.keyT){ const m=this.keyMsgs[i]; this.lastPop=S.t; msgParts(m).forEach(t=>this.push(m,t,{hot:m.w==='wife', tag:'key'})); } }); if(this.keyT>4) this.keyT=-1; }
+    if (this.keyT>=0){ const prev=this.keyT; this.keyT+=dt; this.keyAt.forEach((at,i)=>{ if(at>=prev && at<this.keyT){ const m=this.keyMsgs[i], v=msgParts(m); this.lastPop=S.t; this.push(m, v.length===1?v[0]:v.join(' '), {hot:m.w==='wife', tag:'key'}); } }); if(this.keyT>2.5) this.keyT=-1; }
     const c=this.call;
-    if (c){ if (c.state==='ring'){ this.ringBeat+=dt; if(this.ringBeat>2.2){ this.ringBeat=0; sndRing(); const ph=$('phone'); ph.classList.remove('buzz'); void ph.offsetWidth; ph.classList.add('buzz'); if (IS_MOB){ ph.classList.toggle('hot',!!o.hot); ph.classList.add('lit'); clearTimeout(this.litT); this.litT=setTimeout(()=>ph.classList.remove('lit'), o.hot?1800:1200); } }
+    if (c){ if (c.state==='ring'){ this.ringBeat+=dt;
+        // FIX (car "froze" after a call): this branch used an undefined variable `o` on phones → exception in the game loop every ring
+        if(this.ringBeat>2.2){ this.ringBeat=0; sndRing(); HAND.up(1.0, c.urgent); }
         if (c.urgent && c.parkT===null && S.v<0.15 && inBay(dist,S.x)) c.parkT=+(S.t-c.t0).toFixed(1);
         c.ringLeft-=dt; if (c.ringLeft<=0 || (c.urgent && dist>1235)) this.endCall(); }
       else if (c.state==='talk'){ c.talkLeft-=dt; if (c.talkLeft<=0) this.endCall(); } }
     this.vis = this.vis.filter(v=>v.until>S.t); this.vis.forEach(v=>{ v.rec.visT+=dt; v.rec.visV+=S.v*3.6*dt; });
-    const eyes = this.chat ? this.chat.rec : (c && c.state==='talk' && c.result!=='parked') ? c.rec : null;
+    const cc=this.call, talkMoving = cc && cc.state==='talk' && cc.result!=='parked';
+    const eyes = this.chat ? this.chat.rec : talkMoving ? cc.rec : null;
     if (eyes && S.v>0.3){ eyes.eyesS+=dt; eyes.eyesM+=S.v*dt; S.eyesS+=dt; S.eyesM+=S.v*dt; }
+    HAND.tick(dt, !!this.chat || !!talkMoving);
   },
   active(){ return this.vis.length>0 || !!this.chat || !!this.call; },
 };
@@ -54352,6 +54519,7 @@ function tick(dt){
     if (!stop){ c.g.position.x+=c.vx*dt; c.g.position.z+=c.vz*dt; }
     if (!c.crashed && Math.abs(c.g.position.x-S.x)<c.hw+0.95 && Math.abs(c.g.position.z-cz)<c.hl+2.25 && S.collCd<=0){ c.crashed=true; S.coll++; S.collCd=3; S.v=0; S.jolt=1; penalty(25,T.wCrash,'collision'); setTimeout(()=>{c.gone=true},2500); }
     if (c.g.position.z>S.z+40 || c.g.position.x>80 || c.gone){ W.scene.remove(c.g); W.traffic.splice(i,1); } }
+  EV.tick(dt, dist, front, brk);
   PH.tick(dt, dist);
   if (PH.vis.length){ S.nV+=kmh*dt; S.nT+=dt; } else { S.oV+=kmh*dt; S.oT+=dt; }
   // HUD
@@ -54362,7 +54530,7 @@ function tick(dt){
   const nb = BAYS.find(b=>b+BAYLEN>dist), pr=$('parkRow');
   if (nb!==undefined && nb-dist<500){ $('parkV').textContent = nb-dist<=0 ? T.parkHere : T.parkIn(Math.round(nb-dist)); pr.style.display=''; } else pr.style.display='none';
   pr.classList.toggle('hot', !!urgentRinging());
-  if (dist>=FINISH) finish(false); else if (S.t>300) finish(true);
+  if (dist>=FINISH) finish(false); else if (S.t>TIME_LIMIT) finish(true);
   if (DBG.stopAt && S.t>=DBG.stopAt) S.running=false;
 }
 function spawnOncoming(z){ const c=W.makeCar(W.carCols[(Math.random()*W.carCols.length)|0]); c.rotation.y=Math.PI; c.position.set(-2.25,0,z); W.traffic.push({g:c,vx:0,vz:rnd(10,13),hw:.95,hl:2.2,kind:'on'}); }
@@ -54375,29 +54543,221 @@ function render(){ const {renderer,scene,camera,rearCam,sun}=W, j=S.jolt;
   const r=$('mirrorFrame').getBoundingClientRect(), y=innerHeight-r.bottom; if (r.height>0 && Math.abs(rearCam.aspect-r.width/r.height)>0.01){ rearCam.aspect=r.width/r.height; rearCam.updateProjectionMatrix(); } renderer.setScissorTest(true); renderer.setScissor(r.left,y,r.width,r.height); renderer.setViewport(r.left,y,r.width,r.height);
   rearCam.aspect=r.width/r.height; rearCam.updateProjectionMatrix(); renderer.render(scene,rearCam); renderer.setScissorTest(false); }
 function loop(now){ const dt=Math.min(0.05,(now-(last||now))/1000); last=now;
-  if (S.running && !PAUSED) for (let i=0;i<DBG.sub;i++){ if(S.done||!S.running) break; tick(DBG.sub>1?0.05:dt); }
-  if (!S.done){ if (!PAUSED) render(); requestAnimationFrame(loop); } }
+  // a single bad frame must never stop the game loop (that is what froze the car after calls)
+  try { if (S.running && !PAUSED) for (let i=0;i<DBG.sub;i++){ if(S.done||!S.running) break; tick(DBG.sub>1?0.05:dt); } } catch(e){ if(!loop.err){ loop.err=1; console.error(e); } }
+  try { if (!S.done && !PAUSED) render(); } catch(e){ if(!loop.err2){ loop.err2=1; console.error(e); } }
+  if (!S.done) requestAnimationFrame(loop); }
 
 /* ---------- finish → record ---------- */
-function finish(timeout){ if (S.done) return; S.done=true; S.running=false; PH.closeChat(); if (PH.call) PH.endCall();
+function finish(timeout, reason){ if (S.done) return; S.done=true; S.running=false; PH.closeChat(); if (PH.call) PH.endCall();
   const fm = pick('finish'); S.finishMsg = { sender: WHO[fm.w][lang], text: msgParts(fm)[0] };
-  const pids = ['P1','K','P2'], reacts = pids.map(id=>EP[id].react).filter(v=>v!==undefined);
+  const pids = INTS.filter(I=>I.ped).map(I=>I.id), reacts = pids.map(id=>EP[id].react).filter(v=>v!==undefined);
   const avgR = reacts.length ? +(reacts.reduce((a,b)=>a+b,0)/reacts.length).toFixed(2) : null;
   const urgent = S.calls.find(c=>c.urgent);
-  const rec = { v:2, date:new Date().toISOString(), name:P.name, pid:P.pid, lang, quiz:P.quiz, score:S.score, bonus:S.bonus, pass:S.score>=70 && S.pedHit===0 && !timeout,
+  const rec = { v:2, date:new Date().toISOString(), name:P.name, pid:P.pid, lang, quiz:P.quiz, score:S.score, bonus:S.bonus, pass:S.score>=70 && S.pedHit===0 && !timeout && !reason, endReason:reason||null,
     duration:+S.t.toFixed(1), timeout, redRun:S.redRun, redStopped:S.redStop, yieldFail:S.yieldFail, pedHit:S.pedHit, avgReaction:avgR,
     peds: pids.map(id=>({id, react:EP[id].react??null, yieldFail:!!EP[id].yieldFail, hit:!!EP[id].hit, phoneAtPed:!!EP[id].phoneAtPed, chatAtPed:!!EP[id].chatAtPed, nApproach:EP[id].nApproach||0, seen:EP[id].pedAt!==undefined})),
-    lights: ['L1','L2','K'].map(id=>({id, stopped:!!EP[id].stopped, ranRed:!!EP[id].ranRed, passedY:!!EP[id].passedY, kmhAtYellow:EP[id].vAtYellow!=null?Math.round(EP[id].vAtYellow):null, brakeDelay:(EP[id].brakeAt&&EP[id].yAt)?+(EP[id].brakeAt-EP[id].yAt).toFixed(2):null})),
+    lights: INTS.filter(I=>I.light && I.mode!=='green').map(I=>I.id).map(id=>({id, stopped:!!EP[id].stopped, ranRed:!!EP[id].ranRed, passedY:!!EP[id].passedY, kmhAtYellow:EP[id].vAtYellow!=null?Math.round(EP[id].vAtYellow):null, brakeDelay:(EP[id].brakeAt&&EP[id].yAt)?+(EP[id].brakeAt-EP[id].yAt).toFixed(2):null})),
     msgs:S.recv, opened:S.opened, eyesS:+S.eyesS.toFixed(1), eyesM:Math.round(S.eyesM), conesHit:S.coneHit, conesTotal:W.cones.length, collisions:S.coll, offroad:S.off, laneOut:S.lane,
     maxKmh:Math.round(S.maxV), speedingS:+S.speedingT.toFixed(1), avgKmhNotif:S.nT?Math.round(S.nV/S.nT):0, avgKmhNoNotif:S.oT?Math.round(S.oV/S.oT):0,
     calls: S.calls.map(c=>({who:c.rec.sender, urgent:c.urgent, t:c.rec.t, d:c.rec.d, result:c.result, parkT:c.parkT, kmh:c.rec.kmh})),
     urgentResult: urgent ? urgent.result : '—', urgentParkT: urgent ? urgent.parkT : null,
     notifs: S.notifs.map(n=>({n:n.n, t:n.t, d:n.d, sender:n.sender, text:n.text, kmh:n.kmh, avgKmh:n.visT?Math.round(n.visV/n.visT):n.kmh, opened:n.opened, eyesS:+n.eyesS.toFixed(1), eyesM:Math.round(n.eyesM), cw:n.cw, call:!!n.call, tag:n.tag||null})),
-    finishMsg:S.finishMsg, events:S.events, test:!!DBG.auto };
+    finishMsg:S.finishMsg, events:S.events, roadEvents:EV.report(), routeM:FINISH, test:!!DBG.auto };
   rec.id = Date.now().toString(36) + Math.random().toString(36).slice(2,6);
   if (!DEBUG_NOSAVE){ const a=load(); a.push(rec); saveAll(a); }
   setTimeout(()=>{ renderReport(rec); show('scrReport'); try{ W.renderer.dispose(); W.renderer.forceContextLoss(); }catch(e){} }, 400);
 }
+
+
+/* ================= SUDDEN ROAD EVENTS =================
+   Calm driving → something suddenly happens → at that very moment a message arrives and the hand goes up.
+   Picked randomly per run and spread along the route. Each one is logged: type, message?, reaction, hit/avoided. */
+const EV_TYPES = ['dog','cat','ballKid','carOut','brakeAhead','cyclist','scooter','pedBetween','door','stray','ambulance','geese','phonePed'];
+const EV_KIND = {dog:'animal',cat:'animal',stray:'animal',geese:'animal',ballKid:'person',cyclist:'person',scooter:'person',pedBetween:'person',phonePed:'person',carOut:'car',brakeAhead:'car',door:'car',ambulance:'yield'};
+const EV_IC = {dog:'🐕',cat:'🐈',ballKid:'⚽',carOut:'🚗',brakeAhead:'🚘',cyclist:'🚴',scooter:'🛴',pedBetween:'🚶',door:'🚪',stray:'🐕',ambulance:'🚑',geese:'🦢',phonePed:'📱'};
+const EV_CROSS = {   // crossers: side +1 = from the right sidewalk, -1 = from the left
+  dog:{spd:4.6, hw:.25, hl:.45}, cat:{spd:5.2, hw:.16, hl:.3}, scooter:{spd:5.5, hw:.35, hl:.6, side:-1, x0:8.5},
+  pedBetween:{spd:1.7, hw:.3, hl:.3, side:1, x0:6.4}, phonePed:{spd:1.6, hw:.3, hl:.3, side:-1, x0:4.6}, ballKid:{spd:2.6, hw:.25, hl:.25, side:1, x0:7.2, delay:.9} };
+const PATH_R = () => S.x + 1.4, PATH_L = () => S.x - 1.4;
+
+const EV = {
+  list: [], endAt: null,
+  plan(){ this.list = []; this.endAt = null;
+    const bad = d => d < 230 || d > FINISH-80 || INTS.some(I => d > I.d-45 && d < I.d+40) || BAYS.some(b => d > b-30 && d < b+BAYLEN+20)
+      || CONES.some(c => Math.abs(c.d+1.5-d) < 30) || (d > 1035 && d < 1340);
+    const slots = []; let d = 240; while (d < FINISH-80){ if (!bad(d)){ slots.push(d); d += rnd(140, 200); } else d += 5; }
+    const forced = (Q.get('ev')||'').split(',').filter(t => EV_TYPES.includes(t));
+    const types = forced.concat(EV_TYPES.filter(t => !forced.includes(t)).sort(() => Math.random()-.5));
+    while (types.length < slots.length) types.push(EV_TYPES[(Math.random()*EV_TYPES.length)|0]);
+    this.list = slots.map((d,i) => ({type:types[i], d, st:'wait', A:[], t0:null, react:null, result:null, msg:false, msgText:null, pts:0, kmh:null}));
+    this.list.forEach(E => { if (E.d < DBG.start) E.st = 'skip'; });
+  },
+  /* ---------- actor builders ---------- */
+  animal(kind){ const M=W.M, box=W.box, g=new THREE.Group();
+    if (kind === 'goose'){ const w=M(0xf8fafc), o=M(0xf59e0b); const b=box(.3,.26,.5,w); b.position.y=.38; g.add(b); const n=box(.08,.34,.08,w); n.position.set(0,.64,-.24); g.add(n);
+      const h=box(.12,.1,.16,w); h.position.set(0,.8,-.3); g.add(h); const bk=box(.06,.05,.12,o); bk.position.set(0,.79,-.43); g.add(bk);
+      const legs=[-.07,.07].map(x=>{ const l=box(.04,.26,.04,o); l.geometry.translate(0,-.13,0); l.position.set(x,.26,0); g.add(l); return l; });
+      g.traverse(q=>{ if(q.isMesh) q.castShadow=true; }); W.scene.add(g); return {g,legs}; }
+    const cat = kind === 'cat', col = cat ? [0xf97316,0x6b7280,0x1f2937][(Math.random()*3)|0] : [0xa16207,0xe5e7eb,0x292524,0xd6a35c][(Math.random()*4)|0];
+    const m=M(col), dk=M(0x1c1917), sc = cat ? .62 : 1;
+    const body=box(.34,.3,.8,m); body.position.y=.52; g.add(body);
+    const head=box(.27,.26,.3,m); head.position.set(0,.74,-.5); g.add(head);
+    const sn=box(.14,.12,.16,dk); sn.position.set(0,.68,-.7); g.add(sn);
+    [-.09,.09].forEach(x=>{ const e=box(.07,cat?.13:.12,.05,cat?m:dk); e.position.set(x,.93,-.46); g.add(e); });
+    const legs=[[-.12,-.28],[.12,-.28],[-.12,.28],[.12,.28]].map(([x,z])=>{ const l=box(.09,.4,.09,m); l.geometry.translate(0,-.2,0); l.position.set(x,.42,z); g.add(l); return l; });
+    const tail=box(.06,.06,cat?.45:.34,m); tail.position.set(0,cat?.8:.68,.48); tail.rotation.x=cat?-.9:.6; g.add(tail);
+    g.scale.setScalar(sc); g.traverse(q=>{ if(q.isMesh) q.castShadow=true; }); W.scene.add(g); return {g,legs}; },
+  person(kind){ const p = W.makePed(kind||'adult'); return {g:p.g, legs:p.legs, arms:p.arms}; },
+  car(col, van){ const g = W.makeCar(col, van); let tl=null; g.traverse(q=>{ if(q.isMesh && q.material.emissive && q.material.emissive.getHex()===0xff2020) tl=q.material; }); return {g, tl}; },
+  add(E, a){ a.vx=a.vx||0; a.vd=a.vd||0; a.y=a.y||0; a.ph=0; E.A.push(a); this.place(a); return a; },
+  place(a){ a.g.position.set(a.x, a.y, -a.d); },
+  face(a, dir){ a.g.rotation.y = dir < 0 ? Math.PI/2 : -Math.PI/2; },
+  /* ---------- spawn (a little before the spot, quietly) ---------- */
+  spawn(E, dist, front){ const t=E.type; E.st='armed';
+    if (EV_CROSS[t] || t==='geese'){ const c = EV_CROSS[t] || {spd:.9, hw:.2, hl:.3, side:1, x0:6.0};
+      const side = c.side || (Math.random()<.5 ? 1 : -1), x0 = c.x0 || (side>0 ? (t==='cat'?6.5:7.5) : (t==='cat'?7:8));
+      const edge = side>0 ? 3.65 : 0.85, xs = side*x0, reach = Math.abs(xs-edge);
+      let spd = Math.min(c.spd, reach/1.7);  // at least ~1.7 s until it reaches your path: sudden, but avoidable with a quick reaction
+      E.side=side; E.spd=spd; E.tReach=(c.delay||0) + reach/spd;
+      if (t==='geese'){ E.spd=spd=.9; E.tReach=(6.0-3.65)/.9; for (let k=0;k<4;k++){ const a=this.add(E, Object.assign(this.animal('goose'), {x:6.0+k*.8, d:E.d+k*.15, hw:.2, hl:.3, haz:true})); this.face(a,-1); } }
+      else if (t==='ballKid'){ const M=W.M; const ball=new THREE.Mesh(new THREE.SphereGeometry(.17,16,12), M(0xef4444,{roughness:.4})); ball.castShadow=true; W.scene.add(ball);
+        this.add(E, {g:ball, x:6.8, d:E.d-.4, y:.17, ball:true}); const k=this.add(E, Object.assign(this.person('child'), {x:xs, d:E.d, hw:c.hw, hl:c.hl, haz:true, delay:c.delay})); this.face(k,-side);
+        [-4.6, 4.6].forEach(o=>{ const pc=this.car(W.carCols[(Math.random()*W.carCols.length)|0]); this.add(E, Object.assign(pc,{x:5.7, d:E.d+o, park:true})); }); }
+      else { const a = this.add(E, Object.assign(t==='dog'||t==='cat' ? this.animal(t) : this.person('adult'), {x:xs, d:E.d, hw:c.hw, hl:c.hl, haz:true}));
+        this.face(a, -side);
+        if (t==='pedBetween') [-4.5, 4.5].forEach(o=>{ const pc=this.car(W.carCols[(Math.random()*W.carCols.length)|0]); this.add(E, Object.assign(pc,{x:5.7, d:E.d+o, park:true})); });
+        if (t==='phonePed'){ a.arms[1].rotation.x=-1.9; }
+        if (t==='scooter'){ const M=W.M, box=W.box, s=new THREE.Group(); const dk=box(.16,.06,.9,M(0x111827)); dk.position.y=.1; s.add(dk); const pl=box(.05,1.0,.05,M(0x94a3b8)); pl.position.set(0,.6,-.42); s.add(pl);
+          const hb=box(.5,.04,.04,M(0x111827)); hb.position.set(0,1.1,-.42); s.add(hb); a.g.add(s); s.position.y=-.02; a.g.children.forEach(q=>{ if(q!==s) q.position.y+=.12; }); } }
+      return; }
+    if (t==='stray'){ const a=this.add(E, Object.assign(this.animal('dog'), {x:2.3, d:E.d, hw:.3, hl:.45, haz:true})); a.g.rotation.y=.4; a.legs.forEach(l=>l.rotation.x=1.2); a.g.position.y=-.18; a.y=-.18; a.lying=true; return; }
+    if (t==='carOut'){ const a=this.add(E, Object.assign(this.car(W.carCols[(Math.random()*W.carCols.length)|0]), {x:5.7, d:E.d, hw:.95, hl:2.2, haz:true})); return; }
+    if (t==='door'){ const c=this.car(W.carCols[(Math.random()*W.carCols.length)|0]); const a=this.add(E, Object.assign(c,{x:5.05, d:E.d, park:true}));
+      const M=W.M, box=W.box, piv=new THREE.Group(); piv.position.set(-.93,.75,-1.25); const door=box(.07,.72,1.1,M(0x64748b,{metalness:.4,roughness:.4})); door.position.set(0,0,.55); door.castShadow=true; piv.add(door); a.g.add(piv); E.piv=piv;
+      this.add(E, {g:new THREE.Group(), x:3.68, d:E.d+1.05, hw:.56, hl:.45, haz:false, doorBox:true}); return; }
+    if (t==='brakeAhead'){ const a=this.add(E, Object.assign(this.car(W.carCols[(Math.random()*W.carCols.length)|0]), {x:2.25, d:front+34, hw:.95, hl:2.2, haz:true, lead:true})); a.vd=Math.max(S.v, 9); return; }
+    if (t==='cyclist'){ const p=this.person('adult'), M=W.M, root=new THREE.Group(), tm=M(0x111827), fm=M(0x16a34a);
+      [-.52,.52].forEach(z=>{ const w=new THREE.Mesh(new THREE.TorusGeometry(.33,.04,8,20), tm); w.rotation.y=Math.PI/2; w.position.set(0,.36,z); root.add(w); });
+      const fr=W.box(.06,.06,1.0,fm); fr.position.set(0,.62,0); root.add(fr); root.add(p.g); p.g.position.set(0,.05,0); W.scene.add(root);
+      const a=this.add(E, {g:root, legs:p.legs, x:3.95, d:E.d-20, hw:.35, hl:.9, haz:true, cyc:true}); a.vd=4.2; return; }
+    if (t==='ambulance'){ E.st='armed'; return; }
+  },
+  /* ---------- per-frame ---------- */
+  tick(dt, dist, front, brk){
+    if (this.endAt!==null && S.t>=this.endAt){ this.endAt=null; finish(false,'crash'); return; }
+    const cd = dist - 0.25;   // our car centre (route metres)
+    for (const E of this.list){
+      if (E.st==='skip' || E.st==='gone') continue;
+      const t=E.type, toHaz = E.d - front;
+      if (E.st==='wait'){ const ahead = t==='brakeAhead' ? 130 : t==='cyclist' ? 110 : 170; if (E.d - dist < ahead) this.spawn(E, dist, front); else continue; }
+      // ---- trigger: the sudden moment
+      if (E.st==='armed'){ let go=false; const ttc = toHaz / Math.max(S.v, .5);
+        if (EV_CROSS[t] || t==='geese') go = toHaz < 80 && ttc <= E.tReach + .3;
+        else if (t==='stray') go = toHaz < 60 && ttc <= 3.2;
+        else if (t==='carOut') go = toHaz < 60 && ttc <= 2.6;
+        else if (t==='door') go = toHaz < 50 && ttc <= 2.2;
+        else if (t==='brakeAhead') go = E.A[0].d >= E.d;
+        else if (t==='cyclist') { const gap=E.A[0].d - front; go = S.v > 5 && gap < Math.max(10, (S.v-4.2)*2.6); }
+        else if (t==='ambulance') go = dist >= E.d;
+        if (go) this.trigger(E, dist);
+      }
+      if (E.st==='trig' || E.st==='done') this.move(E, dt, dist, front);
+      else if (t==='brakeAhead' || t==='cyclist') this.move(E, dt, dist, front);   // they drive before the trigger too
+      if (E.st==='trig'){
+        if (E.react===null && (brk || (t!=='ambulance' && (inL()||inR())) || (t==='ambulance' && S.x>=3.0))) E.react=+(S.t-E.t0).toFixed(2);
+        // collisions
+        if (E.result===null && S.v>0.5) for (const a of E.A){ if (!(a.haz || (a.doorBox && E.doorOpen)) || a.hit) continue;
+          if (Math.abs(a.x - S.x) < a.hw + .95 && Math.abs(a.d - cd) < a.hl + 2.25){ this.hit(E, a); break; } }
+        if (t==='ambulance' && (S.x>=3.0 || S.v<=3)) E.yielded=true;
+        if (E.result===null && this.over(E, dist, front)) this.finishEv(E);
+      }
+      if (E.st==='done'){ E.life=(E.life||0)+dt; const far = E.A.every(a => a.d < dist-30 || a.d > dist+200);
+        if (E.life > 8 && far) this.cleanup(E); }
+    }
+  },
+  trigger(E, dist){ E.st='trig'; E.t0=S.t; E.kmh=Math.round(S.v*3.6);
+    if (E.type==='ambulance'){ const a=this.add(E, Object.assign(this.car(0xf8fafc, true), {x:2.25, d:dist-70, hw:.95, hl:2.6, amb:true})); a.vd=Math.max(16, S.v+9);
+      const M=W.M, box=W.box; const st=box(1.9,.2,5.25,M(0xdc2626)); st.position.y=1.05; a.g.add(st);
+      a.bl=box(.5,.14,.3,new THREE.MeshStandardMaterial({color:0x1d4ed8,emissive:0x3b82f6,emissiveIntensity:3})); a.bl.position.set(-.45,2.42,-1.6); a.g.add(a.bl);
+      a.rl=box(.5,.14,.3,new THREE.MeshStandardMaterial({color:0x991b1b,emissive:0xef4444,emissiveIntensity:3})); a.rl.position.set(.45,2.42,-1.6); a.g.add(a.rl);
+      warn(T.evAmb,'info'); E.siren=0; }
+    // the distraction lands exactly now
+    if (!PH.call){ const m = pick(Math.random()<.5 ? 'cliff' : 'drive'), v = msgParts(m); const rec = PH.push(m, v.length===1 ? v[0] : v.join(' '), {tag:'event', ev:E.type, prio:true});
+      PH.lastPop = S.t; E.msg = true; E.msgText = rec ? rec.text : null; E.msgN = rec ? rec.n : null; }
+  },
+  move(E, dt, dist, front){ const t=E.type;
+    for (const a of E.A){
+      if (a.park){ this.place(a); continue; }
+      if (a.fallen){ continue; }
+      if (a.flee){ a.x += a.flee*7*dt; a.ph+=dt*20; if (a.legs) a.legs.forEach((l,i)=>l.rotation.x=Math.sin(a.ph+(i%2?Math.PI:0))*.8); if (a.fly) { a.y=Math.min(3,a.y+dt*2.5); } this.place(a); continue; }
+      if (EV_CROSS[t] || t==='geese'){ if (E.st!=='trig' && E.st!=='done') continue;
+        const el = S.t - E.t0; if (a.delay && el < a.delay) continue;
+        if (a.ball){ a.x -= 3.2*dt; a.g.rotation.z += 3.2*dt/.17; if (a.x < -8) a.gone = true; this.place(a); continue; }
+        a.x += -E.side*E.spd*dt; a.ph += dt*E.spd*4.2;
+        if (a.legs) a.legs.forEach((l,i)=>l.rotation.x=Math.sin(a.ph+(i%2?Math.PI:0))*.6);
+        if (a.arms && t!=='phonePed') a.arms.forEach((l,i)=>l.rotation.x=-Math.sin(a.ph+(i%2?Math.PI:0))*.5);
+        this.place(a); continue; }
+      if (t==='stray'){ if (E.st!=='trig' && E.st!=='done') continue;
+        if (a.lying && S.v<0.3 && E.d-front<22){ a.wait=(a.wait||0)+dt; if (a.wait>1.0){ a.lying=false; a.y=0; a.legs.forEach(l=>l.rotation.x=0); this.face(a,1); } }
+        if (!a.lying){ a.x += 1.6*dt; a.ph+=dt*7; a.legs.forEach((l,i)=>l.rotation.x=Math.sin(a.ph+(i%2?Math.PI:0))*.6); }
+        this.place(a); continue; }
+      if (t==='carOut'){ if (E.st!=='trig' && E.st!=='done') continue;
+        if (a.x > 2.35){ a.vd=Math.min(3, a.vd+2*dt); a.x=Math.max(2.3, a.x-1.8*dt); a.g.rotation.y = .35; }
+        else { a.vd=Math.min(11, a.vd+2.5*dt); a.g.rotation.y *= .9; }
+        if (!a.crashed) a.d += a.vd*dt; this.place(a); continue; }
+      if (t==='door'){ if (E.st==='trig' && E.piv){ E.open=Math.min(1,(E.open||0)+dt*2.2); E.piv.rotation.y=-1.2*E.open; E.doorOpen = E.open>.6; } continue; }
+      if (a.lead){ const gap = a.d - front;
+        if (E.st==='armed'){ const tgt=Math.max(5, Math.min(15, S.v + (gap-28)*.35)); a.vd += Math.max(-3*dt, Math.min(3*dt, tgt-a.vd)); }
+        else if (!a.crashed){ E.ph=E.ph||'brake'; if (E.ph==='brake'){ a.vd=Math.max(0, a.vd-8.5*dt); if (a.tl) a.tl.emissiveIntensity=4; if (a.vd===0){ E.hold=(E.hold||0)+dt; if (E.hold>2.2) E.ph='go'; } }
+          else { a.vd=Math.min(13, a.vd+3*dt); if (a.tl) a.tl.emissiveIntensity=.8; } }
+        if (!a.crashed) a.d += a.vd*dt; this.place(a); continue; }
+      if (a.cyc){ if (!a.crashed) a.d += a.vd*dt; a.ph+=dt*6; a.legs.forEach((l,i)=>l.rotation.x=Math.sin(a.ph+(i?Math.PI:0))*.7-.6);
+        if (E.st==='trig'){ const el=S.t-E.t0; const tx = el<2.7 ? 2.35 : 3.95; const dx = Math.max(-2.4*dt, Math.min(2.4*dt, tx-a.x)); a.x += dx; a.g.rotation.y = dx<-1e-4 ? .3 : dx>1e-4 ? -.3 : 0; }
+        this.place(a); continue; }
+      if (a.amb){ E.siren=(E.siren||0)+dt; const ph=Math.floor(E.siren*4)%2; a.bl.material.emissiveIntensity=ph?4:.2; a.rl.material.emissiveIntensity=ph?.2:4;
+        if (E.st==='trig' && Math.floor((E.siren-dt)*2)!==Math.floor(E.siren*2)) beep([[ph?720:960,.4]],'triangle',.07);
+        const rel = cdOf(dist) - a.d; const tx = (rel < 16 && rel > -14) ? -2.0 : 2.25; a.x += Math.max(-2*dt, Math.min(2*dt, tx-a.x));
+        a.d += a.vd*dt; this.place(a); continue; }
+    }
+  },
+  over(E, dist, front){ const t=E.type, cd=dist-.25, el=S.t-E.t0;
+    if (EV_CROSS[t] || t==='geese'){ const hz = E.A.filter(a=>a.haz);
+      const cleared = hz.every(a => a.flee || a.fallen || (E.side>0 ? a.x < PATH_L()-.5 : a.x > PATH_R()+.5));
+      const passed = cd - 2.25 > E.d + 1.5; return cleared || passed || el > 25; }
+    if (t==='stray'){ const a=E.A[0]; return a.x > 4.4 || cd-2.25 > E.d+1 || el > 30; }
+    if (t==='carOut'){ const a=E.A[0]; return (a.x <= 2.35 && a.vd > 8 && a.d - front > 10) || cd-2.25 > a.d+2.5 || el > 14; }
+    if (t==='door') return cd - 2.25 > E.d + 2 || el > 25;
+    if (t==='brakeAhead'){ const a=E.A[0]; return (E.ph==='go' && a.d - front > 18) || el > 20; }
+    if (t==='cyclist'){ const a=E.A[0]; return (el > 3.4 && (a.d < front - 3 || el > 9)) || el > 25; }
+    if (t==='ambulance'){ const a=E.A[0]; return a.d > cd + 18 || el > 20; }
+    return el > 20; },
+  hit(E, a){ a.hit=true; E.result='hit'; const k=EV_KIND[E.type]; S.jolt=1; thud();
+    if (k==='animal'){ E.pts=-15; S.v*=.4; penalty(15, T.evHitAnimal, 'event', {ev:E.type}); a.flee = (a.x > S.x ? 1 : -1); if (E.type==='geese') E.A.forEach(g=>{ g.flee=g.x>S.x?1:-1; g.fly=true; }); }
+    else if (k==='person'){ E.pts=-30; S.pedHit++; S.v=0; penalty(30, T.evHitPerson, 'event', {ev:E.type}); a.fallen=true; a.g.rotation.z=Math.PI/2; a.g.position.y=.35; this.endAt=S.t+2.2; }
+    else { E.pts=-25; S.coll++; S.v=0; penalty(25, T.wCrash, 'event', {ev:E.type}); a.crashed=true; if (a.tl) a.tl.emissiveIntensity=4; }
+    E.st='done'; },
+  finishEv(E){ E.st='done';
+    if (E.type==='ambulance'){ if (E.yielded){ E.result='avoided'; E.pts=3; bonus(3, T.evOk); } else { E.result='fail'; E.pts=-10; penalty(10, T.evAmbFail, 'event', {ev:'ambulance'}); } return; }
+    E.result='avoided'; if (E.react!==null){ E.pts=3; bonus(3, T.evOk); } },
+  cleanup(E){ E.A.forEach(a=>W.scene.remove(a.g)); E.A=[]; E.st='gone'; },
+  // QA autopilot (?auto=2): brakes / steers for the events
+  smartBrake(){ const d=-S.z, front=d+2, need=S.v*S.v/(2*6)+3;
+    return this.list.some(E=>{ if (E.st!=='armed' && E.st!=='trig') return false; const t=E.type;
+      if (t==='ambulance') return false;
+      if (t==='brakeAhead'){ const a=E.A[0]; return a && a.d-front < need+6 && a.d-front > -2; }
+      if (t==='cyclist'){ const a=E.A[0]; return a && E.st==='trig' && a.d-front < need+5 && a.d-front > -3 && a.x < 3.6; }
+      if (t==='door') return false;
+      if (E.st!=='trig') return t==='stray' && E.d-front < need+8 && E.d-front > -2;
+      if (E.result) return false;
+      const toHaz=E.d-front; if (toHaz < -3 || toHaz > need+10) return false;
+      return E.A.some(a => a.haz && !a.flee && !a.fallen && (E.side>0 ? a.x > PATH_L()-.6 : a.x < PATH_R()+.6) && Math.abs(a.x) < 9); }); },
+  smartX(){ const d=-S.z; for (const E of this.list){
+      if (E.type==='door' && (E.st==='armed'||E.st==='trig') && E.d-d < 45 && E.d-d > -4) return 1.35;
+      if (E.type==='ambulance' && E.st==='trig' && E.result===null) return 3.3; } return null; },
+  report(){ return this.list.filter(E=>E.t0!==null).map(E=>({type:E.type, d:E.d, t:+E.t0.toFixed(1), kmh:E.kmh, msg:E.msg, msgText:E.msgText, react:E.react, result:E.result||'avoided', pts:E.pts})); },
+};
+function cdOf(dist){ return dist - .25; }
 
 
 /* ================= 5. DRIVER REPORT ================= */
@@ -54412,10 +54772,12 @@ function renderReport(r, fromAll){
     return `<div class="ep"><div class="ic">${p.id==='K'?'🧒':p.id==='P2'?'🧓':'🚶'}</div><div class="bd"><b>${L.E[p.id]}</b><small>${p.seen?rt+' · '+(p.hit?L.hit:p.yieldFail?L.notYield:L.yielded)+' · ':''}${L.cwD(p.phoneAtPed?L.yes:L.no, p.nApproach)}</small></div>${pill(p.seen?ok:null, !p.seen?'—':ok?'✔':'✘')}</div>`; };
   const calls = r.calls.length ? r.calls.map(c=>`<div class="ep"><div class="ic">${c.urgent?'🚨':'📞'}</div><div class="bd"><b>${esc(c.who)}${c.urgent?' · '+(lang==='ru'?'срочный':'urgent'):''}</b><small>${fmtT(c.t)} · ${c.d} ${L.m} · ${L.callRow[c.result]}${c.parkT!=null?' · '+L.tPark(c.parkT):''}</small></div>${pill(!(c.result==='moving'||c.result==='stopped'), L.callShort[c.result])}</div>`).join('') : `<p class="mut">${L.callNone}</p>`;
   const rows = r.notifs.map(n=>`<tr class="${n.opened?'op':''}"><td>${n.n}</td><td>${fmtT(n.t)}</td><td>${n.d} ${L.m}</td><td><b>${esc(n.sender)}</b>${n.cw?' <span class="tag">🚸</span>':''}${n.tag==='key'?' <span class="tag">⚠️</span>':''}${n.tag==='urgent'?' <span class="tag">🚨</span>':''}</td><td class="msg">${esc(n.text)}${n.full?`<br><small class="mut">🪝 ${esc(n.full)}</small>`:''}</td><td class="nowrap">${n.kmh} → ${n.avgKmh} ${L.kmh}</td><td>${n.opened?pill(false,L.yes):'<span class="mut">'+L.no+'</span>'}</td><td class="nowrap">${n.eyesS?n.eyesS+' '+L.sec+' / '+n.eyesM+' '+L.m:'—'}</td></tr>`).join('');
+  const RE = r.roadEvents || [], evAv = RE.filter(e=>e.result==='avoided').length;
+  const evRows = RE.length ? RE.map(e=>`<div class="ep"><div class="ic">${EV_IC[e.type]||'⚠️'}</div><div class="bd"><b>${esc((L.EVN||{})[e.type]||e.type)}</b><small>${fmtT(e.t)} · ${e.d} ${L.m} · ${e.kmh} ${L.kmh} · ${e.msg?L.evMsgY+(e.msgText?' «'+esc(e.msgText)+'»':''):L.evMsgN} · ${L.react}: ${e.react!=null?e.react.toFixed(2)+' '+L.sec:L.evNoReact} · ${L.evRes[e.result]||e.result}${e.pts?' ('+(e.pts>0?'+':'')+e.pts+')':''}</small></div>${pill(e.result==='avoided', e.result==='avoided'?'✔':'✘')}</div>`).join('') : `<p class="mut">—</p>`;
   $('scrReport').innerHTML = `<div class="card report">
    <div class="rhead"><div class="eyebrow">${L.repEy} · ${new Date(r.date).toLocaleString(lang==='ru'?'ru-RU':'en-GB')}</div><div class="noprint"><button class="btn ghost sm" id="rPrint">${L.btnPrint}</button></div></div>
    <div class="res-top">${ring(r.score, r.pass)}<div><span class="pill ${r.pass?'ok':'bad'}" style="font-size:1rem;padding:7px 16px">${r.pass?L.pass:L.fail}</span>
-     <h2 class="rname">${esc(r.name)}${r.pid?' <span class="mut">· '+esc(r.pid)+'</span>':''}</h2><p class="mut">${r.timeout?L.vTime:r.pass?L.vOk:L.vBad}</p>
+     <h2 class="rname">${esc(r.name)}${r.pid?' <span class="mut">· '+esc(r.pid)+'</span>':''}</h2><p class="mut">${r.endReason==='crash'?L.vCrash:r.timeout?L.vTime:r.pass?L.vOk:L.vBad}</p>
      ${r.finishMsg?`<div class="fmsg">📱 <b>${esc(r.finishMsg.sender)}:</b> ${esc(r.finishMsg.text)}</div>`:''}</div></div>
    <div class="stats">
      <div class="st"><b>${q?q.correct+' / '+q.total:'—'}</b><span>${L.sTest}</span></div><div class="st"><b>${q?q.avgMs+' ms':'—'}</b><span>${L.sReactT}</span></div>
@@ -54423,11 +54785,12 @@ function renderReport(r, fromAll){
      <div class="st"><b>${r.redRun}</b><span>${L.sRed}</span></div><div class="st"><b>${r.avgReaction!=null?r.avgReaction.toFixed(2)+' '+L.sec:'—'}</b><span>${L.sPedR}</span></div>
      <div class="st"><b>${r.conesHit} / ${r.conesTotal}</b><span>${L.sCones}</span></div><div class="st"><b>${r.collisions}</b><span>${L.sColl}</span></div>
      <div class="st"><b>${r.avgKmhNotif} ${L.kmh}</b><span>${L.sSpeedN}</span></div><div class="st"><b>${r.avgKmhNoNotif} ${L.kmh}</b><span>${L.sSpeedO}</span></div>
-     <div class="st"><b>${r.maxKmh} ${L.kmh}</b><span>${L.sMax}</span></div><div class="st"><b>${fmtT(r.duration)}</b><span>${L.sDur}</span></div></div>
+     <div class="st"><b>${r.maxKmh} ${L.kmh}</b><span>${L.sMax}</span></div><div class="st"><b>${fmtT(r.duration)}</b><span>${L.sDur}</span></div>${RE.length?`<div class="st hl"><b>${evAv} / ${RE.length}</b><span>${L.sEv}</span></div>`:''}</div>
    <div class="cols2"><div><h3>${L.hEp}</h3>${r.lights.map(lightRow).join('')}
        <div class="ep"><div class="ic">🚧</div><div class="bd"><b>${L.E.CN}</b><small>${L.conesD(r.conesHit,r.conesTotal)}</small></div>${pill(r.conesHit===0, r.conesHit===0?'✔':'✘')}</div>
        <div class="ep"><div class="ic">🛣️</div><div class="bd"><b>${L.E.LN}</b><small>${L.laneD(r.offroad,r.laneOut)}</small></div>${pill(r.offroad+r.laneOut===0, r.offroad+r.laneOut===0?'✔':'✘')}</div></div>
      <div><h3>${L.hCw}</h3>${r.peds.map(pedRow).join('')}<h3 style="margin-top:14px">${L.hCalls}</h3>${calls}</div></div>
+   ${RE.length?`<h3 style="margin-top:18px">${L.hEv} (${RE.length})</h3><div class="evs">${evRows}</div>`:''}
    <h3 style="margin-top:18px">${L.hNot} (${r.notifs.length})</h3>
    <div class="tw"><table class="t nt-t"><tr>${L.cols.map(c=>`<th>${c}</th>`).join('')}</tr>${rows}</table></div>
    <div class="links noprint">${fromAll?`<button class="btn ghost" id="rBack">← ${L.btnAll}</button>`:`<button class="btn" id="rRetry">${L.btnRetry}</button><button class="btn" id="rNext">${L.btnNext}</button><button class="btn ghost" id="rAll">${L.btnAll}</button>`}</div></div>`;
@@ -54442,7 +54805,7 @@ function renderReport(r, fromAll){
 let sortK='date', sortDir=-1; const sel=new Set();
 const COLS = [
  ['name', r=>r.name], ['date', r=>r.date], ['quiz', r=>r.quiz?r.quiz.correct:null], ['reactMs', r=>r.quiz?r.quiz.avgMs:null], ['score', r=>r.score], ['pass', r=>r.pass?1:0],
- ['opened', r=>r.opened], ['eyesS', r=>r.eyesS], ['eyesM', r=>r.eyesM], ['redRun', r=>r.redRun], ['pedReact', r=>r.avgReaction], ['cones', r=>r.conesHit], ['coll', r=>r.collisions], ['call', r=>r.urgentResult], ['maxKmh', r=>r.maxKmh]];
+ ['opened', r=>r.opened], ['eyesS', r=>r.eyesS], ['eyesM', r=>r.eyesM], ['redRun', r=>r.redRun], ['pedReact', r=>r.avgReaction], ['cones', r=>r.conesHit], ['coll', r=>r.collisions], ['call', r=>r.urgentResult], ['evOk', r=>r.roadEvents&&r.roadEvents.length?r.roadEvents.filter(e=>e.result==='avoided').length/r.roadEvents.length:null], ['evReact', r=>{ const a=(r.roadEvents||[]).map(e=>e.react).filter(v=>v!=null); return a.length?+(a.reduce((x,y)=>x+y,0)/a.length).toFixed(2):null; }], ['maxKmh', r=>r.maxKmh]];
 const GET = Object.fromEntries(COLS);
 function renderAll(){
   T = I18N[lang]; const L=T, a=load().filter(r=>r.v===2);
@@ -54450,7 +54813,7 @@ function renderAll(){
   const n=a.length, avg=n?Math.round(a.reduce((s,r)=>s+r.score,0)/n):0, ps=a.filter(r=>r.pass).length, op=a.filter(r=>r.opened>0).length;
   const fmt=(k,r)=>{ const v=GET[k](r); if(k==='date') return new Date(v).toLocaleString(lang==='ru'?'ru-RU':'en-GB',{dateStyle:'short',timeStyle:'short'}); if(k==='name') return `<b>${esc(v)}</b>${r.pid?'<br><small class="mut">'+esc(r.pid)+'</small>':''}`;
     if(k==='pass') return `<span class="pill ${r.pass?'ok':'bad'}">${r.pass?L.pass:L.fail}</span>`; if(k==='quiz') return r.quiz?`${r.quiz.correct}/${r.quiz.total}`:'—';
-    if(k==='call') return L.callShort[v]||v; if(k==='pedReact') return v!=null?v.toFixed(2):'—'; if(k==='score') return `<b>${v}</b>`; return v==null?'—':v; };
+    if(k==='call') return L.callShort[v]||v; if(k==='evOk') return v==null?'—':`${r.roadEvents.filter(e=>e.result==='avoided').length}/${r.roadEvents.length}`; if(k==='evReact') return v==null?'—':v.toFixed(2); if(k==='pedReact') return v!=null?v.toFixed(2):'—'; if(k==='score') return `<b>${v}</b>`; return v==null?'—':v; };
   $('scrAll').innerHTML = `<div class="topline noprint"><div class="seg"><button data-lg="ru" class="${lang==='ru'?'active':''}">RU</button><button data-lg="en" class="${lang==='en'?'active':''}">EN</button></div></div>
    <div class="hero sm"><div class="eyebrow">${L.allEy}</div><h1 class="title">${L.allH}</h1></div>
    <div class="sum">${[[n,L.sum.n],[n?avg:'—',L.sum.avg],[n?Math.round(ps/n*100)+'%':'—',L.sum.pass],[n?Math.round(op/n*100)+'%':'—',L.sum.open]].map(([v,l])=>`<div class="st"><b>${v}</b><span>${l}</span></div>`).join('')}</div>
@@ -54475,8 +54838,8 @@ function renderCmp(a){ const L=T, el=$('cmp'); const rs=a.filter(r=>sel.has(r.id
     return `<div class="cmprow"><div class="cl">${L.aCols[k]}</div><div class="bars">${rs.map((r,i)=>`<div class="bar"><i style="width:${Math.max(2,f(r)/m*100)}%;background:${cols[i]}"></i><span>${k==='pedReact'?(+f(r)).toFixed(2):f(r)}</span></div>`).join('')}</div></div>`; }).join(''); }
 function csv(a, notifs){ if(!a.length) return; const q=v=>{ v=v==null?'':String(v); return /[;"\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v; };
   let rows;
-  if (!notifs){ const H=['date','name','pid','lang','score','pass','bonus','quizCorrect','quizTotal','quizReactMs','duration','msgs','opened','eyesS','eyesM','redRun','redStopped','yieldFail','pedHit','avgPedReaction','reactP1','reactK','reactP2','phoneAtPedP1','phoneAtPedK','phoneAtPedP2','conesHit','conesTotal','collisions','offroad','laneOut','urgentCall','urgentParkT','maxKmh','avgKmhNotif','avgKmhNoNotif','speedingS'];
-    rows=[H].concat(a.map(r=>{ const pd=id=>r.peds.find(p=>p.id===id)||{}; return [r.date,r.name,r.pid,r.lang,r.score,r.pass,r.bonus,r.quiz&&r.quiz.correct,r.quiz&&r.quiz.total,r.quiz&&r.quiz.avgMs,r.duration,r.msgs,r.opened,r.eyesS,r.eyesM,r.redRun,r.redStopped,r.yieldFail,r.pedHit,r.avgReaction,pd('P1').react,pd('K').react,pd('P2').react,pd('P1').phoneAtPed,pd('K').phoneAtPed,pd('P2').phoneAtPed,r.conesHit,r.conesTotal,r.collisions,r.offroad,r.laneOut,r.urgentResult,r.urgentParkT,r.maxKmh,r.avgKmhNotif,r.avgKmhNoNotif,r.speedingS]; })); }
+  if (!notifs){ const H=['date','name','pid','lang','score','pass','bonus','quizCorrect','quizTotal','quizReactMs','duration','msgs','opened','eyesS','eyesM','redRun','redStopped','yieldFail','pedHit','avgPedReaction','reactP1','reactK','reactP2','phoneAtPedP1','phoneAtPedK','phoneAtPedP2','conesHit','conesTotal','collisions','offroad','laneOut','urgentCall','urgentParkT','maxKmh','avgKmhNotif','avgKmhNoNotif','speedingS','reactP3','reactP4','endReason','routeM','events_total','events_avoided','events_hit','events_with_msg','events_avg_reaction_s','events_detail'];
+    rows=[H].concat(a.map(r=>{ const pd=id=>r.peds.find(p=>p.id===id)||{}; return [r.date,r.name,r.pid,r.lang,r.score,r.pass,r.bonus,r.quiz&&r.quiz.correct,r.quiz&&r.quiz.total,r.quiz&&r.quiz.avgMs,r.duration,r.msgs,r.opened,r.eyesS,r.eyesM,r.redRun,r.redStopped,r.yieldFail,r.pedHit,r.avgReaction,pd('P1').react,pd('K').react,pd('P2').react,pd('P1').phoneAtPed,pd('K').phoneAtPed,pd('P2').phoneAtPed,r.conesHit,r.conesTotal,r.collisions,r.offroad,r.laneOut,r.urgentResult,r.urgentParkT,r.maxKmh,r.avgKmhNotif,r.avgKmhNoNotif,r.speedingS,pd('P3').react,pd('P4').react,r.endReason||'',r.routeM||1720].concat((()=>{ const E=r.roadEvents||[], rs=E.map(e=>e.react).filter(v=>v!=null); return [E.length,E.filter(e=>e.result==='avoided').length,E.filter(e=>e.result!=='avoided').length,E.filter(e=>e.msg).length,rs.length?+(rs.reduce((x,y)=>x+y,0)/rs.length).toFixed(2):'',E.map(e=>[e.type,e.d,e.result,e.msg?'msg':'nomsg',e.react!=null?e.react:'-'].join(':')).join(' | ')]; })()); })); }
   else { const H=['date','driver','n','time_s','distance_m','sender','text','call','crosswalk','kmh_at_arrival','avg_kmh_while_visible','opened','eyes_off_s','eyes_off_m'];
     rows=[H]; a.forEach(r=>r.notifs.forEach(n=>rows.push([r.date,r.name,n.n,n.t,n.d,n.sender,n.text,n.call,n.cw,n.kmh,n.avgKmh,n.opened,n.eyesS,n.eyesM]))); }
   const s='\ufeff'+rows.map(r=>r.map(q).join(';')).join('\n'); const b=new Blob([s],{type:'text/csv;charset=utf-8'}), u=URL.createObjectURL(b), l=document.createElement('a');
@@ -54491,7 +54854,7 @@ else if (nxt){ setLang(nxt); renderName(); show('scrName'); }
 else if (Q.get('skip')==='1'){ setLang(Q.get('lang')||'ru'); P.name=Q.get('name')||'Test'; P.quiz={correct:5,total:5,answers:[],reactMs:[300],avgMs:300,seconds:0}; P.proj=Q.get('proj')!=='0'; startDrive(); }
 else if (Q.get('screen')==='all'){ setLang(Q.get('lang')||localStorage.getItem('hseLang')||'ru'); renderAll(); show('scrAll'); }
 else show('scrLang');
-window.__dbg = { get S(){return S;}, get EP(){return EP;}, PH, get W(){return W;}, inGas, inBrake, smartBrake, smartTargetX, SMART, DBG, keys, get PAUSED(){return PAUSED;}, IS_MOB };
+window.__dbg = { BAYS, INTS, EV, HAND, pick, finish, cliffCut, get S(){return S;}, get EP(){return EP;}, PH, get W(){return W;}, inGas, inBrake, smartBrake, smartTargetX, SMART, DBG, keys, get PAUSED(){return PAUSED;}, IS_MOB };
 })();
 
 </script>
