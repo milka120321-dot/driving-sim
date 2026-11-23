@@ -54388,8 +54388,8 @@ const PH = {
     (this.threads[m.w]=this.threads[m.w]||[]).push({text:full,t:$('ptime').textContent,au:grp?who[lang]:''});
     const el=document.createElement('div'); el.className='nt cliff'+(o.hot?' key':'');
     el.innerHTML=`<div class="ai" style="background:${app.c}">${who.ic}</div><div class="tx"><div class="fr"></div><div class="bd"></div><div class="more">${T.tapRead}</div></div>`;
-    el.querySelector('.fr').textContent = rec.sender; el.querySelector('.bd').textContent = (grp ? who[lang]+': ' : '')+prev;
-    el.addEventListener('pointerdown',e=>{ e.preventDefault(); this.openChat(m.w, rec); });   // pointerdown: robust when the stack shifts under the finger
+    el.querySelector('.fr').textContent = rec.sender; el.querySelector('.bd').textContent = prev;
+    el.addEventListener('pointerdown',e=>{ e.preventDefault(); this.openChat(m.w, rec); if (rec.opened) el.remove(); });   // pointerdown: robust when the stack shifts under the finger
     const st=$('stack'); st.prepend(el); [...st.children].forEach((x,i)=>{ if(i>0) x.classList.add('old'); if(i>(IS_MOB?1:2)) x.remove(); });
     const life=(o.hot?9:7)*1000; setTimeout(()=>{ el.classList.add('out'); setTimeout(()=>el.remove(),400); }, life);
     HAND.up(o.hot?2.2:1.5, o.hot); sndMsg(); if(o.hot) setTimeout(sndMsg,250);
@@ -54586,7 +54586,7 @@ const EV = {
   plan(){ this.list = []; this.endAt = null;
     const bad = d => d < 230 || d > FINISH-80 || INTS.some(I => d > I.d-45 && d < I.d+40) || BAYS.some(b => d > b-30 && d < b+BAYLEN+20)
       || CONES.some(c => Math.abs(c.d+1.5-d) < 30) || (d > 1035 && d < 1340);
-    const slots = []; let d = 240; while (d < FINISH-80){ if (!bad(d)){ slots.push(d); d += rnd(140, 200); } else d += 5; }
+    const slots = []; let d = 240; while (d < FINISH-80){ if (!bad(d)){ slots.push(Math.round(d)); d += rnd(140, 200); } else d += 5; }
     const forced = (Q.get('ev')||'').split(',').filter(t => EV_TYPES.includes(t));
     const types = forced.concat(EV_TYPES.filter(t => !forced.includes(t)).sort(() => Math.random()-.5));
     while (types.length < slots.length) types.push(EV_TYPES[(Math.random()*EV_TYPES.length)|0]);
